@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://WickerMark.github.io/portfolio.html</loc>
-    <lastmod>2024-08-14T10:23:42.935Z</lastmod>
-  </url>
-  <url>
-    <loc>https://WickerMark.github.io/about.html</loc>
-    <lastmod>2024-08-13T09:27:22.149Z</lastmod>
+    <loc>https://WickerMark.github.io/posts/primes.html</loc>
+    <lastmod>2024-08-14T10:56:29.113Z</lastmod>
   </url>
   <url>
     <loc>https://WickerMark.github.io/index.html</loc>
-    <lastmod>2024-08-14T10:25:09.254Z</lastmod>
+    <lastmod>2024-08-14T10:32:56.894Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WickerMark.github.io/about.html</loc>
+    <lastmod>2024-08-14T10:53:42.038Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WickerMark.github.io/portfolio.html</loc>
+    <lastmod>2024-08-14T10:52:41.177Z</lastmod>
   </url>
 </urlset>
