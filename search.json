@@ -7,17 +7,17 @@
     "text": "Numpy will be used for the square root function later in the code.\nAn array used to store the prime numbers is created and the first two prime numbers are stored.\nNumber, the variable used to represent the current number to be checked if it is prime, is set to 3. This means that the counter, used to represent how many prime numbers have been found, is set to 2, since 3 is the second prime number.\n\nimport numpy as np\n\nprime_list = [2, 3]\nnumber = 3\ncounter = 2\n\nThe prime number to be generated can be set to anything, but for this example, I have used 1000. This means that the while loop will continue to iterate until the counter is no longer less than 1000.\nThe variable number is first incremented by 2 (to emit all even numbers since these cannot be prime).\nA new variable, called prime, stores a boolean value which states if a number is prime or not. Initially, prime is set to True.\nA for loop is used to check if number is divisible by previous prime numbers.\nThe square root function is used here because if the index of the prime number to be checked is greater than the square root of the number, it is not a factor. If this statement is true, the code breaks out of the for loop.\nHere, I use the modulo operator to determine if the number has a remainder when dividing by previous prime numbers. If it does, the number is determined as a composite number, and so prime is set to False.\nThe final if statement is used such that if the number was determined to be prime, the counter would be incremented, and the number would be appended to the list of prime numbers so that future numbers can be checked against it.\nFinally, counter is cast as a string and concatenated to output the nth prime number.\n\nwhile counter &lt; 1000:\n    number += 2\n    prime = True\n    for i in prime_list:\n        if i &gt; np.sqrt(number):\n            break\n        elif number % i == 0:\n            prime = False\n            break\n    \n    if prime == True:\n        counter += 1\n        prime_list.append(number)\nprint(\"The\", str(counter) + \"th prime number is\", number)\n\nThe 1000th prime number is 7919"
   },
   {
+    "objectID": "portfolio.html",
+    "href": "portfolio.html",
+    "title": "Coding Projects",
+    "section": "",
+    "text": "Generating the nth Prime Number\n\n\n\n\n\n\nPython\n\n\nPrime Numbers\n\n\n\nPython program which calculates an inputted nth prime number by dividing each consecutive number by previous prime numbers.\n\n\n\n\n\nAug 14, 2024\n\n\nMark\n\n\n\n\n\n\n\n\n\n\n\n\nOptimisation: The Gradient Descent Algorithm for Maching Learning\n\n\n\n\n\n\nPython\n\n\nOptimisation\n\n\nMachine Learning\n\n\n\nPython program which uses the gradient descent algorithm to calculate minimum points for a given function. Used for optimisation in machine learning.\n\n\n\n\n\nAug 13, 2024\n\n\nMark Watson\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
     "text": "About me"
-  },
-  {
-    "objectID": "portfolio.html",
-    "href": "portfolio.html",
-    "title": "Projects",
-    "section": "",
-    "text": "Generating the nth Prime Number\n\n\n\n\n\n\nPython\n\n\nPrime Numbers\n\n\n\nPython program which calculates an inputted nth prime number by dividing each consecutive number by previous prime numbers.\n\n\n\n\n\nAug 14, 2024\n\n\nMark\n\n\n\n\n\n\nNo matching items"
   }
 ]

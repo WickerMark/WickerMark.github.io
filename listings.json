@@ -2,7 +2,8 @@
   {
     "listing": "/portfolio.html",
     "items": [
-      "/posts/primes.html"
+      "/posts/primes.html",
+      "/posts/optimisation.html"
     ]
   }
 ]
