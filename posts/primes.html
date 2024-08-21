@@ -197,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Numpy will be used for the square root function later in the code.</p>
 <p>An array used to store the prime numbers is created and the first two prime numbers are stored.</p>
 <p>Number, the variable used to represent the current number to be checked if it is prime, is set to 3. This means that the counter, used to represent how many prime numbers have been found, is set to 2, since 3 is the second prime number.</p>
-<div id="cc166a36" class="cell" data-execution_count="1">
+<div id="c00b106a" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>prime_list <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">3</span>]</span>
@@ -212,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Here, I use the modulo operator to determine if the number has a remainder when dividing by previous prime numbers. If it does, the number is determined as a composite number, and so prime is set to False.</p>
 <p>The final if statement is used such that if the number was determined to be prime, the counter would be incremented, and the number would be appended to the list of prime numbers so that future numbers can be checked against it.</p>
 <p>Finally, counter is cast as a string and concatenated to output the nth prime number.</p>
-<div id="8927f6cf" class="cell" data-execution_count="2">
+<div id="8407b9bf" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> counter <span class="op">&lt;</span> <span class="dv">1000</span>:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    number <span class="op">+=</span> <span class="dv">2</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    prime <span class="op">=</span> <span class="va">True</span></span>
