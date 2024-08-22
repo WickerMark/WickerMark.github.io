@@ -32,7 +32,21 @@
     "href": "index.html",
     "title": "Home",
     "section": "",
-    "text": "Featured\n\n\n\n\nSection 1\n\n\nSection 2\n\n\n\n\n\nTwo miniute video submission for the BPhO Computational Challenge 2024"
+    "text": "Welcome to my portfolio of programming projects and competition submissions"
+  },
+  {
+    "objectID": "index.html#video-submission",
+    "href": "index.html#video-submission",
+    "title": "Home",
+    "section": "Video Submission",
+    "text": "Video Submission"
+  },
+  {
+    "objectID": "index.html#code-and-explanations",
+    "href": "index.html#code-and-explanations",
+    "title": "Home",
+    "section": "Code and Explanations",
+    "text": "Code and Explanations\n\n\n\nChallenge 1 & 2: Analytical Drag-Free Projectile Model"
   },
   {
     "objectID": "posts/cchallenge1.html",

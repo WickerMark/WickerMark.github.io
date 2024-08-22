@@ -3,3 +3,8 @@ header{
     width: 1200px;
     font-size: large;
 }
+
+.navbar, .navbar-expand-lg {
+    max-width: 1920px; /* Adjust the max width as needed */
+    margin: 0 auto; /* Center the navbar */
+}
