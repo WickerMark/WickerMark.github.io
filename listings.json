@@ -3,9 +3,9 @@
     "listing": "/portfolio.html",
     "items": [
       "/posts/derivative.html",
+      "/posts/cchallenge1.html",
       "/posts/primes.html",
-      "/posts/optimisation.html",
-      "/posts/compuationalchallenge.html"
+      "/posts/optimisation.html"
     ]
   }
 ]

@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mark Watson">
-<meta name="dcterms.date" content="2024-08-13">
-<meta name="description" content="Python program which uses the gradient descent algorithm to calculate minimum points for a given function. Used for optimisation in machine learning.">
+<meta name="dcterms.date" content="2024-04-11">
+<meta name="description" content="The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.">
 
-<title>Optimisation: The Gradient Descent Algorithm for Maching Learning – Portfolio</title>
+<title>BPhO Computational Challenge 1 &amp; 2 2024: Creating a Simple Analytical Drag-Free Projectile Model – Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -185,17 +185,18 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Optimisation: The Gradient Descent Algorithm for Maching Learning</h1>
+<h1 class="title">BPhO Computational Challenge 1 &amp; 2 2024: Creating a Simple Analytical Drag-Free Projectile Model</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Python</div>
-    <div class="quarto-category">Optimisation</div>
-    <div class="quarto-category">Machine Learning</div>
+    <div class="quarto-category">BPhO Computational Challenge</div>
+    <div class="quarto-category">Computational Physics</div>
+    <div class="quarto-category">Projectile Motion</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Python program which uses the gradient descent algorithm to calculate minimum points for a given function. Used for optimisation in machine learning.
+    The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.
   </div>
 </div>
 
@@ -212,7 +213,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 13, 2024</p>
+      <p class="date">April 11, 2024</p>
     </div>
   </div>
   
@@ -224,83 +225,102 @@ window.Quarto = {
 </header>
 
 
-<p>The objective of this blog post is to create an implementation of a one-dimensional gradient descent algorithm used for optimisation in machine learning where a function needs to be minimised. Shown below is the code and explanations of my implementation of the algorithm.</p>
-<p>First, the required libraries are imported and the function f(x) is defined for future use. This can be changed to any function that the user would require. In this example, I have used the equation <span class="math inline">\(f(x)=x\sin(x)+\cos(x)+x\)</span>.</p>
-<div id="1aaa7740" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates the function</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> np.sin(x) <span class="op">+</span> (np.cos(x) <span class="op">+</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The below code is my implementation of the first and second challenge of the BPhO Computational Challenge 2024. The objective was to create an exact analytical model of projectile motion without air resistance. This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href="https://youtu.be/ViT6NdrrbJo"> https://youtu.be/ViT6NdrrbJo </a>.</p>
+<p>First, the plotting library matplotlib is imported, which will be used to plot the trajectory of the projectile. Also, numpy will be imported for its trigonometric and mathematical functions.</p>
+<div id="f3937651" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This function calculates the numerical derivative using the small step ϵ. This is defined by the equation <span class="math inline">\(f'(x)\approx\frac{f(x + \epsilon)-f(x - \epsilon)}{2\epsilon}\)</span>.</p>
-<div id="e30f8850" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to differentiate</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> derivative(f, x):</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> <span class="fl">1e-8</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    der <span class="op">=</span> (f(x <span class="op">+</span> eps) <span class="op">-</span> f(x <span class="op">-</span> eps)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> eps)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> der</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The program takes inputs <span class="math inline">\(\theta\)</span>, <span class="math inline">\(u\)</span>, <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>. The commented out sections of code show how the user would be asked to input these. In this example, I have used <span class="math inline">\(\theta=37\)</span>, <span class="math inline">\(u=23.31\)</span>, <span class="math inline">\(g=9.81\)</span> and <span class="math inline">\(h = 12.32\)</span>. The angle entered in degrees is converted into radians for future use.</p>
+<div id="d3349b43" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enables the user to enter conditions for the trajectory</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># angle = float(input("Enter the angle of projection in degrees: "))</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>angle <span class="op">=</span> <span class="dv">37</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> (angle <span class="op">*</span> np.pi) <span class="op">/</span> <span class="dv">180</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># u = float(input("Enter the intitial velocity of the projectile: "))</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="fl">23.31</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> <span class="fl">9.81</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># h = float(input("Enter the height above the ground of the projectile: "))</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="fl">12.32</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The following function performs the gradient descent algorithm. There are two stopping conditions for the algorithm, a maximum number of iterations, and if the absolute value of the gradient is lower than a set threshold value. The variable alpha is the learning rate of the algorithm, a scalar quantity which controls the size of the steps the algorithm takes. The equation <span class="math inline">\(\theta_{t+1}=\theta_t-\alpha\nabla_{\theta}f(\theta_t)\)</span> is used to update the position of the marker until the minimum point is found.</p>
-<div id="01d22063" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to perform the gradient descent algorithm</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> descent(f, derivative, xk, alpha<span class="op">=</span><span class="fl">1e-3</span>, tol<span class="op">=</span><span class="fl">1e-4</span>, max_iters<span class="op">=</span><span class="dv">10000</span>):</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(max_iters):</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        grad <span class="op">=</span> derivative(f, xk)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(grad) <span class="op">&lt;</span> tol:</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        xk <span class="op">=</span> xk <span class="op">-</span> alpha <span class="op">*</span> grad</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This section of code prevents the user inputting an invalid height less than 0.</p>
+<div id="aaba113b" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> h <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ERROR Height must be greater than 0"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    exit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The algorithm is then ran from various different starting points until the lowest minima is found. Empty lits of x and y coordinates are created and appended to with the coordinates determined by the algorithm. In this example, I used starting points between -12 and 12. The y coordinate of the optimal minimum point is then determined and printed.</p>
-<div id="5a1592d5" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>xk_points <span class="op">=</span> []</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>yk_points <span class="op">=</span> []</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">12</span>,<span class="dv">12</span>):</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Starting position</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    xk <span class="op">=</span> i</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Finds the x coordinate of each minima</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    xk <span class="op">=</span> descent(f, derivative, xk)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    xk_points.append(xk)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Finds the y coordinate of the minima for plotting</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    yk <span class="op">=</span> f(xk)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    yk_points.append(yk)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints the y coordiante of the optimal minimum</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The optimal minimum has y coordinate"</span>, <span class="bu">min</span>(yk_points))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The variables costheta and sintheta are created since they are used frequently in the program. Then, the velocity is resolved into horizontal and vertical components using the equations <span class="math inline">\(u_x=u\cos\theta\)</span> and <span class="math inline">\(u_y=u\sin\theta\)</span>.</p>
+<div id="780499a5" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resloves forces into horizontal and vertical component</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>costheta <span class="op">=</span> np.cos(theta)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sintheta <span class="op">=</span> np.sin(theta)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ux <span class="op">=</span> u <span class="op">*</span> costheta</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>uy <span class="op">=</span> u <span class="op">*</span> sintheta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, the program calculates the range of the projectile and outputs the calculated value. This is achieved using the equation <span class="math inline">\(R=\frac{u^2}{g}(\sin\theta\cos\theta+\cos\theta\sqrt{\sin^2\theta+\frac{2gh}{u^2}})\)</span>. The x_graph variable is used to determine the highest x coordinate displayed on the plot, which is determined from the range. This is purely aesthetic.</p>
+<div id="3c2769c2" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> (u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g) <span class="op">*</span> (sintheta <span class="op">*</span> costheta <span class="op">+</span> costheta <span class="op">*</span> np.sqrt(sintheta<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> h)<span class="op">/</span> (u<span class="op">**</span><span class="dv">2</span>)))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The range is"</span>, <span class="bu">round</span>(R, <span class="dv">2</span>), <span class="st">"m"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>x_graph <span class="op">=</span> R <span class="op">+</span> R <span class="op">*</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>The optimal minimum has y coordinate -22.036404343345218</code></pre>
+<pre><code>The range is 66.36 m</code></pre>
 </div>
 </div>
-<p>The below code generates the function, its derivative and the minima found by the algorithm.</p>
-<div id="8e9d6faa" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an array of x coordinates and finds corresponding y coordinates </span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for plotting</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">100</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> f(x)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Differentiates x coordinates to create the graph of the first derivative</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>dydx <span class="op">=</span> np.array([derivative(f, xi) <span class="cf">for</span> xi <span class="kw">in</span> x])</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots the curves</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, label<span class="op">=</span><span class="st">"f(x)"</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.plot(x, dydx, label<span class="op">=</span><span class="st">"f'(x)"</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.scatter(xk_points, yk_points, marker<span class="op">=</span><span class="st">"x"</span>, color<span class="op">=</span><span class="st">"red"</span>, label<span class="op">=</span><span class="st">"Minima"</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets parameters of the plot and plots the curves</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The time of flight is then calculated using the general time equation and the range. The equation for the time of flight at a given x coordinate is <span class="math inline">\(t=\frac{x}{u_x}\)</span> so the time of flight across the range is <span class="math inline">\(T=\frac{R}{u_x}\)</span>. The calculated value is then output along with a phrase.</p>
+<div id="3db47ca2" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Time of flight calculation</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tflight <span class="op">=</span> R <span class="op">/</span> ux</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The time of flight is"</span>, <span class="bu">round</span>(tflight, <span class="dv">2</span>), <span class="st">"s"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The time of flight is 3.56 s</code></pre>
+</div>
+</div>
+<p>An empty list of x and y coordinates are created. These will then be appended to when the position of the projectile is updated.</p>
+<p>A for loop with a timestep of 0.01s, updates the position of the projectile between 0s and the time of flight every 0.01s. The equations <span class="math inline">\(x=u_xt\)</span> and <span class="math inline">\(y=h+u_yt-\frac{1}{2}gt^2\)</span> are used to update the x and y coordinates respectively at a given time, <span class="math inline">\(t\)</span>.</p>
+<div id="f09012e5" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an empty arrary for the x and y coordinates of the trajectory</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> []</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> []</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots the parabolic path of the projectile with a timestep of 0.01s and an interval of 10s</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">0</span>, tflight, <span class="fl">0.01</span>):</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> i</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    x.append(ux <span class="op">*</span> t)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> t <span class="op">*</span> t</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    y.append(h <span class="op">+</span> (uy <span class="op">*</span> t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> T))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    t <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, the x and y coordinates of the apogee are calculated using the equations <span class="math inline">\(x_a=\frac{u^2}{g}\sin\theta\cos\theta\)</span> and <span class="math inline">\(y_a=h+\frac{u^2}{2g}\sin^2\theta\)</span>. The y_graph variable is used to determine the y limit of the graph, the highest y coordinate displayed. Finally, a phrase is created which outputs the coordinates of the apogee.</p>
+<div id="be147c85" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apogee calculation</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>apx <span class="op">=</span> u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g <span class="op">*</span> sintheta <span class="op">*</span> costheta</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>apy <span class="op">=</span> h <span class="op">+</span> u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> g) <span class="op">*</span> sintheta<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>y_graph <span class="op">=</span> apy <span class="op">+</span> apy <span class="op">*</span> <span class="fl">0.1</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The apogee is at ("</span>, <span class="bu">round</span>(apx, <span class="dv">2</span>), <span class="st">","</span>, <span class="bu">round</span>(apy, <span class="dv">2</span>), <span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The apogee is at ( 26.62 , 22.35 )</code></pre>
+</div>
+</div>
+<p>For the last portion of code, the graph is plotted along with the coordinates of the apogee. The parameters of the graph are then set, including labels and limits, and then the graph is plotted.</p>
+<div id="46fac58d" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(apx, apy, marker<span class="op">=</span><span class="st">"x"</span>, color<span class="op">=</span><span class="st">"red"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Displacement in x / m"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Displacement in y / m"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, y_graph)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, x_graph)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="optimisation_files/figure-html/cell-6-output-1.png" width="586" height="411" class="figure-img"></p>
+<p><img src="cchallenge1_files/figure-html/cell-10-output-1.png" width="585" height="429" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -415,6 +435,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         if (link.dataset.originalHref !== undefined) {
           link.href = link.dataset.originalHref;
         }
+          // default icon
+          link.classList.add("external");
       }
     }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
