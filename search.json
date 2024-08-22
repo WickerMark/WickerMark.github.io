@@ -28,6 +28,13 @@
     "text": "About me"
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "Featured\n\n\n\n\nSection 1\n\n\nSection 2\n\n\n\n\n\nTwo miniute video submission for the BPhO Computational Challenge 2024"
+  },
+  {
     "objectID": "posts/cchallenge1.html",
     "href": "posts/cchallenge1.html",
     "title": "BPhO Computational Challenge: Challenges 1 & 2 2024: Creating a Simple Analytical Drag-Free Projectile Model",
