@@ -39,7 +39,7 @@
     "href": "about.html#machine-learning",
     "title": "Mark Watson",
     "section": "Machine Learning",
-    "text": "Machine Learning"
+    "text": "Machine Learning\nMost of my experience in machine learning is in the applications of machine learning, such as applying machine learning algorithms to galaxy classification, see my EPQ. Some of my projects have involved rudimentary machine learning algorithms, for instance, I explored how the gradient descent algorithm and optimisation could be used"
   },
   {
     "objectID": "about.html#epq",
@@ -54,6 +54,27 @@
     "title": "Mark Watson",
     "section": "Web Development",
     "text": "Web Development\nThroughout the course of developing this and other websites, I have gained a lot of experience in HTML and CSS. While developing this website, I gained many valuable skills and learnt a lot, such as how Git works, using version control, developing websites and blogs using Quarto, creating mathematical expressions with LaTex and using GitHub and GitHub pages."
+  },
+  {
+    "objectID": "about.html#astrophotography",
+    "href": "about.html#astrophotography",
+    "title": "Mark Watson",
+    "section": "Astrophotography",
+    "text": "Astrophotography\nIn my free time, I enjoy capturing images of distant deep sky objects using astrophotography. Click the astrophotograhy tab to see my portfolio."
+  },
+  {
+    "objectID": "about.html#chess",
+    "href": "about.html#chess",
+    "title": "Mark Watson",
+    "section": "Chess",
+    "text": "Chess\nI am also a passionate chess player. I have several high tournament finishes in my category, including a bronze at the presitigious Doncaster Chess Congress and a silver at the Darnall & Handsworth Rapidplay September 2023. I have also regularly represented my local town, Rotherham, in the second division of the Sheffield & District Chess Association for the past 3 years. I founded and captained the Wickersley School Chess Club (my secondary school and sixth form) for the past 5 years and volunteered my time to tutor the younger students."
+  },
+  {
+    "objectID": "about.html#languages",
+    "href": "about.html#languages",
+    "title": "Mark Watson",
+    "section": "Languages",
+    "text": "Languages\nFinally, I love learning languages. I am fluent in Polish and have been learning Russian and German for the past few years."
   },
   {
     "objectID": "index.html",
