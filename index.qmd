@@ -1,7 +1,5 @@
 ---
-title: "Website"
+title: "Home"
+
+subtitle: "Welcome to my portfolio of programming projects and competition submissions"
 ---
-
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.

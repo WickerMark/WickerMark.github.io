@@ -1,0 +1,84 @@
+---
+title: "Optimisation: The Gradient Descent Algorithm for Maching Learning"
+description: "Python program which uses the gradient descent algorithm to calculate minimum points for a given function. Used for optimisation in machine learning."
+date: 08/13/2024
+author: "Mark Watson"
+categories: 
+    - Python 
+    - Optimisation
+    - Machine Learning
+---
+The objective of this blog post is to create an implementation of a one-dimensional gradient descent algorithm used for optimisation in machine learning where a function needs to be minimised. Shown below is the code and explanations of my implementation of the algorithm.
+
+First, the required libraries are imported and the function f(x) is defined for future use. This can be changed to any function that the user would require. In this example, I have used the equation $f(x)=x\sin(x)+\cos(x)+x$.
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Creates the function
+def f(x):
+    return x * np.sin(x) + (np.cos(x) + x)
+```
+
+This function calculates the numerical derivative using the small step ϵ. This is defined by the equation $f'(x)\approx\frac{f(x + \epsilon)-f(x - \epsilon)}{2\epsilon}$.
+```{python}
+# Function to differentiate
+def derivative(f, x):
+    eps = 1e-8
+    der = (f(x + eps) - f(x - eps)) / (2 * eps)
+    
+    return der
+```
+
+The following function performs the gradient descent algorithm. There are two stopping conditions for the algorithm, a maximum number of iterations, and if the absolute value of the gradient is lower than a set threshold value. The variable alpha is the learning rate of the algorithm, a scalar quantity which controls the size of the steps the algorithm takes. The equation $\theta_{t+1}=\theta_t-\alpha\nabla_{\theta}f(\theta_t)$ is used to update the position of the marker until the minimum point is found.
+```{python}
+# Function to perform the gradient descent algorithm
+def descent(f, derivative, xk, alpha=1e-3, tol=1e-4, max_iters=10000):
+    for i in range(max_iters):
+        grad = derivative(f, xk)
+        if abs(grad) < tol:
+            break
+        xk = xk - alpha * grad
+
+    return xk
+```
+The algorithm is then ran from various different starting points until the lowest minima is found. Empty lits of x and y coordinates are created and appended to with the coordinates determined by the algorithm. In this example, I used starting points between -12 and 12. The y coordinate of the optimal minimum point is then determined and printed.
+```{python}
+xk_points = []
+yk_points = []
+for i in np.arange(-12,12):
+    # Starting position
+    xk = i
+    # Finds the x coordinate of each minima
+    xk = descent(f, derivative, xk)
+    xk_points.append(xk)
+
+    # Finds the y coordinate of the minima for plotting
+    yk = f(xk)
+    yk_points.append(yk)
+
+# Prints the y coordiante of the optimal minimum
+print("The optimal minimum has y coordinate", min(yk_points))
+```
+The below code generates the function, its derivative and the minima found by the algorithm.
+```{python}
+# Creates an array of x coordinates and finds corresponding y coordinates 
+# for plotting
+x = np.linspace(-15, 15, 100)
+y = f(x)
+
+# Differentiates x coordinates to create the graph of the first derivative
+dydx = np.array([derivative(f, xi) for xi in x])
+
+# Plots the curves
+plt.plot(x, y, label="f(x)")
+plt.plot(x, dydx, label="f'(x)")
+plt.scatter(xk_points, yk_points, marker="x", color="red", label="Minima")
+
+# Sets parameters of the plot and plots the curves
+plt.xlim(-15, 15)
+plt.grid()
+plt.legend()
+
+plt.show()
+```

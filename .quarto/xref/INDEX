@@ -4,5 +4,29 @@
   },
   "index.qmd": {
     "index.html": "4ae4fe86"
+  },
+  "portfolio.qmd": {
+    "portfolio.html": "6098b967"
+  },
+  "posts/about.qmd": {
+    "about.html": "ea492885"
+  },
+  "posts/primes.qmd": {
+    "primes.html": "d579c594"
+  },
+  "posts/optimisation.qmd": {
+    "optimisation.html": "d69de8f6"
+  },
+  "posts/derivative.qmd": {
+    "derivative.html": "5b3b5c31"
+  },
+  "posts/compuationalchallenge.qmd": {
+    "compuationalchallenge.html": "157c4555"
+  },
+  "posts/cchallenge1.qmd": {
+    "cchallenge1.html": "ae04b80d"
+  },
+  "posts/orbits.qmd": {
+    "orbits.html": "ebb98793"
   }
 }

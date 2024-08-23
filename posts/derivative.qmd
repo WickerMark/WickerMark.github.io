@@ -1,0 +1,61 @@
+---
+title: "A Numerical Method to Calculate the Derivative using a Small Step, ϵ"
+description: "An implementation of calculating the numerical derivative using the small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm."
+date: 07/28/2024
+author: "Mark Watson"
+categories: 
+    - Python 
+    - Numerical Methods
+---
+The algorithm created is based on the equation $f'(x)\approx\frac{f(x + \epsilon)-f(x - \epsilon)}{2\epsilon}$ to approximate the derivative using a small step. I have set the small step to $\epsilon=1\times10^{-8}$, however, this can be modified to the specification of the user.
+
+To begin the algorithm, the required libraries are imported, specifically numpy for trigonometric and logarithmic functions and matplotlib for the plotting.
+
+Next, the function to be differentiated is defined. For the purpose of this example, the function used is $f(x)=\ln(x^2)\sin(x)$. The user can change the function to whatever may be required.
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Creates the function
+def f(x):
+    return np.log(x**2) * np.sin(x)
+```
+This function finds the derivative using the small step, ϵ, at a given x coordinate. This is useful for plotting, because the desired array of x coordinates can be passed to the function to generate an f'(x) function for that set of values. For other algorithms, the gradient descent algorithm for instance, finding the derivative at a given x coordinate is useful for further calculations.
+```{python}
+# Function to differentiate
+def derivative(f, x):
+    eps = 1e-8
+    der = (f(x + eps) - f(x - eps)) / (2 * eps)
+    
+    return der
+```
+Here, np.linspace(-15, 15, 500) is used to create an equally spaced array of 500 x coordinates between x = -15 and x = 15. Then, for each x coordinate, a corresponding y coordinate is found by passing each x coordinate into the function.
+```{python}
+# Creates an array of x coordinates and finds corresponding y coordinates 
+# for plotting
+x = np.linspace(-15, 15, 500)
+y = f(x)
+```
+Now, list comprehension is used to apply the derivative function to each element $x_i$ in $x$. The result is then stored as a numpy array for plotting.
+```{python}
+# Differentiates x coordinates to create the graph of the first derivative
+dydx = np.array([derivative(f, xi) for xi in x])
+```
+Lastly, the curves f(x) and f'(x) are plotted and given appropriate labels.
+
+Then, the paramaters of the plot are set, the limit for the x axis, the creation of a grid and also the legend to display labels.
+
+These graphs are then displayed.
+```{python}
+# Plots the curves
+plt.plot(x, y, label="f(x)")
+plt.plot(x, dydx, label="f'(x)")
+
+# Sets parameters of the plot and plots the curves
+plt.xlim(-15, 15)
+plt.grid()
+plt.legend()
+
+plt.show()
+```
+This algorithm has been curated for use in the gradient descent algorithm, which will be a future post.

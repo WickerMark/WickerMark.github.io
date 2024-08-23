@@ -1,5 +1,11 @@
 ---
 title: "About"
+about:
+    template: jolla
+    links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/WickerMark/WickerMark.github.io
 ---
 
-About this site
+About me

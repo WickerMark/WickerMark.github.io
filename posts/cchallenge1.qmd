@@ -1,0 +1,99 @@
+---
+title: "BPhO Computational Challenge: Challenges 1 & 2 2024: Creating a Simple Analytical Drag-Free Projectile Model"
+description: "The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee."
+date: 04/11/2024
+author: "Mark Watson"
+categories: 
+    - Python 
+    - BPhO Computational Challenge
+    - Computational Physics
+    - Projectile Motion
+link-external-icon: true
+---
+The below code is my implementation of the first and second challenge of the BPhO Computational Challenge 2024. The objective was to create an exact analytical model of projectile motion without air resistance. This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here:
+<a href = "https://youtu.be/ViT6NdrrbJo"> https://youtu.be/ViT6NdrrbJo </a>. 
+
+First, the plotting library matplotlib is imported, which will be used to plot the trajectory of the projectile. Also, numpy will be imported for its trigonometric and mathematical functions.
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+```
+The program takes inputs $\theta$, $u$, $g$ and $h$. The commented out sections of code show how the user would be asked to input these. In this example, I have used $\theta=37$, $u=23.31$, $g=9.81$ and $h = 12.32$. The angle entered in degrees is converted into radians for future use. 
+```{python}
+# Enables the user to enter conditions for the trajectory
+# angle = float(input("Enter the angle of projection in degrees: "))
+angle = 37
+theta = (angle * np.pi) / 180
+
+# u = float(input("Enter the intitial velocity of the projectile: "))
+u = 23.31
+
+g = 9.81
+
+# h = float(input("Enter the height above the ground of the projectile: "))
+h = 12.32
+```
+This section of code prevents the user inputting an invalid height less than 0.
+```{python}
+if h < 0:
+    print("ERROR Height must be greater than 0")
+    exit()
+```
+The variables costheta and sintheta are created since they are used frequently in the program. Then, the velocity is resolved into horizontal and vertical components using the equations $u_x=u\cos\theta$ and $u_y=u\sin\theta$.
+```{python}
+# Resloves forces into horizontal and vertical component
+costheta = np.cos(theta)
+sintheta = np.sin(theta)
+
+ux = u * costheta
+uy = u * sintheta
+```
+Now, the program calculates the range of the projectile and outputs the calculated value. This is achieved using the equation $R=\frac{u^2}{g}(\sin\theta\cos\theta+\cos\theta\sqrt{\sin^2\theta+\frac{2gh}{u^2}})$. The x_graph variable is used to determine the highest x coordinate displayed on the plot, which is determined from the range. This is purely aesthetic.
+```{python}
+R = (u**2 / g) * (sintheta * costheta + costheta * np.sqrt(sintheta**2 + (2 * g * h)/ (u**2)))
+print("The range is", round(R, 2), "m")
+x_graph = R + R * 0.1
+```
+The time of flight is then calculated using the general time equation and the range. The equation for the time of flight at a given x coordinate is $t=\frac{x}{u_x}$ so the time of flight across the range is $T=\frac{R}{u_x}$. The calculated value is then output along with a phrase. 
+```{python}
+#Time of flight calculation
+tflight = R / ux
+print("The time of flight is", round(tflight, 2), "s")  
+```
+An empty list of x and y coordinates are created. These will then be appended to when the position of the projectile is updated.
+
+A for loop with a timestep of 0.01s, updates the position of the projectile between 0s and the time of flight every 0.01s. The equations $x=u_xt$ and $y=h+u_yt-\frac{1}{2}gt^2$ are used to update the x and y coordinates respectively at a given time, $t$.
+```{python}
+# Creates an empty arrary for the x and y coordinates of the trajectory
+x = []
+y = []
+
+# Plots the parabolic path of the projectile with a timestep of 0.01s and an interval of 10s
+for i in np.arange(0, tflight, 0.01):
+    t = i
+    x.append(ux * t)
+    T = t * t
+    y.append(h + (uy * t) - (0.5 * g * T))
+    t += 1
+```         
+Then, the x and y coordinates of the apogee are calculated using the equations $x_a=\frac{u^2}{g}\sin\theta\cos\theta$ and $y_a=h+\frac{u^2}{2g}\sin^2\theta$. The y_graph variable is used to determine the y limit of the graph, the highest y coordinate displayed. Finally, a phrase is created which outputs the coordinates of the apogee.
+```{python}
+# Apogee calculation
+apx = u**2 / g * sintheta * costheta
+
+apy = h + u**2 / (2 * g) * sintheta**2
+y_graph = apy + apy * 0.1
+
+print("The apogee is at (", round(apx, 2), ",", round(apy, 2), ")")
+```
+For the last portion of code, the graph is plotted along with the coordinates of the apogee. The parameters of the graph are then set, including labels and limits, and then the graph is plotted.
+```{python}
+plt.plot(x, y)
+plt.scatter(apx, apy, marker="x", color="red")
+
+plt.xlabel("Displacement in x / m")
+plt.ylabel("Displacement in y / m")
+plt.ylim(0, y_graph)
+plt.xlim(0, x_graph)
+plt.show()
+```

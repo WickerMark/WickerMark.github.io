@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Home – Portfolio</title>
+<title>Coding Projects – Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -66,7 +68,65 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -89,11 +149,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./portfolio.html"> 
+    <a class="nav-link active" href="./portfolio.html" aria-current="page"> 
 <span class="menu-text">Coding Projects</span></a>
   </li>  
   <li class="nav-item">
@@ -111,16 +171,15 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    </div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Animation">Animation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="BPhO Computational Challenge">BPhO Computational Challenge <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Computational Astrophysics">Computational Astrophysics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Computational Physics">Computational Physics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Machine Learning">Machine Learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Numerical Methods">Numerical Methods <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Optimisation">Optimisation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Orbits">Orbits <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Prime Numbers">Prime Numbers <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Projectile Motion">Projectile Motion <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(5)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Home</h1>
-<p class="subtitle lead">Welcome to my portfolio of programming projects and competition submissions</p>
+<h1 class="title">Coding Projects</h1>
 </div>
 
 
@@ -140,7 +199,209 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-</main> <!-- /main -->
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="Python,Numerical Methods" data-listing-date-sort="1722121200000" data-listing-file-modified-sort="1724319948190" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="383">
+<div class="thumbnail">
+<p><a href="./posts/derivative.html" class="no-external"></a></p><a href="./posts/derivative.html" class="no-external">
+<p class="card-img-top"><img src="posts\derivative_files\figure-html\cell-6-output-1.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/derivative.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/derivative.html" class="no-external">A Numerical Method to Calculate the Derivative using a Small Step, ϵ</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/derivative.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Numerical Methods'); return false;">
+Numerical Methods
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/derivative.html" class="no-external">An implementation of calculating the numerical derivative using the small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/derivative.html" class="no-external">
+<div class="listing-date">
+Jul 28, 2024
+</div>
+<div class="listing-author">
+Mark Watson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="Python,Computational Astrophysics,Animation,Orbits" data-listing-date-sort="1706140800000" data-listing-file-modified-sort="1724335533389" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="892">
+<div class="thumbnail">
+<p><a href="./posts/orbits.html" class="no-external"></a></p><a href="./posts/orbits.html" class="no-external">
+<p class="card-img-top"><img src="posts\orbits_files\figure-html\cell-5-output-1.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/orbits.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/orbits.html" class="no-external">An Animation of the Gas Giants (and Pluto) Orbiting the Sun</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/orbits.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Computational Astrophysics'); return false;">
+Computational Astrophysics
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Animation'); return false;">
+Animation
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Orbits'); return false;">
+Orbits
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/orbits.html" class="no-external">The matplotlib library and its animation function in Python are used to create a 2D animation of the orbits of the outer planets.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/orbits.html" class="no-external">
+<div class="listing-date">
+Jan 25, 2024
+</div>
+<div class="listing-author">
+Mark Watson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="Python,BPhO Computational Challenge,Computational Physics,Projectile Motion" data-listing-date-sort="1712790000000" data-listing-file-modified-sort="1724334365633" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="713">
+<div class="thumbnail">
+<p><a href="./posts/cchallenge1.html" class="no-external"></a></p><a href="./posts/cchallenge1.html" class="no-external">
+<p class="card-img-top"><img src="posts\cchallenge1_files\figure-html\cell-10-output-1.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/cchallenge1.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/cchallenge1.html" class="no-external">BPhO Computational Challenge: Challenges 1 &amp; 2 2024: Creating a Simple Analytical Drag-Free Projectile Model</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/cchallenge1.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('BPhO Computational Challenge'); return false;">
+BPhO Computational Challenge
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Computational Physics'); return false;">
+Computational Physics
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Projectile Motion'); return false;">
+Projectile Motion
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/cchallenge1.html" class="no-external">The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/cchallenge1.html" class="no-external">
+<div class="listing-date">
+Apr 11, 2024
+</div>
+<div class="listing-author">
+Mark Watson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="Python,Prime Numbers" data-listing-date-sort="1723590000000" data-listing-file-modified-sort="1724334364297" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="435">
+<div class="thumbnail">
+<p><a href="./posts/primes.html" class="no-external"></a></p><a href="./posts/primes.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="./posts/primes.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/primes.html" class="no-external">Generating the nth Prime Number</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/primes.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Prime Numbers'); return false;">
+Prime Numbers
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/primes.html" class="no-external">Python program which calculates an inputted nth prime number by dividing each consecutive number by previous prime numbers.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/primes.html" class="no-external">
+<div class="listing-date">
+Aug 14, 2024
+</div>
+<div class="listing-author">
+Mark Watson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="Python,Optimisation,Machine Learning" data-listing-date-sort="1723503600000" data-listing-file-modified-sort="1724316394397" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="512">
+<div class="thumbnail">
+<p><a href="./posts/optimisation.html" class="no-external"></a></p><a href="./posts/optimisation.html" class="no-external">
+<p class="card-img-top"><img src="posts\optimisation_files\figure-html\cell-6-output-1.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/optimisation.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/optimisation.html" class="no-external">Optimisation: The Gradient Descent Algorithm for Maching Learning</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/optimisation.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Optimisation'); return false;">
+Optimisation
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Machine Learning'); return false;">
+Machine Learning
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/optimisation.html" class="no-external">Python program which uses the gradient descent algorithm to calculate minimum points for a given function. Used for optimisation in machine learning.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/optimisation.html" class="no-external">
+<div class="listing-date">
+Aug 13, 2024
+</div>
+<div class="listing-author">
+Mark Watson
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -233,7 +494,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/WickerMark\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

@@ -1,0 +1,158 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"BPhO Computational Challenge 1 & 2: Creating a Simple Analytical Drag-Free Projectile Model\"\n",
+        "description: \"The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.\"\n",
+        "date: 04/11/2024\n",
+        "author: \"Mark Watson\"\n",
+        "categories: \n",
+        "    - Python \n",
+        "    - Computational Challenge\n",
+        "    - BPhO Computational Physics\n",
+        "    - Projectile Motion\n",
+        "---"
+      ],
+      "id": "c9a8ea0e"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "import numpy as np\n",
+        "import math"
+      ],
+      "id": "cdfca72f",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Enables the user to enter conditions for the trajectory\n",
+        "angle = float(input(\"Enter the angle of projection in degrees: \"))\n",
+        "theta = (angle * np.pi) / 180\n",
+        "\n",
+        "u = float(input(\"Enter the intitial velocity of the projectile: \"))\n",
+        "g = 9.81\n",
+        "\n",
+        "h = float(input(\"Enter the height above the ground of the projectile: \"))"
+      ],
+      "id": "eebb1e49",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "if h < 0:\n",
+        "    print(\"ERROR Height must be greater than 0\")\n",
+        "    exit()"
+      ],
+      "id": "71a3a585",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Resloves forces into horizontal and vertical component\n",
+        "costheta = math.cos(theta)\n",
+        "sintheta = math.sin(theta)\n",
+        "\n",
+        "ux = u * costheta\n",
+        "uy = u * sintheta"
+      ],
+      "id": "426c4e39",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Creates an empty arrary for the x and y coordinates of the trajectory\n",
+        "x = []\n",
+        "y = []\n",
+        "\n",
+        "# Plots the parabolic path of the projectile with a timestep of 0.01s and an interval of 10s\n",
+        "while min(y) >= 0:\n",
+        "    t = i\n",
+        "    x.append(ux * t)\n",
+        "    T = t * t\n",
+        "    y.append(h + (uy * t) - (0.5 * g * T))   "
+      ],
+      "id": "fd89fd65",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Apogee calculation\n",
+        "apy = (0 - (uy*uy)) / (2 * g * -1) + h\n",
+        "print(\"The apogee is \", apy, \"m\")\n",
+        "y_graph = apy + 5"
+      ],
+      "id": "24555b27",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#Time of flight calculation\n",
+        "tlim = ux * 10\n",
+        "\n",
+        "tflight0 = 2 * uy / g\n",
+        "apx = (ux * tflight0) / 2\n",
+        "\n",
+        "b = uy\n",
+        "a = 0.5 * g\n",
+        "c = h * -1\n",
+        "tflight = (b + math.sqrt((b * b) - (4 * a * c))) / g\n",
+        "print(\"The time of flight is\", tflight, \"s\")\n",
+        "x_graph = (ux * tflight) + 5  "
+      ],
+      "id": "6246d04e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "plt.plot(x, y)\n",
+        "plt.scatter(apx, apy)\n",
+        "\n",
+        "plt.xlabel(\"Displacement in x / m\")\n",
+        "plt.ylabel(\"Displacement in y / m\")\n",
+        "plt.ylim(0, y_graph)\n",
+        "plt.xlim(0, x_graph)\n",
+        "plt.show()"
+      ],
+      "id": "d0ddfb23",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\Mark Watson\\AppData\\Local\\Programs\\Python\\Python312\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

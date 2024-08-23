@@ -2,11 +2,12 @@ project:
   type: website
 
 website:
-  title: "Website"
+  title: Portfolio
   navbar:
     left:
       - href: index.qmd
         text: Home
+      - portfolio.qmd
       - about.qmd
 
 format:
@@ -14,6 +15,3 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
-
-
-
