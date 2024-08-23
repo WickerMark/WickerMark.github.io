@@ -20,7 +20,9 @@ format:
   html:
     toc: false
 ---
-<hr>
+<img src="me.png" width=250 height=250>
+
+# Why do I want to study Computer Science?
 
 # Computer Science and Coding Experience
 
@@ -37,8 +39,6 @@ Most of my experience in machine learning is in the applications of machine lear
 
 ## Web Development
 Throughout the course of developing this and other websites, I have gained a lot of experience in HTML and CSS. While developing this website, I gained many valuable skills and learnt a lot, such as how Git works, using version control, developing websites and blogs using Quarto, creating mathematical expressions with LaTex and using GitHub and GitHub pages.
-
-<hr>
 
 # Hobbies
 

@@ -13,6 +13,9 @@ website:
 
 format:
   html:
+    grid:
+      sidebar-width: 150px
+      body-width: 1400px
+      margin-width: 400px
     theme: cosmo
-    css: styles.css
     toc: true

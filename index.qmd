@@ -10,8 +10,6 @@ format:
 ---
 <h4> Welcome to my portfolio of programming projects and competition submissions</h4>
 
-<hr>
-
 # Featured Projects
 
 <nav>

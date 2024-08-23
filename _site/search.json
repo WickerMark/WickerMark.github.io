@@ -39,7 +39,7 @@
     "href": "about.html#machine-learning",
     "title": "Mark Watson",
     "section": "Machine Learning",
-    "text": "Machine Learning"
+    "text": "Machine Learning\nMost of my experience in machine learning is in the applications of machine learning, such as applying machine learning algorithms to galaxy classification, see my EPQ. Some of my projects have involved rudimentary machine learning algorithms, for instance, I explored how the gradient descent algorithm and optimisation could be used"
   },
   {
     "objectID": "about.html#epq",
@@ -54,6 +54,27 @@
     "title": "Mark Watson",
     "section": "Web Development",
     "text": "Web Development\nThroughout the course of developing this and other websites, I have gained a lot of experience in HTML and CSS. While developing this website, I gained many valuable skills and learnt a lot, such as how Git works, using version control, developing websites and blogs using Quarto, creating mathematical expressions with LaTex and using GitHub and GitHub pages."
+  },
+  {
+    "objectID": "about.html#astrophotography",
+    "href": "about.html#astrophotography",
+    "title": "Mark Watson",
+    "section": "Astrophotography",
+    "text": "Astrophotography\nIn my free time, I enjoy capturing images of distant deep sky objects using astrophotography. Click the astrophotograhy tab to see my portfolio."
+  },
+  {
+    "objectID": "about.html#chess",
+    "href": "about.html#chess",
+    "title": "Mark Watson",
+    "section": "Chess",
+    "text": "Chess\nI am also a passionate chess player. I have several high tournament finishes in my category, including a bronze at the presitigious Doncaster Chess Congress and a silver at the Darnall & Handsworth Rapidplay September 2023. I have also regularly represented my local town, Rotherham, in the second division of the Sheffield & District Chess Association for the past 3 years. I founded and captained the Wickersley School Chess Club (my secondary school and sixth form) for the past 5 years and volunteered my time to tutor the younger students."
+  },
+  {
+    "objectID": "about.html#languages",
+    "href": "about.html#languages",
+    "title": "Mark Watson",
+    "section": "Languages",
+    "text": "Languages\nFinally, I love learning languages. I am fluent in Polish and have been learning Russian and German for the past few years."
   },
   {
     "objectID": "index.html",
@@ -91,24 +112,10 @@
     "text": "The objective of this blog post is to create an implementation of a one-dimensional gradient descent algorithm used for optimisation in machine learning where a function needs to be minimised. Shown below is the code and explanations of my implementation of the algorithm.\nFirst, the required libraries are imported and the function f(x) is defined for future use. This can be changed to any function that the user would require. In this example, I have used the equation \\(f(x)=x\\sin(x)+\\cos(x)+x\\).\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Creates the function\ndef f(x):\n    return x * np.sin(x) + (np.cos(x) + x)\n\nThis function calculates the numerical derivative using the small step ϵ. This is defined by the equation \\(f'(x)\\approx\\frac{f(x + \\epsilon)-f(x - \\epsilon)}{2\\epsilon}\\).\n\n# Function to differentiate\ndef derivative(f, x):\n    eps = 1e-8\n    der = (f(x + eps) - f(x - eps)) / (2 * eps)\n    \n    return der\n\nThe following function performs the gradient descent algorithm. There are two stopping conditions for the algorithm, a maximum number of iterations, and if the absolute value of the gradient is lower than a set threshold value. The variable alpha is the learning rate of the algorithm, a scalar quantity which controls the size of the steps the algorithm takes. The equation \\(\\theta_{t+1}=\\theta_t-\\alpha\\nabla_{\\theta}f(\\theta_t)\\) is used to update the position of the marker until the minimum point is found.\n\n# Function to perform the gradient descent algorithm\ndef descent(f, derivative, xk, alpha=1e-3, tol=1e-4, max_iters=10000):\n    for i in range(max_iters):\n        grad = derivative(f, xk)\n        if abs(grad) &lt; tol:\n            break\n        xk = xk - alpha * grad\n\n    return xk\n\nThe algorithm is then ran from various different starting points until the lowest minima is found. Empty lits of x and y coordinates are created and appended to with the coordinates determined by the algorithm. In this example, I used starting points between -12 and 12. The y coordinate of the optimal minimum point is then determined and printed.\n\nxk_points = []\nyk_points = []\nfor i in np.arange(-12,12):\n    # Starting position\n    xk = i\n    # Finds the x coordinate of each minima\n    xk = descent(f, derivative, xk)\n    xk_points.append(xk)\n\n    # Finds the y coordinate of the minima for plotting\n    yk = f(xk)\n    yk_points.append(yk)\n\n# Prints the y coordiante of the optimal minimum\nprint(\"The optimal minimum has y coordinate\", min(yk_points))\n\nThe optimal minimum has y coordinate -22.036404343345218\n\n\nThe below code generates the function, its derivative and the minima found by the algorithm.\n\n# Creates an array of x coordinates and finds corresponding y coordinates \n# for plotting\nx = np.linspace(-15, 15, 100)\ny = f(x)\n\n# Differentiates x coordinates to create the graph of the first derivative\ndydx = np.array([derivative(f, xi) for xi in x])\n\n# Plots the curves\nplt.plot(x, y, label=\"f(x)\")\nplt.plot(x, dydx, label=\"f'(x)\")\nplt.scatter(xk_points, yk_points, marker=\"x\", color=\"red\", label=\"Minima\")\n\n# Sets parameters of the plot and plots the curves\nplt.xlim(-15, 15)\nplt.grid()\nplt.legend()\n\nplt.show()"
   },
   {
-    "objectID": "about.html#astrophotography",
-    "href": "about.html#astrophotography",
+    "objectID": "about.html",
+    "href": "about.html",
     "title": "Mark Watson",
-    "section": "Astrophotography",
-    "text": "Astrophotography\nIn my free time, I enjoy capturing images of distant deep sky objects using astrophotography. Click the astrophotograhy tab to see my portfolio."
-  },
-  {
-    "objectID": "about.html#chess",
-    "href": "about.html#chess",
-    "title": "Mark Watson",
-    "section": "Chess",
-    "text": "Chess\nI am also a passionate chess player. I have several high tournament finishes in my category, including a bronze at the presitigious Doncaster Chess Congress and a silver at the Darnall & Handsworth Rapidplay September 2023. I have also regularly represented my local town, Rotherham, in the second division of the Sheffield & District Chess Association for the past 3 years. I founded and captained the Wickersley School Chess Club (my secondary school and sixth form) for the past 5 years and volunteered my time to tutor the younger students."
-  },
-  {
-    "objectID": "about.html#languages",
-    "href": "about.html#languages",
-    "title": "Mark Watson",
-    "section": "Languages",
-    "text": "Languages\nFinally, I love learning languages. I am fluent in Polish and have been learning Russian and German for the past few years."
+    "section": "",
+    "text": "I have about 5 years of experience in Python, creating various projects and entering in competitions with Python, some of which are shown in the coding projects tab. Most notably, I have entered, along with my partner, into the BPhO Computational Challenge 2024.\n\n\n\nThe aim of the challenge is to solve classical Physics problems computationally. For the 2024 rendition of the challenge, we created a GUI application consisting of 9 projectile models, including a projectile model considering both air restistance and varying air density with height. During the challenge, I also learnt how to write scientific papers using LaTex, one of the extensions of the competition.\n\n\n\nMost of my experience in machine learning is in the applications of machine learning, such as applying machine learning algorithms to galaxy classification, see my EPQ. Some of my projects have involved rudimentary machine learning algorithms, for instance, I explored how the gradient descent algorithm and optimisation could be used\n\n\n\n\n\n\nThroughout the course of developing this and other websites, I have gained a lot of experience in HTML and CSS. While developing this website, I gained many valuable skills and learnt a lot, such as how Git works, using version control, developing websites and blogs using Quarto, creating mathematical expressions with LaTex and using GitHub and GitHub pages."
   }
 ]
