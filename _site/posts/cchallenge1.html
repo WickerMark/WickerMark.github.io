@@ -164,7 +164,7 @@ window.Quarto = {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../about.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">About Me</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -227,12 +227,12 @@ window.Quarto = {
 
 <p>The below code is my implementation of the first and second challenge of the BPhO Computational Challenge 2024. The objective was to create an exact analytical model of projectile motion without air resistance. This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href="https://youtu.be/ViT6NdrrbJo"> https://youtu.be/ViT6NdrrbJo </a>.</p>
 <p>First, the plotting library matplotlib is imported, which will be used to plot the trajectory of the projectile. Also, numpy will be imported for its trigonometric and mathematical functions.</p>
-<div id="6811d3b7" class="cell" data-execution_count="1">
+<div id="b2a95ea1" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The program takes inputs <span class="math inline">\(\theta\)</span>, <span class="math inline">\(u\)</span>, <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>. The commented out sections of code show how the user would be asked to input these. In this example, I have used <span class="math inline">\(\theta=37\)</span>, <span class="math inline">\(u=23.31\)</span>, <span class="math inline">\(g=9.81\)</span> and <span class="math inline">\(h = 12.32\)</span>. The angle entered in degrees is converted into radians for future use.</p>
-<div id="48cca1a6" class="cell" data-execution_count="2">
+<div id="8075a0cd" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enables the user to enter conditions for the trajectory</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># angle = float(input("Enter the angle of projection in degrees: "))</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>angle <span class="op">=</span> <span class="dv">37</span></span>
@@ -247,13 +247,13 @@ window.Quarto = {
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="fl">12.32</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This section of code prevents the user inputting an invalid height less than 0.</p>
-<div id="59a8fccb" class="cell" data-execution_count="3">
+<div id="96af92b0" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> h <span class="op">&lt;</span> <span class="dv">0</span>:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ERROR Height must be greater than 0"</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    exit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The variables costheta and sintheta are created since they are used frequently in the program. Then, the velocity is resolved into horizontal and vertical components using the equations <span class="math inline">\(u_x=u\cos\theta\)</span> and <span class="math inline">\(u_y=u\sin\theta\)</span>.</p>
-<div id="c4423edc" class="cell" data-execution_count="4">
+<div id="32d22dd1" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resloves forces into horizontal and vertical component</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>costheta <span class="op">=</span> np.cos(theta)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sintheta <span class="op">=</span> np.sin(theta)</span>
@@ -262,7 +262,7 @@ window.Quarto = {
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>uy <span class="op">=</span> u <span class="op">*</span> sintheta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, the program calculates the range of the projectile and outputs the calculated value. This is achieved using the equation <span class="math inline">\(R=\frac{u^2}{g}(\sin\theta\cos\theta+\cos\theta\sqrt{\sin^2\theta+\frac{2gh}{u^2}})\)</span>. The x_graph variable is used to determine the highest x coordinate displayed on the plot, which is determined from the range. This is purely aesthetic.</p>
-<div id="e5bdf3de" class="cell" data-execution_count="5">
+<div id="f95d2c8e" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> (u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g) <span class="op">*</span> (sintheta <span class="op">*</span> costheta <span class="op">+</span> costheta <span class="op">*</span> np.sqrt(sintheta<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> h)<span class="op">/</span> (u<span class="op">**</span><span class="dv">2</span>)))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The range is"</span>, <span class="bu">round</span>(R, <span class="dv">2</span>), <span class="st">"m"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>x_graph <span class="op">=</span> R <span class="op">+</span> R <span class="op">*</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -271,7 +271,7 @@ window.Quarto = {
 </div>
 </div>
 <p>The time of flight is then calculated using the general time equation and the range. The equation for the time of flight at a given x coordinate is <span class="math inline">\(t=\frac{x}{u_x}\)</span> so the time of flight across the range is <span class="math inline">\(T=\frac{R}{u_x}\)</span>. The calculated value is then output along with a phrase.</p>
-<div id="750ad9b2" class="cell" data-execution_count="6">
+<div id="abf17a29" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Time of flight calculation</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tflight <span class="op">=</span> R <span class="op">/</span> ux</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The time of flight is"</span>, <span class="bu">round</span>(tflight, <span class="dv">2</span>), <span class="st">"s"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -281,7 +281,7 @@ window.Quarto = {
 </div>
 <p>An empty list of x and y coordinates are created. These will then be appended to when the position of the projectile is updated.</p>
 <p>A for loop with a timestep of 0.01s, updates the position of the projectile between 0s and the time of flight every 0.01s. The equations <span class="math inline">\(x=u_xt\)</span> and <span class="math inline">\(y=h+u_yt-\frac{1}{2}gt^2\)</span> are used to update the x and y coordinates respectively at a given time, <span class="math inline">\(t\)</span>.</p>
-<div id="5814293e" class="cell" data-execution_count="7">
+<div id="0f8f7ef2" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an empty arrary for the x and y coordinates of the trajectory</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> []</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> []</span>
@@ -295,7 +295,7 @@ window.Quarto = {
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    t <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then, the x and y coordinates of the apogee are calculated using the equations <span class="math inline">\(x_a=\frac{u^2}{g}\sin\theta\cos\theta\)</span> and <span class="math inline">\(y_a=h+\frac{u^2}{2g}\sin^2\theta\)</span>. The y_graph variable is used to determine the y limit of the graph, the highest y coordinate displayed. Finally, a phrase is created which outputs the coordinates of the apogee.</p>
-<div id="ec8a7c54" class="cell" data-execution_count="8">
+<div id="f929b2b5" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apogee calculation</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>apx <span class="op">=</span> u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g <span class="op">*</span> sintheta <span class="op">*</span> costheta</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -308,7 +308,7 @@ window.Quarto = {
 </div>
 </div>
 <p>For the last portion of code, the graph is plotted along with the coordinates of the apogee. The parameters of the graph are then set, including labels and limits, and then the graph is plotted.</p>
-<div id="79dfb9e9" class="cell" data-execution_count="9">
+<div id="64cac462" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(apx, apy, marker<span class="op">=</span><span class="st">"x"</span>, color<span class="op">=</span><span class="st">"red"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -421,7 +421,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/WickerMark\.github\.io\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

@@ -1,11 +1,52 @@
 ---
-title: "About"
+title: "Mark Watson"
 about:
-    template: jolla
+    template: solana
     links:
+    - href: portfolio.qmd
+      text: Coding Projects
+    - href: https://rating.englishchess.org.uk/v2/new/list_games_player.php?domain=S&year=ALL&show_games=on&show_ratings=on&ECF_code=346351F
+      text: ECF Chess Games 
     - icon: github
-      text: GitHub
-      href: https://github.com/WickerMark/WickerMark.github.io
----
+      text: My GitHub Profile
+      href: https://github.com/WickerMark/
+    - icon: github
+      text: See my Code
+      href: https://github.com/WickerMark/wickermark.github.io/
 
-About me
+link-external-icon: true
+
+format:
+  html:
+    toc: false
+---
+<hr>
+
+# Computer Science and Coding Experience
+
+## Python Experience
+I have about 5 years of experience in Python, creating various projects and entering in competitions with Python, some of which are shown in the coding projects tab. Most notably, I have entered, along with my partner, into the BPhO Computational Challenge 2024. 
+
+## BPhO Computational Challenge 2024
+The aim of the challenge is to solve classical Physics problems computationally. For the 2024 rendition of the challenge, we created a GUI application consisting of 9 projectile models, including a projectile model considering both air restistance and varying air density with height. During the challenge, I also learnt how to write scientific papers using LaTex, one of the extensions of the competition.
+
+## Machine Learning
+Most of my experience in machine learning is in the applications of machine learning, such as applying machine learning algorithms to galaxy classification, see my EPQ. Some of my projects have involved rudimentary machine learning algorithms, for instance, I explored how the gradient descent algorithm and optimisation could be used 
+
+## EPQ
+
+## Web Development
+Throughout the course of developing this and other websites, I have gained a lot of experience in HTML and CSS. While developing this website, I gained many valuable skills and learnt a lot, such as how Git works, using version control, developing websites and blogs using Quarto, creating mathematical expressions with LaTex and using GitHub and GitHub pages.
+
+<hr>
+
+# Hobbies
+
+## Astrophotography
+In my free time, I enjoy capturing images of distant deep sky objects using astrophotography. Click the astrophotograhy tab to see my portfolio.
+
+## Chess
+I am also a passionate chess player. I have several high tournament finishes in my category, including a bronze at the presitigious <a href="https://mannchess.org.uk/DonCong/2024All.htm#mi" target="_blank">Doncaster Chess Congress</a> and a silver at the <a href="http://www.dhchessclub.co.uk/index.php/rapidplay/prize-winners" target="_blank">Darnall & Handsworth Rapidplay September 2023</a>. I have also regularly represented my local town, Rotherham, in the second division of the Sheffield & District Chess Association for the past 3 years. I founded and captained the Wickersley School Chess Club (my secondary school and sixth form) for the past 5 years and volunteered my time to tutor the younger students.
+
+## Languages
+Finally, I love learning languages. I am fluent in Polish and have been learning Russian and German for the past few years.

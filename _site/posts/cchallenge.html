@@ -1,0 +1,3445 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mark Watson">
+<meta name="dcterms.date" content="2024-04-11">
+<meta name="description" content="The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.">
+
+<title>BPhO Computational Challenge: Challenges 1 &amp; 2 2024: Creating a Simple Analytical Drag-Free Projectile Model – Portfolio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../portfolio.html"> 
+<span class="menu-text">Coding Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">BPhO Computational Challenge: Challenges 1 &amp; 2 2024: Creating a Simple Analytical Drag-Free Projectile Model</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">BPhO Computational Challenge</div>
+    <div class="quarto-category">Computational Physics</div>
+    <div class="quarto-category">Projectile Motion</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mark Watson </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 11, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<pre class="{Python}"><code>import matplotlib.pyplot as plt
+import numpy as np
+import math
+import customtkinter
+from customtkinter import *
+from tkinter import *
+from matplotlib.figure import Figure 
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,  
+NavigationToolbar2Tk)
+import matplotlib.animation as animation
+from PIL import Image, ImageTk
+import os
+
+# Defines parameters of the app
+app = CTk()
+app.geometry("1500x825")
+app.title("BPhO Computational Challenge App")
+
+# Determines which challenge has been selected
+def chal_picker(challenge):
+    def menu_delete():
+        image_label.destroy()
+        chal_combo.destroy()
+    
+    menu_delete()
+
+    # Restores to base
+    def delete():
+        frame1.destroy()
+        frame2.destroy()
+        frame3.destroy()
+        frame4.destroy()
+        label10.destroy()
+
+        main_menu()
+
+    # Determines a value for g based on the result of the combobox
+    def g_picker(choice):
+        global pre_g
+        if choice == "Mercury":
+            pre_g = 3.61
+        elif choice == "Venus":
+            pre_g = 8.83
+        elif choice == "Earth":
+            pre_g = 9.81
+        elif choice == "Mars":
+            pre_g = 3.75
+        elif choice == "Jupiter":
+            pre_g = 26.0
+        elif choice == "Saturn":
+            pre_g = 11.2
+        elif choice == "Uranus":
+            pre_g = 10.5
+        elif choice == "Neptune":
+            pre_g = 13.3
+        elif choice == "Pluto":
+            pre_g = 0.61
+        elif choice == "Sun":
+            pre_g = 274.0
+        elif choice == "Moon":
+            pre_g = 1.625
+    
+    if challenge == "Challenge 1 &amp; 2":
+        # Defines parameters of frame1
+        frame1 = CTkFrame(master=app, border_width=2, width=250, height=375)
+        frame1.pack(anchor="nw", expand=True, padx=20, pady=67)
+
+        # Defines parameters of frame2
+        frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+        frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+        frame2.place(relx=0.014, rely=0.655)
+        
+        # Defines parameters of frame3
+        frame3 = CTkFrame(master=app, border_width=2, height=725, width=1025)
+        frame3.pack(anchor="n", expand=True, padx=20)
+        frame3.place(relx=0.1875, rely=0.08)
+        
+        # Defines parameters of frame4
+        frame4 = CTkFrame(master=app, border_width=2, height=250, width=175)
+        frame4.pack(anchor="n", expand=True, padx=20)
+        frame4.place(relx=0.875, rely=0.08)
+                
+        # Creates a reset button
+        del_btn = CTkButton(master=frame4, text="RETURN TO HOME", command=delete, width=100, height=30)
+        del_btn.pack(anchor="n")
+        del_btn.place(relx=0.175, rely=0.075)
+
+        # Function that occurs when the submit button is pressed
+        def click_handler():
+            # Defines parameters of frame2
+            frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+            frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+            frame2.place(relx=0.014, rely=0.655)
+
+            # Creates the label for the calculated values frame
+            label2 = CTkLabel(master=frame2, text="Calculated Values:")
+            label2.pack(anchor="center", expand=True, pady=10, padx=30)
+            label2.place(relx=0.3, rely=0.05)
+            
+            # Takes parameters u, angle and h from input text fields
+            u = utxt.get()
+            angle = atxt.get()
+            h = htxt.get()
+            
+            # If statement to determine what value of g should be used
+            if gtxt.get() != "":
+                 g=gtxt.get()
+                 g=float(g.rstrip("\n"))
+            else:
+                g=pre_g
+            
+            # Strips the text to remove blank spaces
+            angle=float(angle.rstrip("\n"))
+            h=float(h.rstrip("\n"))
+            u=float(u.rstrip("\n"))
+            
+            # Converts the angle to radians
+            theta = (angle * np.pi) / 180
+
+            # Resloves forces into horizontal and vertical component
+            costheta = math.cos(theta)
+            sintheta = math.sin(theta)
+
+            ux = u * costheta
+            uy = u * sintheta
+            
+            # Calculates the range and time of flight of the projectile
+            R = (u**2 / g) * (sintheta*costheta+costheta*math.sqrt(sintheta**2 + ((2 * g * h) / (u**2))))
+            tflight = R / (u * costheta)
+
+            # Creates an empty arrary for the x and y coordinates of the trajectory
+            x = []
+            y = []
+
+            # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+            for i in np.arange(0, tflight, 0.01):
+                t = i
+                x.append(ux * t)
+                T = t * t
+                y.append(h + (uy * t) - (0.5 * g * T))            
+
+            # Apogee calculation
+            apy = (0 - (uy*uy)) / (2 * g * -1) + h
+            y_graph = apy + 5
+            tflight0 = 2 * uy / g
+            apx = (ux * tflight0) / 2
+            
+            # Generates the calculated values text
+            # Time of flight phrase
+            tflightph = "Time of flight: " + str(round(tflight, 2)) + " s"
+            label5 = CTkLabel(master=frame2, text=tflightph)
+            label5.pack(anchor="center", expand=True, pady=10, padx=100)
+            label5.place(relx=0.27, rely=0.2)
+                
+            # Range phrase
+            travel = "Range: " + str(round(R, 2)) + " m"    
+            label6 = CTkLabel(master=frame2, text=travel)
+            label6.pack(anchor="center", expand=True, pady=10, padx=100)
+            label6.place(relx=0.31, rely=0.35)
+
+            # Creates the figure
+            fig, ax = plt.subplots()
+
+            # Sets the parameters of the plot
+            ax.set_xlabel("Displacement in x / m")
+            ax.set_ylabel("Displacement in y / m")
+            ax.set_ylim(0, y_graph)
+            ax.set_xlim(0, R)
+
+            # Components to be plotted
+            ax.plot(x, y)
+            ax.grid()
+            ax.scatter(apx, apy)
+            
+            # Creates a canvas in the app for the plot to appear
+            canvas = FigureCanvasTkAgg(fig,master=frame3)
+            canvas.get_tk_widget().place(relx=0.012, rely=0.013, height=700, width=1000)
+            canvas.draw()
+
+            # Saves an image png of the figure when a button is pressed
+            def image_handler():
+                path="/Users/Mark Watson/Desktop/Python Projects/BPHO/Projectiles"
+                os.chdir(path)
+                fig.savefig(fname='Challenge1&amp;2.png', dpi='figure', format='png')
+            
+            # Creates a save button for png image
+            img_btn = CTkButton(master=frame4, text="SAVE AS PNG", command=image_handler, width=100, height=30)
+            img_btn.pack(anchor="n")
+            img_btn.place(relx=0.23, rely=0.3)
+
+        # Creates title label
+        label10 = CTkLabel(master=app, text="Challenge 1 &amp; 2: Custom Projectile", font=("Helvetica", 40))
+        label10.pack(anchor="s", expand=True, padx=10)
+        label10.place(relx=0.3, rely=0.02)
+
+        # Creates the label for the parameters frame
+        label1 = CTkLabel(master=frame1, text="Enter Parameters Below:")
+        label1.pack(anchor="s", expand=True, pady=10, padx=30)
+        label1.place(relx=0.22, rely=0.05)
+
+        # Creates the label for the calculated values frame
+        label2 = CTkLabel(master=frame2, text="Calculated Values:")
+        label2.pack(anchor="center", expand=True, pady=10, padx=30)
+        label2.place(relx=0.3, rely=0.05)
+
+        # Creates input text fields for the parameters
+        # Initial velocity field
+        utxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Initial velocity in ms⁻¹")
+        utxt.place(relx=0.5, rely=0.15, anchor="n")
+
+        # Angle field
+        atxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Angle in °")
+        atxt.place(relx=0.5, rely=0.25, anchor="n")
+
+        # Initial height field
+        htxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Height in m")
+        htxt.place(relx=0.5, rely=0.35, anchor="n")
+
+        # Creates a submission button
+        btn = CTkButton(master=frame1, text="Submit", command=click_handler, width=100, height=30)
+        btn.pack(anchor="n")
+        btn.place(relx=0.3, rely=0.75)
+
+        # Creates a label for values of g
+        label3 = CTkLabel(master=frame1, text="Set a prefab or custom value for g:")
+        label3.pack(anchor="center", expand=True, pady=10, padx=30)
+        label3.place(relx=0.11, rely=0.45)
+
+        # Creates input text field for a custom value of g
+        gtxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Custom value for g")
+        gtxt.place(relx=0.5, rely=0.65, anchor="n")
+
+        # Array of popular objects to obtain a prefab value for g
+        objects = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun", "Moon"]
+        # Creates a combobox to select a prefab value for g
+        combo = CTkComboBox(master=frame1, width=200, height=20, values=objects, command=g_picker, state="readonly")
+        combo.place(relx=0.5, rely=0.55, anchor="n")
+        combo.set("Use a prefab value for g")
+        
+    elif challenge == "Challenge 3":
+        # Restores to base
+        def delete3():
+            frame1.destroy()
+            frame3.destroy()
+            frame4.destroy()
+            label10.destroy()
+
+            main_menu()
+
+        # Defines parameters of frame1
+        frame1 = CTkFrame(master=app, border_width=2, width=250, height=375)
+        frame1.pack(anchor="nw", expand=True, padx=20, pady=67)
+
+        # Defines parameters of frame2
+        frame2 = CTkFrame(master=app, width=250, height=250, fg_color="#eeeeee")
+        frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+        frame2.place(relx=0.014, rely=0.655)
+        
+        # Defines parameters of frame3
+        frame3 = CTkFrame(master=app, border_width=2, height=725, width=1025)
+        frame3.pack(anchor="n", expand=True, padx=20)
+        frame3.place(relx=0.1875, rely=0.08)
+        
+        # Defines parameters of frame4
+        frame4 = CTkFrame(master=app, border_width=2, height=250, width=175)
+        frame4.pack(anchor="n", expand=True, padx=20)
+        frame4.place(relx=0.875, rely=0.08)
+        
+        # Creates a reset button
+        del_btn = CTkButton(master=frame4, text="RETURN TO HOME", command=delete3, width=100, height=30)
+        del_btn.pack(anchor="n")
+        del_btn.place(relx=0.175, rely=0.075)
+            
+        # Saves an image png of the figure when a button is pressed
+        def image_handler():
+            # Changes the path to the working directory of the project
+            path="/Users/Mark Watson/Desktop/Python Projects/BPHO/Projectiles"
+            os.chdir(path)
+            plt.savefig(fname='Challenge3.png', dpi='figure',format='png')
+            
+        def click_handler():
+            # Retrieves parameters from input fields
+            X = Xtxt.get()
+            Y = Ytxt.get()
+            u = utxt.get()
+            
+            # Strips retrieved input
+            X=float(X.rstrip("\n"))
+            Y=float(Y.rstrip("\n"))
+            u=float(u.rstrip("\n"))
+            
+            # If statement to determine what value of g should be used
+            if gtxt.get() != "":
+                 g=gtxt.get()
+                 g=float(g.rstrip("\n"))
+            else:
+                g=pre_g
+                
+            # Calculation of the minimum values of velocity, horizontal velocity, vertical velocity and angle
+            minu = math.sqrt(g) * (math.sqrt(Y + math.sqrt(X**2 + Y**2)))
+            mintheta = math.atan((Y + math.sqrt(X**2 + Y**2)) / X)
+            minux = minu * np.cos(mintheta)
+            minuy = minu * np.sin(mintheta)
+            mint = (X / minux) + 1
+
+            # Creates an empty array of x and y coordinates
+            x = []
+            y = []
+
+            # For loop to plot the trajectory of the projectile
+            for i in np.arange(0, mint, 0.01):
+                t = i
+                x.append(minux * t)
+                T = t**2
+                y.append((minuy * t) - (0.5 * g * T))
+                
+            a = (g / (2 * u**2)) * X**2
+            b =  -X
+            c = Y + ((g * X**2)/(2 * u**2))
+            
+            # Calculates angles of projection for both the high and low ball trajectories
+            low_theta = math.atan((- b - math.sqrt(b**2 - (4 * a * c)))/(2 * a))
+            high_theta = math.atan((- b + math.sqrt(b**2 - (4 * a * c)))/(2 * a))
+
+            # Calculates values for the low ball trajectory
+            low_ux = u * np.cos(low_theta)
+            low_uy = u * np.sin(low_theta)
+            low_tflight = (X / low_ux) + 1
+            
+            # Creates empty arrays of x and y coordinates for low ball
+            low_x = []
+            low_y = []
+
+            # For loop to plot the trajectory of the low ball
+            for low_i in np.arange(0, low_tflight, 0.01):
+                low_t = low_i
+                low_x.append(low_ux * low_t)
+                low_T = low_t**2
+                low_y.append((low_uy * low_t) - (0.5 * g * low_T))
+            
+            # Calculates values for the high ball trajectory
+            high_ux = u * np.cos(high_theta)
+            high_uy = u * np.sin(high_theta)
+            high_tflight = (X / high_ux) + 1
+
+            # Empty arrays for the high ball trajectories
+            high_x = []
+            high_y = []
+
+            # Plots high ball trajectories
+            for high_i in np.arange(0, high_tflight, 0.01):
+                high_t = high_i
+                # Adds x coordinate to the array
+                high_x.append(high_ux * high_t)
+                high_T = high_t**2
+                # Adds y coordinate to the arrray
+                high_y.append((high_uy * high_t) - (0.5 * g * high_T))
+
+            # Creates figure
+            fig, ax = plt.subplots()
+            
+            # Plots the graph with minimum u, low ball and high ball trajectories
+            ax.plot(x, y, label="Minimum u")
+            ax.plot(low_x, low_y, label="Low ball")
+            ax.plot(high_x, high_y, label="High ball")
+            
+            # Scatter to show the user's chosen point
+            ax.scatter(X, Y, marker="x", color="red")
+            
+            # Sets some parameters of the plot
+            ax.grid()
+            ax.set_xlabel("Displacement in x / m")
+            ax.set_ylabel("Displacement in y / m")
+            ax.set_ylim(0)
+            ax.set_xlim(0, X)
+            ax.legend()
+
+            # Creates a canvas in the app for the plot to appear
+            canvas = FigureCanvasTkAgg(fig,master=frame3)
+            canvas.get_tk_widget().place(relx=0.012, rely=0.013, height=700, width=1000)
+            canvas.draw()
+            
+            # Creates a save button for png image
+            img_btn = CTkButton(master=frame4, text="SAVE AS PNG", command=image_handler, width=100, height=30)
+            img_btn.pack(anchor="n")
+            img_btn.place(relx=0.23, rely=0.3)
+
+        # Creates title label for the plot
+        label10 = CTkLabel(master=app, text="Challenge 3: Minimum u, Low Ball &amp; High Ball", font=("Helvetica", 40))
+        label10.pack(anchor="s", expand=True, padx=10)
+        label10.place(relx=0.275, rely=0.02)
+
+        # Label showing the user where to enter parameters for the plot
+        label1 = CTkLabel(master=frame1, text="Enter Parameters Below:")
+        label1.pack(anchor="s", expand=True, pady=10, padx=30)
+        label1.place(relx=0.22, rely=0.05)
+
+        # Text field to input initial velocity
+        utxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Initial velocity in ms⁻¹")
+        utxt.place(relx=0.5, rely=0.15, anchor="n")
+
+        # Text field to input an x coordinate
+        Xtxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="x coordinate")
+        Xtxt.place(relx=0.5, rely=0.25, anchor="n")
+
+        # Text field to input a y coordinate
+        Ytxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="y coordinate")
+        Ytxt.place(relx=0.5, rely=0.35, anchor="n")
+
+        # Creates a submit button
+        btn = CTkButton(master=frame1, text="Submit", command=click_handler, width=100, height=30)
+        btn.pack(anchor="n")
+        btn.place(relx=0.3, rely=0.75)
+        
+        # Creates a label for values of g
+        label3 = CTkLabel(master=frame1, text="Set a prefab or custom value for g:")
+        label3.pack(anchor="center", expand=True, pady=10, padx=30)
+        label3.place(relx=0.11, rely=0.45)
+
+        # Creates input text field for a custom value of g
+        gtxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Custom value for g")
+        gtxt.place(relx=0.5, rely=0.65, anchor="n")
+
+        # Array of popular objects to obtain a prefab value for g
+        objects = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun", "Moon"]
+        # Creates a combobox to select a prefab value for g
+        combo = CTkComboBox(master=frame1, width=200, height=20, values=objects, command=g_picker, state="readonly")
+        combo.place(relx=0.5, rely=0.55, anchor="n")
+        combo.set("Use a prefab value for g")
+        
+    elif  challenge == "Challenge 4":
+        # Defines parameters of frame1
+        frame1 = CTkFrame(master=app, border_width=2, width=250, height=375)
+        frame1.pack(anchor="nw", expand=True, padx=20, pady=67)
+        
+        # Defines parameters of frame2
+        frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+        frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+        frame2.place(relx=0.014, rely=0.655)
+        
+        # Defines parameters of frame3
+        frame3 = CTkFrame(master=app, border_width=2, height=725, width=1025)
+        frame3.pack(anchor="n", expand=True, padx=20)
+        frame3.place(relx=0.1875, rely=0.08)
+        
+        # Defines parameters of frame4
+        frame4 = CTkFrame(master=app, border_width=2, height=250, width=175)
+        frame4.pack(anchor="n", expand=True, padx=20)
+        frame4.place(relx=0.875, rely=0.08)
+                
+        # Creates a reset button
+        del_btn = CTkButton(master=frame4, text="RETURN TO HOME", command=delete, width=100, height=30)
+        del_btn.pack(anchor="n")
+        del_btn.place(relx=0.175, rely=0.075)
+            
+        # Saves an image png of the figure when a button is pressed
+        def image_handler():
+            path="/Users/Mark Watson/Desktop/Python Projects/BPHO/Projectiles"
+            os.chdir(path)
+            plt.savefig(fname="Challenge4.png",dpi="figure", format='png')
+        
+        def click_handler():
+            # Defines parameters of frame2
+            frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+            frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+            frame2.place(relx=0.014, rely=0.655)
+
+            # Creates the label for the calculated values frame
+            label2 = CTkLabel(master=frame2, text="Calculated Values:")
+            label2.pack(anchor="center", expand=True, pady=10, padx=30)
+            label2.place(relx=0.3, rely=0.05)
+
+            # Retrieves parameters of the plot
+            u = utxt.get()
+            angle = atxt.get()
+            h = htxt.get()
+            
+            # Strips the retrieved data for further use
+            angle=float(angle.rstrip("\n"))
+            h=float(h.rstrip("\n"))
+            u=float(u.rstrip("\n"))
+            
+            # If statement to determine what value of g should be used
+            if gtxt.get() != "":
+                 g=gtxt.get()
+                 g=float(g.rstrip("\n"))
+            else:
+                g=pre_g
+            
+            # Produces an error if the height is less than 0
+            if h &lt; 0:
+                exit()
+
+            # Converts angle entered in degress to radians
+            theta = (angle * np.pi) / 180
+
+            # Resloves forces into horizontal and vertical component
+            costheta = math.cos(theta)
+            sintheta = math.sin(theta)
+
+            ux = u * costheta
+            uy = u * sintheta
+            
+            # Calculates the range and time of flight of the projectile
+            R = (u**2 / g) * (sintheta*costheta+costheta*math.sqrt(sintheta**2 + ((2 * g * h) / (u**2))))
+            tflight = R / (u * costheta)
+
+            # Creates the figure
+            fig, ax = plt.subplots()
+
+            # Creates an empty arrary for the x and y coordinates of the trajectory
+            x = []
+            y = []
+
+            # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+            for i in np.arange(0, tflight, 0.01):
+                t = i
+                x.append(ux * t)
+                T = t * t
+                y.append(h + (uy * t) - (0.5 * g * T))            
+
+            # Apogee calculation
+            apy = (0 - (uy*uy)) / (2 * g * -1) + h
+            tflight0 = 2 * uy / g
+            apx = (ux * tflight0) / 2
+            
+            # Generates the calculated values text
+            # Time of flight phrase
+            tflightph = "T=" + str(round(tflight, 2)) + " s"
+            label3 = CTkLabel(master=frame2, text=tflightph)
+            label3.pack(anchor="center", expand=True, pady=10, padx=100)
+            label3.place(x=96, y=40)
+                
+            # Range phrase
+            travel = "R=" + str(round(R, 2)) + " m"    
+            label4 = CTkLabel(master=frame2, text=travel)
+            label4.pack(anchor="center", expand=True, pady=10, padx=100)
+            label4.place(x=88, y=80)
+            
+            # Calculations for the trajectory that maximises range
+            u2 = u * u
+            tgh = 2 * g * h
+            tghu2 = (tgh) / (u2)
+            arc = (1 / (math.sqrt(2 + tghu2)))
+            
+            thetamax = np.arcsin(arc)
+            
+            max_ux = u * math.cos(thetamax)
+            max_uy = u * math.sin(thetamax)
+            
+            # Creates an empty arrary for the x and y coordinates of the trajectory
+            max_x = []
+            max_y = []
+
+            # Calculates the range and time of flight of the projectile
+            max_R = (u**2 / g) * math.sqrt(1 + (2 * g * h/ u**2))
+            max_tflight = max_R / max_ux
+
+            # Plots the parabolic path of the projectile with a timestep of 0.01s and an interval of 10s
+            for max_i in np.arange(0, max_tflight, 0.01):
+                max_t = max_i
+                max_x.append(max_ux * max_t)
+                max_T = max_t * max_t
+                max_y.append(h + (max_uy * max_t) - (0.5 * g * max_T))
+                
+            # Apogee calculation
+            max_apy = (0 - (max_uy*max_uy)) / (2 * g * -1) + h
+
+            # Compares the y values of the two apogees
+            def compapy(apy, max_apy):
+                if apy &gt; max_apy:
+                    return apy
+                else:
+                    return max_apy
+            y_graph = compapy(apy, max_apy) * 1.1 
+            
+            # Generates the calculated values text
+            # Time of flight phrase
+            tflightph = "Tₘₐₓ=" + str(round(max_tflight, 2)) + " s"
+            label5 = CTkLabel(master=frame2, text=tflightph)
+            label5.pack(anchor="center", expand=True, pady=10, padx=100)
+            label5.place(x=86, y=60)
+                
+            # Range phrase
+            travel = "Rₘₐₓ= " + str(round(max_R, 2)) + " m"    
+            label6 = CTkLabel(master=frame2, text=travel)
+            label6.pack(anchor="center", expand=True, pady=10, padx=100)
+            label6.place(x=80, y=100)
+
+            #Time of flight calculation
+            max_tflighta = 2 * max_uy / g
+            max_apx = (max_ux * max_tflighta) / 2
+
+            # Sets parameters of the plot
+            ax.set_xlabel("Displacement in x / m")
+            ax.set_ylabel("Displacement in y / m")
+            ax.set_ylim(0, y_graph)
+            ax.set_xlim(0, max_R)
+            
+            # Creates the figure
+            fig1, = ax.plot(x, y, color="blue", label="Custom Projectile")
+            # Plots the graph
+            ax.plot(max_x, max_y, color="orange", label="Maximum Range Projectile")
+            # Plots scatters showing the apogees of the trajectories
+            ax.scatter(apx, apy, color="blue")
+            ax.scatter(max_apx, max_apy, color="orange")
+            ax.grid()
+            
+            ax.legend(loc="upper right")
+            
+            # Creates a canvas in the app for the plot to appear
+            canvas = FigureCanvasTkAgg(fig,master=frame3)
+            canvas.get_tk_widget().place(relx=0.012, rely=0.013, height=700, width=1000)
+            canvas.draw()
+            
+            # Creates a save button for png image
+            img_btn = CTkButton(master=frame4, text="SAVE AS PNG", command=image_handler, width=100, height=30)
+            img_btn.pack(anchor="n")
+            img_btn.place(relx=0.23, rely=0.3)
+
+        # Creates title label for the graph
+        label10 = CTkLabel(master=app, text="Challenge 4: Custom Projectile vs Maximum Horizontal Range", font=("Helvetica", 40))
+        label10.pack(anchor="s", expand=True, padx=10)
+        label10.place(relx=0.14, rely=0.02)
+
+        # Creates the label for the parameters frame
+        label1 = CTkLabel(master=frame1, text="Enter Parameters Below:")
+        label1.pack(anchor="s", expand=True, pady=10, padx=30)
+        label1.place(relx=0.22, rely=0.05)
+
+        # Creates the label for the calculated valeues frame
+        label2 = CTkLabel(master=frame2, text="Calculated Values:")
+        label2.pack(anchor="center", expand=True, pady=10, padx=30)
+        label2.place(relx=0.3, rely=0.05)
+
+        # Creates input text fields for the parameters
+        # Initial velocity field
+        utxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Initial velocity in ms⁻¹")
+        utxt.place(relx=0.5, rely=0.15, anchor="n")
+
+        # Angle field
+        atxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Angle in °")
+        atxt.place(relx=0.5, rely=0.25, anchor="n")
+
+        # Initial height field
+        htxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Height in m")
+        htxt.place(relx=0.5, rely=0.35, anchor="n")
+
+        # Creates a submission button
+        btn = CTkButton(master=frame1, text="Submit", command=click_handler, width=100, height=30)
+        btn.pack(anchor="n")
+        btn.place(relx=0.3, rely=0.75)
+
+        # Creates a label for values of g
+        label3 = CTkLabel(master=frame1, text="Set a prefab or custom value for g:")
+        label3.pack(anchor="center", expand=True, pady=10, padx=30)
+        label3.place(relx=0.11, rely=0.45)
+
+        # Creates input text field for a custom value of g
+        gtxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Custom value for g")
+        gtxt.place(relx=0.5, rely=0.65, anchor="n")
+
+        # Array of popular objects to obtain a prefab value for g
+        objects = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun", "Moon"]
+        # Creates a combobox to select a prefab value for g
+        combo = CTkComboBox(master=frame1, width=200, height=20, values=objects, command=g_picker, state="readonly")
+        combo.place(relx=0.5, rely=0.55, anchor="n")
+        combo.set("Use a prefab value for g")
+    
+    elif challenge == "Challenge 5":
+        # Restores to base
+        def delete5():
+            frame1.destroy()
+            frame3.destroy()
+            frame4.destroy()
+            label10.destroy()
+
+            main_menu()
+  
+        # Saves an image png of the figure when a button is pressed
+        def image_handler():
+            path="/Users/Mark Watson/Desktop/Python Projects/BPHO/Projectiles"
+            os.chdir(path)
+            plt.savefig(fname="Challenge5",dpi="figure", format='png')
+
+        # Defines parameters of frame1
+        frame1 = CTkFrame(master=app, border_width=2, width=250, height=375)
+        frame1.pack(anchor="nw", expand=True, padx=20, pady=67)
+
+        # Defines parameters of frame2
+        frame2 = CTkFrame(master=app, width=250, height=250, fg_color="#eeeeee")
+        frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+        frame2.place(relx=0.014, rely=0.655)
+
+        # Defines parameters of frame3
+        frame3 = CTkFrame(master=app, border_width=2, height=725, width=1025)
+        frame3.pack(anchor="n", expand=True, padx=20)
+        frame3.place(relx=0.1875, rely=0.08)
+        
+        # Defines parameters of frame4
+        frame4 = CTkFrame(master=app, border_width=2, height=250, width=175)
+        frame4.pack(anchor="n", expand=True, padx=20)
+        frame4.place(relx=0.875, rely=0.08)
+                
+        # Creates a reset button
+        del_btn = CTkButton(master=frame4, text="RETURN TO HOME", command=delete5, width=100, height=30)
+        del_btn.pack(anchor="n")
+        del_btn.place(relx=0.175, rely=0.075)
+        
+        def click_handler2():
+            # Retrieves paramaters from input text fields
+            X = Xtxt.get()
+            Y = Ytxt.get()
+            u = utxt.get()
+            
+            # Strips the inputs so the data can be used further
+            X=float(X.rstrip("\n"))
+            Y=float(Y.rstrip("\n"))
+            u=float(u.rstrip("\n"))
+            
+            # If statement to determine what value of g should be used
+            if gtxt.get() != "":
+                 g=gtxt.get()
+                 g=float(g.rstrip("\n"))
+            else:
+                g=pre_g
+
+            # Calculates minimum values of the plot
+            minu = math.sqrt(g) * (math.sqrt(Y + math.sqrt(X**2 + Y**2)))
+            mintheta = math.atan((Y + math.sqrt(X**2 + Y**2)) / X)
+            minux = minu * np.cos(mintheta)
+            minuy = minu * np.sin(mintheta)
+            mint = 2 * (minuy / g)
+
+            # Empty array of x and y coordinates
+            x = []
+            y = []
+
+            # For loop to plot the minimum u trajectory
+            for i in np.arange(0, mint, 0.01):
+                t = i
+                x.append(minux * t)
+                T = t**2
+                y.append((minuy * t) - (0.5 * g * T))
+                
+            a = (g / (2 * u**2)) * X**2
+            b =  -X
+            c = Y + ((g * X**2)/(2 * u**2))
+
+            # Calculates angle of projection for low and high ball trajectories
+            low_theta = math.atan((- b - math.sqrt(b**2 - (4 * a * c)))/(2 * a))
+            high_theta = math.atan((- b + math.sqrt(b**2 - (4 * a * c)))/(2 * a))
+
+            # Calculates parameters for the low ball trajectory
+            low_ux = u * np.cos(low_theta)
+            low_uy = u * np.sin(low_theta)
+            low_tflight = 2 * (low_uy / g)
+
+            # Empty array of x and y coordinates for the low ball trajectory
+            low_x = []
+            low_y = []
+
+            # For loop to plot the trajecetory of the low ball
+            for low_i in np.arange(0, low_tflight, 0.01):
+                low_t = low_i
+                low_x.append(low_ux * low_t)
+                low_T = low_t**2
+                low_y.append((low_uy * low_t) - (0.5 * g * low_T))
+            
+            # Calculates high ball parameters
+            high_ux = u * np.cos(high_theta)
+            high_uy = u * np.sin(high_theta)
+            high_tflight = 2 * (high_uy / g)
+
+            # Empty array of x and y coordinates for the low ball trajectory
+            high_x = []
+            high_y = []
+
+            # Calculates high ball parameters
+            for high_i in np.arange(0, high_tflight, 0.01):
+                high_t = high_i
+                high_x.append(high_ux * high_t)
+                high_T = high_t**2
+                high_y.append((high_uy * high_t) - (0.5 * g * high_T))
+
+            # Calculations for the maximum range projectile
+            u2 = u * u
+            tgh = 2 * g
+            tghu2 = (tgh) / (u2)
+            arc = (1 / math.sqrt((2 + tghu2)))
+
+            thetamax = np.arcsin(arc)
+
+            costhetamax = math.cos(thetamax)
+            sinthetamax = math.sin(thetamax)
+
+            max_ux = u * costhetamax
+            max_uy = u * sinthetamax
+            max_tflight = 2 * (max_uy / g)
+
+            # Creates an empty arrary for the x and y coordinates of the trajectory
+            max_x = []
+            max_y = []
+
+            # Plots the trajectory of the maximum range projectile
+            for max_i in np.arange(0, max_tflight, 0.01):
+                max_t = max_i
+                max_x.append(max_ux * max_t)
+                max_T = max_t * max_t
+                max_y.append((max_uy * max_t) - (0.5 * g * max_T))
+                
+            max_range = max_tflight * max_ux
+            
+            # Adds bounding parabola
+            bounding_a = - (g / (2 * u**2))
+            bounding_c = (u**2) / (2 * g)
+            bounding_x = np.linspace(0, max_range, 100)
+            bounding_y = bounding_a * bounding_x**2 + bounding_c
+
+            # Creates figure
+            fig, ax = plt.subplots()
+
+            # Plots the curves and the user's chosen x and y coordinate
+            ax.plot(x, y, label="Minimum u", zorder=1)
+            ax.plot(low_x, low_y, label="Low Ball", zorder=2)
+            ax.plot(high_x, high_y, label="High Ball", zorder=3)
+            ax.plot(bounding_x, bounding_y, label="Bounding Parabola", zorder=4)
+            ax.plot(max_x, max_y, label="Maximum Range", zorder=5)
+            ax.scatter(X, Y, color="red", marker="x", zorder=6, label=(X,Y))
+
+            # Sets parameters of the plot
+            ax.set_xlabel("Displacement in x / m")
+            ax.set_ylabel("Displacement in y / m")
+            ax.set_ylim(0)
+            ax.grid()
+            ax.legend(loc="upper right")
+
+            ax.set_xlim(0, max_range)
+            
+            # Displays the graph in the UI
+            canvas = FigureCanvasTkAgg(fig,master=frame3)
+            canvas.draw()
+            canvas.get_tk_widget().place(relx=0.012, rely=0.013, height=700, width=1000)
+            
+            # Creates a save button for png image
+            img_btn = CTkButton(master=frame4, text="SAVE AS PNG", command=image_handler, width=100, height=30)
+            img_btn.pack(anchor="n")
+            img_btn.place(relx=0.23, rely=0.3)
+
+        # Creates title label for the graph
+        label10 = CTkLabel(master=app, text="Challenge 5: Adding the Bounding Parabola &amp; Maximum Horizontal Range", font=("Helvetica", 40))
+        label10.pack(anchor="s", expand=True, padx=10)
+        label10.place(relx=0.065, rely=0.02)    
+        
+        # Creates label to show where the user should input parameters
+        label1 = CTkLabel(master=frame1, text="Enter Parameters Below:")
+        label1.pack(anchor="s", expand=True, pady=10, padx=30)
+        label1.place(relx=0.22, rely=0.05)
+
+        # Creates text input fields for initial velocity, x coorindate, y coordinate
+        utxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Initial velocity in ms⁻¹")
+        utxt.place(relx=0.5, rely=0.15, anchor="n")
+
+        Xtxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="x coordinate")
+        Xtxt.place(relx=0.5, rely=0.25, anchor="n")
+
+        Ytxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="y coordinate")
+        Ytxt.place(relx=0.5, rely=0.35, anchor="n")
+
+        # Creates submission button
+        btn = CTkButton(master=frame1, text="Submit", command=click_handler2, width=100, height=30)
+        btn.pack(anchor="n")
+        btn.place(relx=0.3, rely=0.75)
+        
+        # Creates a label for values of g
+        label3 = CTkLabel(master=frame1, text="Set a prefab or custom value for g:")
+        label3.pack(anchor="center", expand=True, pady=10, padx=30)
+        label3.place(relx=0.11, rely=0.45)
+
+        # Creates input text field for a custom value of g
+        gtxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Custom value for g")
+        gtxt.place(relx=0.5, rely=0.65, anchor="n")
+
+        # Array of popular objects to obtain a prefab value for g
+        objects = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun", "Moon"]
+        # Creates a combobox to select a prefab value for g
+        combo = CTkComboBox(master=frame1, width=200, height=20, values=objects, command=g_picker, state="readonly")
+        combo.place(relx=0.5, rely=0.55, anchor="n")
+        combo.set("Use a prefab value for g")
+
+    elif challenge == "Challenge 6":
+        # Defines parameters of frame1
+        frame1 = CTkFrame(master=app, border_width=2, width=250, height=375)
+        frame1.pack(anchor="nw", expand=True, padx=20, pady=67)
+
+        # Defines parameters of frame2
+        frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+        frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+        frame2.place(relx=0.014, rely=0.655)
+        
+        # Defines parameters of frame3
+        frame3 = CTkFrame(master=app, border_width=2, height=725, width=1025)
+        frame3.pack(anchor="n", expand=True, padx=20)
+        frame3.place(relx=0.1875, rely=0.08)
+        
+        # Defines parameters of frame4
+        frame4 = CTkFrame(master=app, border_width=2, height=250, width=175)
+        frame4.pack(anchor="n", expand=True, padx=20)
+        frame4.place(relx=0.875, rely=0.08)
+                
+        # Creates a reset button
+        del_btn = CTkButton(master=frame4, text="RETURN TO HOME", command=delete, width=100, height=30)
+        del_btn.pack(anchor="n")
+        del_btn.place(relx=0.175, rely=0.075)
+            
+        # Saves an image png of the figure when a button is pressed
+        def image_handler():
+            path="/Users/Mark Watson/Desktop/Python Projects/BPHO/Projectiles"
+            os.chdir(path)
+            plt.savefig(fname="Challenge6.png",dpi="figure", format='png')
+        
+        def click_handler():
+            # Defines parameters of frame2
+            frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+            frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+            frame2.place(relx=0.014, rely=0.655)
+
+            # Creates the label for the calculated values frame
+            label2 = CTkLabel(master=frame2, text="Calculated Values:")
+            label2.pack(anchor="center", expand=True, pady=10, padx=30)
+            label2.place(relx=0.3, rely=0.05)
+
+            # Retrieve parameters
+            u = utxt.get()
+            angle = atxt.get()
+            h = htxt.get()
+            
+            # Strips data for further use
+            angle=float(angle.rstrip("\n"))
+            h=float(h.rstrip("\n"))
+            u=float(u.rstrip("\n"))
+            
+            # Converts from degrees to radians
+            theta = (angle * np.pi) / 180
+            
+            # If statement to determine what value of g should be used
+            if gtxt.get() != "":
+                 g=gtxt.get()
+                 g=float(g.rstrip("\n"))
+            else:
+                g=pre_g
+            
+            # Produces an error if the height is less than 0
+            if h &lt; 0:
+                exit()
+
+            # Resloves forces into horizontal and vertical component
+            costheta = math.cos(theta)
+            sintheta = math.sin(theta)
+
+            ux = u * costheta
+            uy = u * sintheta
+            
+            # Calculates the range and time of flight of the projectile
+            R = (u**2 / g) * (sintheta*costheta+costheta*math.sqrt(sintheta**2 + ((2 * g * h) / (u**2))))
+            tflight = R / (u * costheta)
+
+            # Creates the figure
+            fig, ax = plt.subplots()
+
+            # Creates an empty arrary for the x and y coordinates of the trajectory
+            x = []
+            y = []
+
+            # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+            for i in np.arange(0, tflight, 0.01):
+                t = i
+                x.append(ux * t)
+                T = t * t
+                y.append(h + (uy * t) - (0.5 * g * T))            
+
+            # Apogee calculation
+            apy = (0 - (uy*uy)) / (2 * g * -1) + h
+            tflight0 = 2 * uy / g
+            apx = (ux * tflight0) / 2
+            
+            # Generates the calculated values text
+            # Time of flight phrase
+            tflightph = "T=" + str(round(tflight, 2)) + " s"
+            label3 = CTkLabel(master=frame2, text=tflightph)
+            label3.pack(anchor="center", expand=True, pady=10, padx=100)
+            label3.place(x=80, y=40)
+                
+            # Range phrase
+            travel = "R=" + str(round(R, 2)) + " m"    
+            label4 = CTkLabel(master=frame2, text=travel)
+            label4.pack(anchor="center", expand=True, pady=10, padx=100)
+            label4.place(x=80, y=80)
+
+            # Distance travelled calculation
+            lim1 = np.tan(theta)
+            lim2 = np.tan(theta) - (g * R) / (u**2) * (1 + np.tan(theta)**2)
+            sc = u**2 / (g * (1 + np.tan(theta)**2))
+            lim1_calc = 0.5 * np.log(abs(np.sqrt(1 + lim1**2) + lim1)) + 0.5 * lim1 * np.sqrt(1 + lim1**2)
+            lim2_calc = 0.5 * np.log(abs(np.sqrt(1 + lim2**2) + lim2)) + 0.5 * lim2 * np.sqrt(1 + lim2**2)
+
+            s = sc * (lim1_calc - lim2_calc)
+
+            # Distance travelled phrase
+            dis = "s=" + str(round(s, 2)) + " m"    
+            label4 = CTkLabel(master=frame2, text=dis)
+            label4.pack(anchor="center", expand=True, pady=10, padx=100)
+            label4.place(x=80, y=120)
+            
+            # Calculates maximum theta
+            u2 = u * u
+            tgh = 2 * g * h
+            tghu2 = (tgh) / (u2)
+            arc = (1 / (math.sqrt(2 + tghu2)))
+            
+            thetamax = np.arcsin(arc)
+            
+            max_ux = u * math.cos(thetamax)
+            max_uy = u * math.sin(thetamax)
+            
+            # Creates an empty array for the x and y coordinates of the trajectory
+            max_x = []
+            max_y = []
+
+            # Calculates the range and time of flight of the projectile
+            max_R = (u**2 / g) * math.sqrt(1 + (2 * g * h/ u**2))
+            max_tflight = max_R / max_ux
+
+            # Plots the maximum range projectile
+            for max_i in np.arange(0, max_tflight, 0.01):
+                max_t = max_i
+                max_x.append(max_ux * max_t)
+                max_T = max_t * max_t
+                max_y.append(h + (max_uy * max_t) - (0.5 * g * max_T))
+                
+            # Apogee calculation
+            max_apy = (0 - (max_uy*max_uy)) / (2 * g * -1) + h
+
+            # Compares the y values of the two apogees
+            def compapy(apy, max_apy):
+                if apy &gt; max_apy:
+                    return apy
+                else:
+                    return max_apy
+            y_graph = compapy(apy, max_apy) * 1.1 
+            
+            # Generates the calculated values text
+            # Time of flight phrase
+            tflightph = "Tₘₐₓ=" + str(round(max_tflight, 2)) + " s"
+            label5 = CTkLabel(master=frame2, text=tflightph)
+            label5.pack(anchor="center", expand=True, pady=10, padx=100)
+            label5.place(x=80, y=60)
+                
+            # Range phrase
+            travel = "Rₘₐₓ= " + str(round(max_R, 2)) + " m"    
+            label6 = CTkLabel(master=frame2, text=travel)
+            label6.pack(anchor="center", expand=True, pady=10, padx=100)
+            label6.place(x=80, y=100)
+
+            # Max distance travelled calculation
+            maxlim1 = np.tan(thetamax)
+            maxlim2 = np.tan(thetamax) - (g * max_R) / (u**2) * (1 + np.tan(thetamax)**2)
+            maxsc = u**2 / (g * (1 + np.tan(thetamax)**2))
+            maxlim1_calc = 0.5 * np.log(abs(np.sqrt(1 + maxlim1**2) + maxlim1)) + 0.5 * maxlim1 * np.sqrt(1 + maxlim1**2)
+            maxlim2_calc = 0.5 * np.log(abs(np.sqrt(1 + maxlim2**2) + maxlim2)) + 0.5 * maxlim2 * np.sqrt(1 + maxlim2**2)
+
+            maxs = maxsc * (maxlim1_calc - maxlim2_calc)
+
+            # Max distance travelled phrase
+            maxdis = "sₘₐₓ=" + str(round(maxs, 2)) + " m"    
+            label4 = CTkLabel(master=frame2, text=maxdis)
+            label4.pack(anchor="center", expand=True, pady=10, padx=100)
+            label4.place(x=80, y=140)
+
+            #Time of flight calculation
+            max_tflighta = 2 * max_uy / g
+            max_apx = (max_ux * max_tflighta) / 2
+
+            # Sets parameters of the plot
+            ax.set_xlabel("Displacement in x / m")
+            ax.set_ylabel("Displacement in y / m")
+            ax.set_ylim(0, y_graph)
+            ax.set_xlim(0, max_R)
+            
+            # Creates figure
+            fig1, = ax.plot(x, y, color="blue", label="Custom Projectile")
+            # Plots graphs and apogees
+            ax.plot(max_x, max_y, color="orange", label="Maximum Range Projectile")
+            ax.scatter(apx, apy, color="blue")
+            ax.scatter(max_apx, max_apy, color="orange")
+            ax.grid()
+            
+            ax.legend(loc="upper right")
+            
+            # Creates a canvas in the app for the plot to appear
+            canvas = FigureCanvasTkAgg(fig,master=frame3)
+            canvas.get_tk_widget().place(relx=0.012, rely=0.013, height=700, width=1000)
+            canvas.draw()
+            
+            # Creates a save button for png image
+            img_btn = CTkButton(master=frame4, text="SAVE AS PNG", command=image_handler, width=100, height=30)
+            img_btn.pack(anchor="n")
+            img_btn.place(relx=0.23, rely=0.3)
+
+        label10 = CTkLabel(master=app, text="Challenge 6: Adding Distance Travelled to the Projectile Model", font=("Helvetica", 40))
+        label10.pack(anchor="s", expand=True, padx=10)
+        label10.place(relx=0.14, rely=0.02)
+
+        # Creates the label for the parameters frame
+        label1 = CTkLabel(master=frame1, text="Enter Parameters Below:")
+        label1.pack(anchor="s", expand=True, pady=10, padx=30)
+        label1.place(relx=0.22, rely=0.05)
+
+        # Creates the label for the calculated valeues frame
+        label2 = CTkLabel(master=frame2, text="Calculated Values:")
+        label2.pack(anchor="center", expand=True, pady=10, padx=30)
+        label2.place(relx=0.3, rely=0.05)
+
+        # Creates input text fields for the parameters
+        # Initial velocity field
+        utxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Initial velocity in ms⁻¹")
+        utxt.place(relx=0.5, rely=0.15, anchor="n")
+
+        # Angle field
+        atxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Angle in °")
+        atxt.place(relx=0.5, rely=0.25, anchor="n")
+
+        # Initial height field
+        htxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Height in m")
+        htxt.place(relx=0.5, rely=0.35, anchor="n")
+
+        # Creates a submission button
+        btn = CTkButton(master=frame1, text="Submit", command=click_handler, width=100, height=30)
+        btn.pack(anchor="n")
+        btn.place(relx=0.3, rely=0.75)
+
+        # Creates a label for values of g
+        label3 = CTkLabel(master=frame1, text="Set a prefab or custom value for g:")
+        label3.pack(anchor="center", expand=True, pady=10, padx=30)
+        label3.place(relx=0.11, rely=0.45)
+
+        # Creates input text field for a custom value of g
+        gtxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Custom value for g")
+        gtxt.place(relx=0.5, rely=0.65, anchor="n")
+
+        # Array of popular objects to obtain a prefab value for g
+        objects = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun", "Moon"]
+        # Creates a combobox to select a prefab value for g
+        combo = CTkComboBox(master=frame1, width=200, height=20, values=objects, command=g_picker, state="readonly")
+        combo.place(relx=0.5, rely=0.55, anchor="n")
+        combo.set("Use a prefab value for g")
+
+    elif challenge == "Challenge 7":
+        frame3 = CTkFrame(master=app, border_width=2, height=725, width=1250)
+        frame3.pack(anchor="n", expand=True, padx=20)
+        frame3.place(x = 25, rely=0.08)
+        
+        # Defines parameters of frame4
+        frame4 = CTkFrame(master=app, border_width=2, height=250, width=175)
+        frame4.pack(anchor="n", expand=True, padx=20)
+        frame4.place(relx=0.875, rely=0.08)
+   
+        # Creates a reset button
+        def delete7():
+            frame3.destroy()
+            frame4.destroy()
+            label10.destroy()
+
+            # Background image            
+            image_path = os.path.join(os.path.dirname(__file__), 'bg.png')
+            bg = CTkImage(light_image = Image.open(image_path), size=(1500,825))
+            global image_label 
+            image_label = CTkLabel(master=app, image = bg, text='')
+            image_label.place(x=0, y=0)
+            
+            # Array of challenges to select
+            challenges = ["Challenge 1 &amp; 2", "Challenge 3", "Challenge 4", "Challenge 5","Challenge 6", "Challenge 7", "Challenge 8", "Challenge 9"]
+            # Creates a combobox to select a prefab value for g
+            global chal_combo
+            chal_combo = CTkComboBox(master=app, width=300, height=50, values=challenges, command=chal_picker, state="readonly")
+            chal_combo.place(x=65, y=400)
+
+        # Function to plot r
+        def rplot(a):
+            # Paramaters
+            u = 10
+            g = 10
+
+            arad = (a * np.pi) / 180
+
+            # Sin and cos of the angle
+            sintheta = np.sin(arad)
+
+            # Creates array of r and t valuse
+            range = []
+
+            # Appends array with inital conditions
+            range.append(0)
+
+            # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+            for i in np.arange(0, 2.6, 0.01):
+                t = i
+                r = np.sqrt(u**2 * t**2 - g * t**3 * u * sintheta + 0.25 * g**2 * t**4)
+                range.append(r)
+                
+            return range
+
+        # Function to plot t
+        def tplot():
+
+            # Creates array for time valuse
+            time = []
+
+            # Appends array with inital condition
+            time.append(0)
+
+            # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+            for i in np.arange(0, 2.6, 0.01):
+                t = i
+                time.append(t)
+                
+            return time
+
+        # Passes parameters of angles 
+        r1 = rplot(30)
+        r2 = rplot(45)
+        r3 = rplot(60)
+        r4 = rplot(70.5)
+        r5 = rplot(78)
+        r6 = rplot(85)
+
+        t = tplot()
+
+        # Function to find the t coordinate of the minima
+        def mint(a):
+            u = 10
+            g = 10
+            a = a * (np.pi/180)
+
+            t = ((3 * u) / (2 * g)) * (np.sin(a) + np.sqrt(np.sin(a)**2 - (8/9)))
+
+            return t
+
+        # Calls function and passses angle parameters
+        mint1 = mint(78)
+        mint2 = mint(85)
+
+        # Function to find the r coordinate of the minima
+        def minr(a, t):
+            u = 10
+            g = 10
+            a = a * (np.pi/180)
+
+            r = np.sqrt(u**2 * t**2 - g * t**3 * u * np.sin(a) + 0.25 * g**2 * t**4)
+
+            return r
+        
+        # Calls function and passes angle and t paramaters 
+        minr1 = minr(78, mint1)
+        minr2 = minr(85, mint2)
+
+        # Function to find the t coordinate of the maxima 
+        def maxt(a):
+            u = 10
+            g = 10
+            a = a * (np.pi/180)
+
+            t = ((3 * u) / (2 * g)) * (np.sin(a) - np.sqrt(np.sin(a)**2 - (8/9)))
+
+            return t
+
+        # Calls function and passes angle parameters
+        maxt1 = maxt(78)
+        maxt2 = maxt(85)
+
+        # Function to find the r coordinate of the maxima
+        def maxr(a, t):
+            u = 10
+            g = 10
+            a = a * (np.pi/180)
+
+            r = np.sqrt(u**2 * t**2 - g * t**3 * u * np.sin(a) + 0.25 * g**2 * t**4)
+
+            return r
+
+        # Calls the function and passes t coordinates and angles
+        maxr1 = maxr(78, maxt1)
+        maxr2 = maxr(85, maxt2)
+
+        # Finds t and r coordinate of the point of inflection
+        def stat():
+            u = 10
+            g = 10
+
+            t = (u / g) * np.sqrt(2)
+
+            return t 
+        
+        stat1 = stat()
+
+        def star(a, t):
+            u = 10
+            g = 10
+            a = a * (np.pi / 180)
+
+            r = np.sqrt(u**2 * t**2 - g * t**3 * u * np.sin(a) + 0.25 * g**2 * t**4)
+
+            return r    
+        
+        star1 = star(70.5, stat1) 
+
+        fig1, ax = plt.subplots()
+
+        # Sets the parameters of the plot
+        ax.set_xlabel("Time, t / s")
+        ax.set_ylabel("Range, r / m")
+        ax.set_ylim(0, 30)
+        ax.set_xlim(0, 2.5)
+        ax.set_title("Range, r against time, t")
+
+        # Components to be plotted
+        ax.plot(t, r1, label="θ = 30°")
+        ax.plot(t, r2, label="θ = 45°")
+        ax.plot(t, r3, label="θ = 60°")
+        ax.plot(t, r4, label="θ = 70.5°")
+        ax.plot(t, r5, label="θ = 78°")
+        ax.plot(t, r6, label="θ = 85°")
+        
+        # Plots minima
+        ax.scatter(mint1, minr1, color="black", marker="x")
+        ax.scatter(mint2, minr2, color="black", marker="x")
+
+        # Plots maxima
+        ax.scatter(maxt1, maxr1, color="red", marker="x")
+        ax.scatter(maxt2, maxr2, color="red", marker="x")
+
+        # Plots point of inflection
+        ax.scatter(stat1, star1, color="blue", marker="x")
+
+        ax.grid()
+
+        ax.legend()
+            
+        def xplot(a):
+            u = 10
+            g = 10
+
+            arad = (a * np.pi) / 180
+
+            ux = u * np.cos(arad)
+
+            # Creates an empty arrary for the x and y coordinates of the trajectory
+            x = []
+
+            # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+            for i in np.arange(0, 3, 0.01):
+                t = i
+                x.append(ux * t)
+
+            return x
+
+        def yplot(a):
+            u = 10
+            g = 10
+            h = 0
+
+            arad = (a * np.pi) / 180
+
+            uy = u * np.sin(arad)
+
+            # Creates an empty arrary for the x and y coordinates of the trajectory
+            y = []
+
+            # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+            for i in np.arange(0, 3, 0.01):
+                t = i
+                T = t * t
+                y.append(h + (uy * t) - (0.5 * g * T))   
+
+            return y    
+
+        # Plots maxima, minima and inflection points on y against x graph
+        
+        # Function to find x coordinate of each stationary point
+        def stax(a, t):
+            u = 10
+            g = 10
+            a = a * (np.pi / 180)
+
+            ux = u * np.cos(a)
+
+            x = ux * t
+
+            return x
+
+        # Calls function and passes paramters angle and t
+        stax1 = stax(78, mint1)
+        stax2 = stax(85, mint2)
+        stax3 = stax(78, maxt1)
+        stax4 = stax(85, maxt2)
+        stax5 = stax(70.5, stat1)
+
+        # Function to find the y coordinate of each stationary point
+        def stay(a, t):
+            u = 10
+            g = 10
+            a = a * (np.pi / 180)
+
+            uy = u * np.sin(a)
+
+            y = uy * t - 0.5 * g * t**2
+
+            return y
+
+        # Calls function and passes paramaters angle and t
+        stay1 = stay(78, mint1)
+        stay2 = stay(85, mint2)
+        stay3 = stay(78, maxt1)
+        stay4 = stay(85, maxt2)
+        stay5 = stay(70.5, stat1)
+
+        fig2, ax = plt.subplots()
+
+        # Passes parameters of angles 
+        x1 = xplot(30)
+        x2 = xplot(45)
+        x3 = xplot(60)
+        x4 = xplot(70.5)
+        x5 = xplot(78)
+        x6 = xplot(85)
+
+        # Passes parameters of angles 
+        y1 = yplot(30)
+        y2 = yplot(45)
+        y3 = yplot(60)
+        y4 = yplot(70.5)
+        y5 = yplot(78)
+        y6 = yplot(85)
+
+        # Components to be plotted
+        ax.plot(x1, y1, label="θ = 30°")
+        ax.plot(x2, y2, label="θ = 45°")
+        ax.plot(x3, y3, label="θ = 60°")
+        ax.plot(x4, y4, label="θ = 70.5°")
+        ax.plot(x5, y5, label="θ = 78°")
+        ax.plot(x6, y6, label="θ = 85°")
+        ax.grid()
+
+        # Plots stationary points
+        ax.scatter(stax1, stay1, color="black", marker="x")
+        ax.scatter(stax2, stay2, color="black", marker="x")
+        ax.scatter(stax3, stay3, color="red", marker="x")
+        ax.scatter(stax4, stay4, color="red", marker="x")
+        ax.scatter(stax5, stay5, color="blue", marker="x")
+
+        # Sets the parameters of the plot
+        ax.set_xlabel("Displacement in x / m")
+        ax.set_ylabel("Displacement in y / m")
+        ax.set_ylim(-5, 5)
+        ax.set_xlim(0, 15)
+        ax.set_title("Trajectories")
+
+        ax.legend()
+            
+        # Creates a canvas in the app for the plot to appear
+        canvas = FigureCanvasTkAgg(fig1,master=frame3)
+        canvas.get_tk_widget().place(x=15, rely=0.013, height=700, width=600)
+        canvas.draw()
+
+        # Creates a canvas in the app for the plot to appear
+        canvas = FigureCanvasTkAgg(fig2,master=frame3)
+        canvas.get_tk_widget().place(x=635, rely=0.013, height=700, width=600)
+        canvas.draw()
+
+        del_btn = CTkButton(master=frame4, text="RETURN TO HOME", command=delete7, width=100, height=30)
+        del_btn.pack(anchor="n")
+        del_btn.place(relx=0.175, rely=0.075)
+
+        label10 = CTkLabel(master=app, text="Challenge 7: Minima and Maxima", font=("Helvetica", 40))
+        label10.pack(anchor="s", expand=True, padx=10)
+        label10.place(relx=0.3, rely=0.02)
+
+    elif challenge == "Challenge 8":
+        # Defines parameters of frame1
+        frame1 = CTkFrame(master=app, border_width=2, width=250, height=450)
+        frame1.pack(anchor="nw", expand=True, padx=20, pady=67)
+
+        # Defines parameters of frame2
+        frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+        frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+        frame2.place(relx=0.014, rely=0.655)
+        
+        # Defines parameters of frame3
+        frame3 = CTkFrame(master=app, border_width=2, height=725, width=1025)
+        frame3.pack(anchor="n", expand=True, padx=20)
+        frame3.place(relx=0.1875, rely=0.08)
+        
+        # Defines parameters of frame4
+        frame4 = CTkFrame(master=app, border_width=2, height=250, width=175)
+        frame4.pack(anchor="n", expand=True, padx=20)
+        frame4.place(relx=0.875, rely=0.08)
+        
+        # Creates a reset button
+        del_btn = CTkButton(master=frame4, text="RETURN TO HOME", command=delete, width=100, height=30)
+        del_btn.pack(anchor="n")
+        del_btn.place(relx=0.175, rely=0.075)  
+
+        def click_handler():
+            # Defines parameters of frame2
+            frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+            frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+            frame2.place(relx=0.014, rely=0.655)
+
+            # Creates the label for the calculated valeues frame
+            label2 = CTkLabel(master=frame2, text="Calculated Values:")
+            label2.pack(anchor="center", expand=True, pady=10, padx=30)
+            label2.place(relx=0.3, rely=0.05)
+
+            # Verlet procedure
+            def verlet(N, C, g, dt, h, a, u):
+                # Initial conditions
+                a = a * (np.pi/180)
+                nbounce = 0
+                t = 0
+                x = 0
+                y = h
+                ux = u * np.cos(a)
+                uy = u * np.sin(a)
+
+                # Defines global arrays plotx and ploty
+                plotx = []
+                ploty = []
+
+                while nbounce &lt;= N:
+                    # Acceleration
+                    ax = 0
+                    ay = -g
+
+                    # Updating position
+                    x = x + ux * dt + 0.5 * ax * dt**2
+                    y = y + uy * dt + 0.5 * ay * dt**2
+                        
+                    # Appends x and y arrays
+                    plotx.append(x)
+                    ploty.append(y)
+
+                    # Update acceleration (Stays the same)
+                    aax = 0
+                    aay = -g
+
+                    # Update velocity
+                    ux = ux + 0.5 * (ax + aax) * dt
+                    uy = uy + 0.5 * (ay + aay) * dt
+
+                    # Checks if the height of the ball is greater than 0
+                    if y &lt; 0:
+                        y = 0
+                        uy = -C * uy
+                        nbounce = nbounce + 1
+
+                    t = t + dt
+
+                # Time of flight of the ball
+                tflight = t
+
+                return tflight, plotx, ploty
+
+            # Retrieves selected parameters
+
+            N = Ntxt.get()
+            N = float(N.rstrip("\n"))
+
+            C = Ctxt.get()
+            C = float(C.rstrip("\n"))
+
+            # If statement to determine what value of g should be used
+            if gtxt.get() != "":
+                 g=gtxt.get()
+                 g=float(g.rstrip("\n"))
+            else:
+                g=pre_g
+
+            dt = dttxt.get()
+            dt = float(dt.rstrip("\n"))
+
+            h = htxt.get()
+            h = float(h.rstrip("\n"))
+
+            a = atxt.get()
+            a = float(a.rstrip("\n"))
+
+            u = utxt.get()
+            u = float(u.rstrip("\n"))
+
+            tflight, plotx, ploty = verlet(N, C, g, dt, h, a, u)
+
+            # Generates the calculated values text
+            # Time of flight phrase
+            tflightph = "Time of flight: " + str(round(tflight, 2)) + " s"
+            label5 = CTkLabel(master=frame2, text=tflightph)
+            label5.pack(anchor="center", expand=True, pady=10, padx=100)
+            label5.place(relx=0.27, rely=0.2)
+
+            # Result of the UI switcher
+            animcheck = switcher()
+
+            # If the slider of the switcher is off, a normal graph is plotted
+            if animcheck == 0:
+                # Resets frame
+                # Defines parameters of frame4
+                frame4 = CTkFrame(master=app, border_width=2, height=250, width=175)
+                frame4.pack(anchor="n", expand=True, padx=20)
+                frame4.place(relx=0.875, rely=0.08)
+                
+                # Creates a reset button
+                del_btn = CTkButton(master=frame4, text="RETURN TO HOME", command=delete, width=100, height=30)
+                del_btn.pack(anchor="n")
+                del_btn.place(relx=0.175, rely=0.075)
+
+                # Plotting and grid
+                fig, ax = plt.subplots()
+                ax.plot(plotx, ploty)
+                ax.grid()
+
+                # Axes limits
+                ax.set_xlim(0)
+                ax.set_ylim(0)
+
+                # Saves an image png of the figure when a button is pressed
+                def image_handler():
+                    path="/Users/Mark Watson/Desktop/Python Projects/BPHO/Projectiles"
+                    os.chdir(path)
+                    fig.savefig(fname='Challenge8.png',dpi='figure', format='png')
+                
+                # Creates a save button for png image
+                img_btn = CTkButton(master=frame4, text="SAVE AS PNG", command=image_handler, width=100, height=30)
+                img_btn.pack(anchor="n")
+                img_btn.place(relx=0.23, rely=0.3)
+
+            # Otherwise, an animation is plotted
+            elif animcheck == 1:
+                # Resets frame
+                # Defines parameters of frame4
+                frame4 = CTkFrame(master=app, border_width=2, height=250, width=175)
+                frame4.pack(anchor="n", expand=True, padx=20)
+                frame4.place(relx=0.875, rely=0.08)
+                
+                # Creates a reset button
+                del_btn = CTkButton(master=frame4, text="RETURN TO HOME", command=delete, width=100, height=30)
+                del_btn.pack(anchor="n")
+                del_btn.place(relx=0.175, rely=0.075)
+
+                fig, ax = plt.subplots()
+                ax.grid()
+
+                # Creates markers for the ball and trajectory
+                line, = ax.plot([], [], 'r-')
+                ball, = ax.plot([], [], 'ro', markersize=10)
+
+                # Initialises parameters for the animation
+                def init():
+                    # Axes limits
+                    ax.set_xlim(0, max(plotx))
+                    ax.set_ylim(0, (max(ploty) + 0.1 * max(ploty)))
+                    
+                    # Initialises ball and line
+                    line.set_data([], [])
+                    ball.set_data([], [])
+
+                    return line, ball
+
+                # Updates the position of the line and ball for every frame of the animation
+                def update(frame):
+                    line.set_data(plotx[:frame], ploty[:frame])
+                    ball.set_data(plotx[frame], ploty[frame])
+
+                    return line, ball
+
+                # Create an animation with FuncAnimation
+                ani = animation.FuncAnimation(fig, update, frames=range(len(plotx)), init_func=init, interval=10, blit=True)
+
+                def anim_handler():
+                    path="/Users/Mark Watson/Desktop/Python Projects/BPHO/Projectiles"
+                    os.chdir(path)
+
+                    writer = animation.PillowWriter(fps=15, metadata=dict(artist='Me'), bitrate=1800)
+                    ani.save('Challenge8.gif', writer=writer)
+
+                # Creates a save button for png image
+                anim_btn = CTkButton(master=frame4, text="SAVE ANIMATION", command=anim_handler, width=100, height=30)
+                anim_btn.pack(anchor="n")
+                anim_btn.place(relx=0.19, rely=0.3)
+            
+            # Creates a canvas in the app for the plot to appear
+            canvas = FigureCanvasTkAgg(fig,master=frame3)
+            canvas.get_tk_widget().place(relx=0.012, rely=0.013, height=700, width=1000)
+            canvas.draw()
+
+        label10 = CTkLabel(master=app, text="Challenge 8: The Bouncing Ball", font=("Helvetica", 40))
+        label10.pack(anchor="s", expand=True, padx=10)
+        label10.place(relx=0.35, rely=0.02)
+
+        # Creates the label for the parameters frame
+        label1 = CTkLabel(master=frame1, text="Enter Parameters Below:")
+        label1.pack(anchor="s", expand=True, pady=10, padx=30)
+        label1.place(relx=0.22, rely=0.05)
+
+        # Creates the label for the calculated valeues frame
+        label2 = CTkLabel(master=frame2, text="Calculated Values:")
+        label2.pack(anchor="center", expand=True, pady=10, padx=30)
+        label2.place(relx=0.3, rely=0.05)
+
+        # Creates input text fields for the parameters
+        # Initial velocity field
+        utxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Initial velocity in ms⁻¹")
+        utxt.place(relx=0.5, rely=0.125, anchor="n")
+
+        # Angle field
+        atxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Angle in °")
+        atxt.place(relx=0.5, rely=0.2, anchor="n")
+
+        # Initial height field
+        htxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Height in m")
+        htxt.place(relx=0.5, rely=0.275, anchor="n")
+
+        # Coefficient of restitution field
+        Ctxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Coefficient of restitution")
+        Ctxt.place(relx=0.5, rely=0.35, anchor="n")
+
+        # Number of bounces field
+        Ntxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Maximum number of bounces")
+        Ntxt.place(relx=0.5, rely=0.425, anchor="n")
+
+        # Timestep field
+        dttxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Timestep in s")
+        dttxt.place(relx=0.5, rely=0.5, anchor="n")
+
+        # Switch and function to enable animation
+        def switcher():
+            animcheck = switch_var.get()
+            
+            return animcheck
+
+        switch_var = customtkinter.IntVar(value=0)
+        switch = CTkSwitch(master=frame1, text="Enable Animation", variable=switch_var, onvalue=1, offvalue=0)    
+        switch.place(x=47.5, rely=0.81)
+
+        # Creates a submission button
+        btn = CTkButton(master=frame1, text="Submit", command=click_handler, width=100, height=30)
+        btn.pack(anchor="n")
+        btn.place(relx=0.3, rely=0.9)
+
+        # Creates a label for values of g
+        label3 = CTkLabel(master=frame1, text="Set a prefab or custom value for g:")
+        label3.pack(anchor="center", expand=True, pady=10, padx=30)
+        label3.place(relx=0.11, rely=0.575)
+
+        # Creates input text field for a custom value of g
+        gtxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Enter a custom value for g")
+        gtxt.place(relx=0.5, rely=0.725, anchor="n")
+
+        # Array of popular objects to obtain a prefab value for g
+        objects = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun", "Moon"]
+        # Creates a combobox to select a prefab value for g
+        combo = CTkComboBox(master=frame1, width=200, height=20, values=objects, command=g_picker, state="readonly")
+        combo.place(relx=0.5, rely=0.65, anchor="n")
+        combo.set("Use a prefab value for g") 
+
+    elif challenge == "Challenge 9":
+        def display():
+            # Deletes challenge and returns to main menu
+            def delete9a():
+                frame1.destroy()
+                frame2.destroy()
+                frame3.destroy()
+                frame4.destroy()
+                label10.destroy()
+
+                main_menu()
+
+            # Deletes challenge 9 but does not open main menu
+            def delete9b():
+                frame1.destroy()
+                frame2.destroy()
+                frame3.destroy()
+                frame4.destroy()
+                label10.destroy()
+
+            def c_drag_picker():
+                # Reset
+                delete9b()
+                menu_delete()
+                
+                # Creates background for menu to select projectile
+                image_path = os.path.join(os.path.dirname(__file__), 'projectile_picker.png')
+
+                projectile_picker = CTkImage(light_image = Image.open(image_path), size=(1500,825)) 
+                image_label2 = CTkLabel(master=app, image = projectile_picker, text='')
+                image_label2.place(x=0, y=0)
+
+                # Creates 10 radio button options for the user to select a desireable drag coefficient
+                # Creates the radio_var variable to store the result of the radio button
+                global radio_var            
+                radio_var = StringVar(value = "other")
+
+                rad1 = CTkRadioButton(master=app, text=" ", value="Projectile 1", variable=radio_var, bg_color="#eeeeee")
+                rad1.place(x=500, y=200)
+
+                rad2 = CTkRadioButton(master=app, text=" ", value="Projectile 2", variable=radio_var, bg_color="#eeeeee")
+                rad2.place(x=500, y=337.5)
+
+                rad3 = CTkRadioButton(master=app, text=" ", value="Projectile 3", variable=radio_var, bg_color="#eeeeee")
+                rad3.place(x=500, y=475)
+
+                rad4 = CTkRadioButton(master=app, text=" ", value="Projectile 4", variable=radio_var, bg_color="#eeeeee")
+                rad4.place(x=500, y=612.5)
+
+                rad5 = CTkRadioButton(master=app, text=" ", value="Projectile 5", variable=radio_var, bg_color="#eeeeee")
+                rad5.place(x=500, y=750)
+
+                rad6 = CTkRadioButton(master=app, text=" ", value="Projectile 6", variable=radio_var, bg_color="white")
+                rad6.place(x=1250, y=200)
+
+                rad7 = CTkRadioButton(master=app, text=" ", value="Projectile 7", variable=radio_var, bg_color="white")
+                rad7.place(x=1250, y=337.5)
+
+                rad8 = CTkRadioButton(master=app, text=" ", value="Projectile 8", variable=radio_var, bg_color="white")
+                rad8.place(x=1250, y=475)
+
+                rad9 = CTkRadioButton(master=app, text=" ", value="Projectile 9", variable=radio_var, bg_color="white")
+                rad9.place(x=1250, y=612.5)
+
+                rad10 = CTkRadioButton(master=app, text=" ", value="Custom", variable=radio_var, bg_color="white")
+                rad10.place(x=1325, y=715)
+
+                # Creates a procedure to return to the main menu
+                def delete_picker1a():
+                    image_label2.destroy()
+                    rad1.destroy()
+                    rad2.destroy()
+                    rad3.destroy()
+                    rad4.destroy()
+                    rad5.destroy()
+                    rad6.destroy()
+                    rad7.destroy()
+                    rad8.destroy()
+                    rad9.destroy()
+                    rad10.destroy()
+                    del_btn.destroy()
+                    btn.destroy()
+                    c_dragtxt.destroy()
+
+                    delete9a()
+
+                # Procedure to select a drag coefficient            
+                def delete_picker2a():
+                    image_label2.destroy()
+                    rad1.destroy()
+                    rad2.destroy()
+                    rad3.destroy()
+                    rad4.destroy()
+                    rad5.destroy()
+                    rad6.destroy()
+                    rad7.destroy()
+                    rad8.destroy()
+                    rad9.destroy()
+                    rad10.destroy()
+                    del_btn.destroy()
+                    btn.destroy()
+
+                    # Obtains value for drag coefficient entered into the text field
+                    if radio_var.get() == "Custom":
+                        global customc_drag
+                        customc_drag = c_dragtxt.get()                    
+                        customc_drag=float(customc_drag.rstrip("\n"))
+
+                    c_dragtxt.destroy()
+                        
+                    display()
+                    
+                c_dragtxt = CTkEntry(master=app, width=200, height=50, placeholder_text="Enter a custom drag coefficient")
+                c_dragtxt.place(x=1075, y=700)
+
+                # Creates a reset button
+                del_btn = CTkButton(master=app, text="RETURN TO HOME", command=delete_picker1a, width=100, height=50)
+                del_btn.pack(anchor="n")
+                del_btn.place(x=1250, y=50)
+
+                # Creates a submission button
+                btn = CTkButton(master=app, text="SUBMIT", command=delete_picker2a, width=100, height=50)
+                btn.pack(anchor="n")
+                btn.place(x=1050, y=50)
+
+            # Defines parameters of frame1
+            frame1 = CTkFrame(master=app, border_width=2, width=250, height=450)
+            frame1.pack(anchor="nw", expand=True, padx=20, pady=67)
+
+            # Defines parameters of frame2
+            frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+            frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+            frame2.place(relx=0.014, rely=0.655)
+            
+            # Defines parameters of frame3
+            frame3 = CTkFrame(master=app, border_width=2, height=725, width=1025)
+            frame3.pack(anchor="n", expand=True, padx=20)
+            frame3.place(relx=0.1875, rely=0.08)
+            
+            # Defines parameters of frame4
+            frame4 = CTkFrame(master=app, border_width=2, height=250, width=175)
+            frame4.pack(anchor="n", expand=True, padx=20)
+            frame4.place(relx=0.875, rely=0.08)
+            
+            # Creates a reset button
+            del_btn = CTkButton(master=frame4, text="RETURN TO HOME", command=delete9a, width=100, height=30)
+            del_btn.pack(anchor="n")
+            del_btn.place(relx=0.175, rely=0.075)
+
+            # Function that occurs when the submit button is pressed
+            def click_handler():
+                # Determines a value for the coefficient of drag based on the user's preference
+                if radio_var.get() == "Projectile 1":
+                    c_drag = 0.47
+                elif radio_var.get() == "Projectile 2":
+                    c_drag = 0.42
+                elif radio_var.get() == "Projectile 3":
+                    c_drag = 0.5
+                elif radio_var.get() == "Projectile 4":                
+                    c_drag = 1.0
+                elif radio_var.get() == "Projectile 5":
+                    c_drag = 0.8
+                elif radio_var.get() == "Projectile 6":
+                    c_drag = 0.82
+                elif radio_var.get() == "Projectile 7":
+                    c_drag = 1.15
+                elif radio_var.get() == "Projectile 8":
+                    c_drag = 0.04
+                elif radio_var.get() == "Projectile 9":
+                    c_drag = 0.09
+                elif radio_var.get() == "Custom":
+                    c_drag = customc_drag
+                else:
+                    c_drag = 1
+            
+                # Defines parameters of frame2
+                frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+                frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+                frame2.place(relx=0.014, rely=0.655)
+
+                # Creates the label for the calculated valeues frame
+                label2 = CTkLabel(master=frame2, text="Calculated Values:")
+                label2.pack(anchor="center", expand=True, pady=10, padx=30)
+                label2.place(relx=0.3, rely=0.05)
+                
+                # Takes parameters u, angle and h from input text fields
+                u = utxt.get()
+                angle = atxt.get()
+                h = htxt.get()
+                
+                # If statement to determine what value of g should be used
+                if gtxt.get() != "":
+                    g=gtxt.get()
+                    g=float(g.rstrip("\n"))
+                else:
+                    g=pre_g
+                
+                # Strips the text to remove blank spaces
+                angle=float(angle.rstrip("\n"))
+                h=float(h.rstrip("\n"))
+                u=float(u.rstrip("\n"))
+                
+                # Converts the angle to radians
+                theta = (angle * np.pi) / 180
+                
+                # Produces an error if the height is less than 0
+                if h &lt; 0:
+                    exit()
+
+                # Resloves forces into horizontal and vertical component
+                costheta = math.cos(theta)
+                sintheta = math.sin(theta)
+
+                ux = u * costheta
+                uy = u * sintheta
+                
+                # Calculates the range and time of flight of the projectile
+                R = (u**2 / g) * (sintheta*costheta+costheta*math.sqrt(sintheta**2 + ((2 * g * h) / (u**2))))
+                tflight = R / (u * costheta)
+
+                # Creates an empty arrary for the x and y coordinates of the trajectory
+                x = []
+                y = []
+
+                # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+                for i in np.arange(0, tflight, 0.01):
+                    t = i
+                    x.append(ux * t)
+                    T = t * t
+                    y.append(h + (uy * t) - (0.5 * g * T))            
+
+                # Apogee calculation
+                apy = (0 - (uy*uy)) / (2 * g * -1) + h
+                y_graph = apy + 5
+                
+                # Generates the calculated values text
+                # Time of flight phrase
+                tflightph = "Time of flight: " + str(round(tflight, 2)) + " s"
+                label5 = CTkLabel(master=frame2, text=tflightph)
+                label5.pack(anchor="center", expand=True, pady=10, padx=100)
+                label5.place(relx=0.27, rely=0.2)
+                    
+                # Range phrase
+                travel = "Range: " + str(round(R, 2)) + " m"    
+                label6 = CTkLabel(master=frame2, text=travel)
+                label6.pack(anchor="center", expand=True, pady=10, padx=100)
+                label6.place(relx=0.31, rely=0.35)
+
+                # Parameters to determine k
+                density = densitytxt.get()
+                m = mtxt.get()
+                A = Atxt.get()
+                dt = 0.01
+
+                density=float(density.rstrip("\n"))
+                m=float(m.rstrip("\n"))
+                A=float(A.rstrip("\n"))
+
+                # Calculation for k
+                k = (0.5 * c_drag * density * A) / m
+
+                # Creates arrays for air resistance x and y values
+                x_plot = []
+                y_plot = []
+
+                # Sets initial x and y values
+                d_x = 0
+                d_y = h
+                
+                # Adds initial x and y values to the arrays
+                x_plot.append(d_x)
+                y_plot.append(d_y)
+
+                # Verlet method to update the acceleration, velocity and position of the projectile after each discrete timestep
+                n = 0
+                t_drag = 0
+                while y_plot[n] &gt;= 0:
+                    t_drag = t_drag + dt
+                    ax = - (ux / u) * k * u**2
+                    ay = - g - (uy / u) * k * u**2
+                    d_x = d_x + ux * dt + 0.5 * ax * dt**2
+                    d_y = d_y + uy * dt + 0.5 * ay * dt**2
+                    x_plot.append(d_x)
+                    y_plot.append(d_y)
+                    ux = ux + ax * dt
+                    uy = uy + ay * dt
+                    u = math.sqrt(ux**2 + uy**2)
+
+                    n = n + 1
+
+                # Generates the calculated values text
+                # Time of flight phrase for drag
+                tflightph = "Time of flight (drag): " + str(round(t_drag, 2)) + " s"
+                label5 = CTkLabel(master=frame2, text=tflightph)
+                label5.pack(anchor="center", expand=True, pady=10, padx=100)
+                label5.place(relx=0.27, rely=0.5)
+
+                R_drag = x_plot[n]
+                # Range phrase for drag
+                travel = "Range (drag): " + str(round(R_drag, 2)) + " m"    
+                label6 = CTkLabel(master=frame2, text=travel)
+                label6.pack(anchor="center", expand=True, pady=10, padx=100)
+                label6.place(relx=0.31, rely=0.65)
+
+                # Creates the figure
+                fig, ax = plt.subplots()
+
+                # Sets the parameters of the plot
+                ax.set_xlabel("Displacement in x / m")
+                ax.set_ylabel("Displacement in y / m")
+                ax.set_ylim(0, y_graph)
+                ax.set_xlim(0, R)
+
+                # Components to be plotted
+                ax.plot(x, y, label="No Air Resistance")
+                ax.grid()
+                ax.plot(x_plot, y_plot, label="Air Resistance")
+
+                ax.legend()
+                
+                # Creates a canvas in the app for the plot to appear
+                canvas = FigureCanvasTkAgg(fig,master=frame3)
+                canvas.get_tk_widget().place(relx=0.012, rely=0.013, height=700, width=1000)
+                canvas.draw()
+
+                # Saves an image png of the figure when a button is pressed
+                def image_handler():
+                    path="/Users/Mark Watson/Desktop/Python Projects/BPHO/Projectiles"
+                    os.chdir(path)
+                    fig.savefig(fname='Challenge9.png',dpi='figure', format='png')
+                
+                # Creates a save button for png image
+                img_btn = CTkButton(master=frame4, text="SAVE AS PNG", command=image_handler, width=100, height=30)
+                img_btn.pack(anchor="n")
+                img_btn.place(relx=0.23, rely=0.3)
+
+            label10 = CTkLabel(master=app, text="Challenge 9: The effects of Air Resistance", font=("Helvetica", 40))
+            label10.pack(anchor="s", expand=True, padx=10)
+            label10.place(relx=0.3, rely=0.02)
+
+            # Creates the label for the parameters frame
+            label1 = CTkLabel(master=frame1, text="Enter Parameters Below:")
+            label1.pack(anchor="s", expand=True, pady=10, padx=30)
+            label1.place(relx=0.22, rely=0.05)
+
+            # Creates the label for the calculated valeues frame
+            label2 = CTkLabel(master=frame2, text="Calculated Values:")
+            label2.pack(anchor="center", expand=True, pady=10, padx=30)
+            label2.place(relx=0.3, rely=0.05)
+
+            # Creates input text fields for the parameters
+            # Initial velocity field
+            utxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Initial velocity in ms⁻¹")
+            utxt.place(relx=0.5, rely=0.125, anchor="n")
+
+            # Angle field
+            atxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Angle in °")
+            atxt.place(relx=0.5, rely=0.2, anchor="n")
+
+            # Initial height field
+            htxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Height in m")
+            htxt.place(relx=0.5, rely=0.275, anchor="n")
+
+            # Air density field
+            densitytxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Air density in kgm⁻³")
+            densitytxt.place(relx=0.5, rely=0.35, anchor="n")
+
+            # Mass field
+            mtxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Mass of the projectile in kg")
+            mtxt.place(relx=0.5, rely=0.425, anchor="n")
+
+            # Area field
+            Atxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Cross-sectional area in m²")
+            Atxt.place(relx=0.5, rely=0.5, anchor="n")
+
+            # Allows the user to select a different drag coefficient
+            btn = CTkButton(master=frame1, text="Change Drag Coefficient", command=c_drag_picker, width=100, height=30)
+            btn.place(relx=0.2, rely=0.8)
+
+            # Creates a submission button
+            btn = CTkButton(master=frame1, text="Submit", command=click_handler, width=100, height=30)
+            btn.pack(anchor="n")
+            btn.place(relx=0.3, rely=0.9)
+
+            # Creates a label for values of g
+            label3 = CTkLabel(master=frame1, text="Set a prefab or custom value for g:")
+            label3.pack(anchor="center", expand=True, pady=10, padx=30)
+            label3.place(relx=0.11, rely=0.575)
+
+            # Creates input text field for a custom value of g
+            gtxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Enter a custom value for g")
+            gtxt.place(relx=0.5, rely=0.725, anchor="n")
+
+            # Array of popular objects to obtain a prefab value for g
+            objects = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun", "Moon"]
+            # Creates a combobox to select a prefab value for g
+            combo = CTkComboBox(master=frame1, width=200, height=20, values=objects, command=g_picker, state="readonly")
+            combo.place(relx=0.5, rely=0.65, anchor="n")
+            combo.set("Use a prefab value for g")
+
+        # Creates background for menu to select projectile
+        image_path = os.path.join(os.path.dirname(__file__), 'projectile_picker.png')
+
+        projectile_picker = CTkImage(light_image = Image.open(image_path), size=(1500,825)) 
+        image_label2 = CTkLabel(master=app, image = projectile_picker, text='')
+        image_label2.place(x=0, y=0)
+
+        # Creates 10 radio button options for the user to select a desireable drag coefficient
+        # Creates the radio_var variable to store the result of the radio button
+        global radio_var            
+        radio_var = StringVar(value = "other")
+
+        rad1 = CTkRadioButton(master=app, text=" ", value="Projectile 1", variable=radio_var, bg_color="#eeeeee")
+        rad1.place(x=500, y=200)
+
+        rad2 = CTkRadioButton(master=app, text=" ", value="Projectile 2", variable=radio_var, bg_color="#eeeeee")
+        rad2.place(x=500, y=337.5)
+
+        rad3 = CTkRadioButton(master=app, text=" ", value="Projectile 3", variable=radio_var, bg_color="#eeeeee")
+        rad3.place(x=500, y=475)
+
+        rad4 = CTkRadioButton(master=app, text=" ", value="Projectile 4", variable=radio_var, bg_color="#eeeeee")
+        rad4.place(x=500, y=612.5)
+
+        rad5 = CTkRadioButton(master=app, text=" ", value="Projectile 5", variable=radio_var, bg_color="#eeeeee")
+        rad5.place(x=500, y=750)
+
+        rad6 = CTkRadioButton(master=app, text=" ", value="Projectile 6", variable=radio_var, bg_color="white")
+        rad6.place(x=1250, y=200)
+
+        rad7 = CTkRadioButton(master=app, text=" ", value="Projectile 7", variable=radio_var, bg_color="white")
+        rad7.place(x=1250, y=337.5)
+
+        rad8 = CTkRadioButton(master=app, text=" ", value="Projectile 8", variable=radio_var, bg_color="white")
+        rad8.place(x=1250, y=475)
+
+        rad9 = CTkRadioButton(master=app, text=" ", value="Projectile 9", variable=radio_var, bg_color="white")
+        rad9.place(x=1250, y=612.5)
+
+        rad10 = CTkRadioButton(master=app, text=" ", value="Custom", variable=radio_var, bg_color="white")
+        rad10.place(x=1325, y=715)
+
+        # Creates a procedure to return to the main menu
+        def delete_picker1():
+            image_label2.destroy()
+            rad1.destroy()
+            rad2.destroy()
+            rad3.destroy()
+            rad4.destroy()
+            rad5.destroy()
+            rad6.destroy()
+            rad7.destroy()
+            rad8.destroy()
+            rad9.destroy()
+            rad10.destroy()
+            del_btn.destroy()
+            btn.destroy()
+            c_dragtxt.destroy()
+
+            main_menu()
+
+        # Procedure to select a drag coefficient            
+        def delete_picker2():
+            image_label2.destroy()
+            rad1.destroy()
+            rad2.destroy()
+            rad3.destroy()
+            rad4.destroy()
+            rad5.destroy()
+            rad6.destroy()
+            rad7.destroy()
+            rad8.destroy()
+            rad9.destroy()
+            rad10.destroy()
+            del_btn.destroy()
+            btn.destroy()
+
+            # Obtains value for drag coefficient entered into the text field
+            if radio_var.get() == "Custom":
+                global customc_drag
+                customc_drag = c_dragtxt.get()                    
+                customc_drag=float(customc_drag.rstrip("\n"))
+
+            c_dragtxt.destroy()
+                
+            display()
+            
+        c_dragtxt = CTkEntry(master=app, width=200, height=50, placeholder_text="Enter a custom drag coefficient")
+        c_dragtxt.place(x=1075, y=700)
+
+        # Creates a reset button
+        del_btn = CTkButton(master=app, text="RETURN TO HOME", command=delete_picker1, width=100, height=50)
+        del_btn.pack(anchor="n")
+        del_btn.place(x=1250, y=50)
+
+        # Creates a submission button
+        btn = CTkButton(master=app, text="SUBMIT", command=delete_picker2, width=100, height=50)
+        btn.pack(anchor="n")
+        btn.place(x=1050, y=50)
+    
+    elif challenge == "Extension":
+        def display():  
+            # Deletes challenge and returns to main menu
+            def deleteE1a():
+                frame1.destroy()
+                frame2.destroy()
+                frame3.destroy()
+                frame4.destroy()
+                label10.destroy()
+
+                main_menu()
+
+            # Deletes challenge 9 but does not open main menu
+            def deleteE1b():
+                frame1.destroy()
+                frame2.destroy()
+                frame3.destroy()
+                frame4.destroy()
+                label10.destroy()
+
+            def c_drag_picker():
+                # Reset
+                deleteE1b()
+                menu_delete()
+                
+                # Creates background for menu to select projectile
+                image_path = os.path.join(os.path.dirname(__file__), 'projectile_picker.png')
+
+                projectile_picker = CTkImage(light_image = Image.open(image_path), size=(1500,825)) 
+                image_label2 = CTkLabel(master=app, image = projectile_picker, text='')
+                image_label2.place(x=0, y=0)
+
+                # Creates 10 radio button options for the user to select a desireable drag coefficient
+                # Creates the radio_var variable to store the result of the radio button
+                global radio_var2            
+                radio_var2 = StringVar(value = "other")
+
+                rad1 = CTkRadioButton(master=app, text=" ", value="Projectile 1", variable=radio_var2, bg_color="#eeeeee")
+                rad1.place(x=500, y=200)
+
+                rad2 = CTkRadioButton(master=app, text=" ", value="Projectile 2", variable=radio_var2, bg_color="#eeeeee")
+                rad2.place(x=500, y=337.5)
+
+                rad3 = CTkRadioButton(master=app, text=" ", value="Projectile 3", variable=radio_var2, bg_color="#eeeeee")
+                rad3.place(x=500, y=475)
+
+                rad4 = CTkRadioButton(master=app, text=" ", value="Projectile 4", variable=radio_var2, bg_color="#eeeeee")
+                rad4.place(x=500, y=612.5)
+
+                rad5 = CTkRadioButton(master=app, text=" ", value="Projectile 5", variable=radio_var2, bg_color="#eeeeee")
+                rad5.place(x=500, y=750)
+
+                rad6 = CTkRadioButton(master=app, text=" ", value="Projectile 6", variable=radio_var2, bg_color="white")
+                rad6.place(x=1250, y=200)
+
+                rad7 = CTkRadioButton(master=app, text=" ", value="Projectile 7", variable=radio_var2, bg_color="white")
+                rad7.place(x=1250, y=337.5)
+
+                rad8 = CTkRadioButton(master=app, text=" ", value="Projectile 8", variable=radio_var2, bg_color="white")
+                rad8.place(x=1250, y=475)
+
+                rad9 = CTkRadioButton(master=app, text=" ", value="Projectile 9", variable=radio_var2, bg_color="white")
+                rad9.place(x=1250, y=612.5)
+
+                rad10 = CTkRadioButton(master=app, text=" ", value="Custom", variable=radio_var2, bg_color="white")
+                rad10.place(x=1325, y=715)
+
+                # Creates a procedure to return to the main menu
+                def delete_picker1a():
+                    image_label2.destroy()
+                    rad1.destroy()
+                    rad2.destroy()
+                    rad3.destroy()
+                    rad4.destroy()
+                    rad5.destroy()
+                    rad6.destroy()
+                    rad7.destroy()
+                    rad8.destroy()
+                    rad9.destroy()
+                    rad10.destroy()
+                    del_btn.destroy()
+                    btn.destroy()
+                    c_dragtxt.destroy()
+
+                    deleteE1a()
+
+                # Procedure to select a drag coefficient            
+                def delete_picker2a():
+                    image_label2.destroy()
+                    rad1.destroy()
+                    rad2.destroy()
+                    rad3.destroy()
+                    rad4.destroy()
+                    rad5.destroy()
+                    rad6.destroy()
+                    rad7.destroy()
+                    rad8.destroy()
+                    rad9.destroy()
+                    rad10.destroy()
+                    del_btn.destroy()
+                    btn.destroy()
+
+                    # Obtains value for drag coefficient entered into the text field
+                    if radio_var2.get() == "Custom":
+                        global customc_drag
+                        customc_drag = c_dragtxt.get()                    
+                        customc_drag=float(customc_drag.rstrip("\n"))
+
+                    c_dragtxt.destroy()
+                        
+                    display()
+                    
+                c_dragtxt = CTkEntry(master=app, width=200, height=50, placeholder_text="Enter a custom drag coefficient")
+                c_dragtxt.place(x=1075, y=700)
+
+                # Creates a reset button
+                del_btn = CTkButton(master=app, text="RETURN TO HOME", command=delete_picker1a, width=100, height=50)
+                del_btn.pack(anchor="n")
+                del_btn.place(x=1250, y=50)
+
+                # Creates a submission button
+                btn = CTkButton(master=app, text="SUBMIT", command=delete_picker2a, width=100, height=50)
+                btn.pack(anchor="n")
+                btn.place(x=1050, y=50)
+
+            # Defines parameters of frame1
+            frame1 = CTkFrame(master=app, border_width=2, width=250, height=300)
+            frame1.pack(anchor="nw", expand=True, padx=20, pady=67)
+
+            # Defines parameters of frame2
+            frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+            frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+            frame2.place(relx=0.014, rely=0.655)
+            
+            # Defines parameters of frame3
+            frame3 = CTkFrame(master=app, border_width=2, height=725, width=1025)
+            frame3.pack(anchor="n", expand=True, padx=20)
+            frame3.place(relx=0.1875, rely=0.08)
+            
+            # Defines parameters of frame4
+            frame4 = CTkFrame(master=app, border_width=2, height=250, width=175)
+            frame4.pack(anchor="n", expand=True, padx=20)
+            frame4.place(relx=0.875, rely=0.08)
+            
+            # Creates a reset button
+            del_btn = CTkButton(master=frame4, text="RETURN TO HOME", command=deleteE1a, width=100, height=30)
+            del_btn.pack(anchor="n")
+            del_btn.place(relx=0.175, rely=0.075)
+
+            # Function that occurs when the submit button is pressed
+            def click_handler():
+                # Determines a value for the coefficient of drag based on the user's preference
+                if radio_var2.get() == "Projectile 1":
+                    c_drag = 0.47
+                elif radio_var2.get() == "Projectile 2":
+                    c_drag = 0.42
+                elif radio_var2.get() == "Projectile 3":
+                    c_drag = 0.5
+                elif radio_var2.get() == "Projectile 4":                
+                    c_drag = 1.0
+                elif radio_var2.get() == "Projectile 5":
+                    c_drag = 0.8
+                elif radio_var2.get() == "Projectile 6":
+                    c_drag = 0.82
+                elif radio_var2.get() == "Projectile 7":
+                    c_drag = 1.15
+                elif radio_var2.get() == "Projectile 8":
+                    c_drag = 0.04
+                elif radio_var2.get() == "Projectile 9":
+                    c_drag = 0.09
+                elif radio_var2.get() == "Custom":
+                    c_drag = customc_drag
+                else:
+                    c_drag = 1
+
+                # Defines parameters of frame2
+                frame2 = CTkFrame(master=app, border_width=2, width=250, height=250)
+                frame2.pack(after=frame1, anchor="nw", expand=True, padx=20)
+                frame2.place(relx=0.014, rely=0.655)
+
+                # Creates the label for the calculated valeues frame
+                label2 = CTkLabel(master=frame2, text="Calculated Values:")
+                label2.pack(anchor="center", expand=True, pady=10, padx=30)
+                label2.place(relx=0.3, rely=0.05)
+                
+                # Takes parameters u, angle and h from input text fields
+                u = utxt.get()
+                angle = atxt.get()
+                h = htxt.get()
+                
+                # Sets value for g
+                g = 9.81
+                
+                # Strips the text to remove blank spaces
+                angle=float(angle.rstrip("\n"))
+                h=float(h.rstrip("\n"))
+                u=float(u.rstrip("\n"))
+                
+                # Converts the angle to radians
+                theta = (angle * np.pi) / 180
+                
+                # Produces an error if the height is less than 0
+                if h &lt; 0:
+                    exit()
+
+                # Resloves forces into horizontal and vertical component
+                costheta = math.cos(theta)
+                sintheta = math.sin(theta)
+
+                ux = u * costheta
+                uy = u * sintheta
+                
+                # Calculates the range and time of flight of the projectile
+                R = (u**2 / g) * (sintheta*costheta+costheta*math.sqrt(sintheta**2 + ((2 * g * h) / (u**2))))
+                tflight = R / (u * costheta)
+
+                # Creates an empty arrary for the x and y coordinates of the trajectory
+                x = []
+                y = []
+
+                # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+                for i in np.arange(0, tflight, 0.01):
+                    t = i
+                    x.append(ux * t)
+                    T = t * t
+                    y.append(h + (uy * t) - (0.5 * g * T))            
+
+                # Apogee calculation
+                apy = (0 - (uy*uy)) / (2 * g * -1) + h
+                y_graph = apy + 5
+                
+                # Generates the calculated values text
+                # Time of flight phrase
+                tflightph = "Time of flight: " + str(round(tflight, 2)) + " s"
+                label5 = CTkLabel(master=frame2, text=tflightph)
+                label5.pack(anchor="center", expand=True, pady=10, padx=100)
+                label5.place(x=75, y=40)
+                    
+                # Range phrase
+                travel = "Range: " + str(round(R, 2)) + " m"    
+                label6 = CTkLabel(master=frame2, text=travel)
+                label6.pack(anchor="center", expand=True, pady=10, padx=100)
+                label6.place(relx=0.31, y=72)
+
+                # Parameters to determine k
+                m = mtxt.get()
+                A = Atxt.get()
+                dt = 0.01
+                density = 1.225
+
+                m=float(m.rstrip("\n"))
+                A=float(A.rstrip("\n"))
+
+                # Calculation for k
+                k = (0.5 * c_drag * density * A) / m
+
+                # Creates arrays for air resistance x and y values
+                x_plot = []
+                y_plot = []
+
+                # Sets initial x and y values
+                d_x = 0
+                d_y = h
+                
+                # Adds initial x and y values to the arrays
+                x_plot.append(d_x)
+                y_plot.append(d_y)
+
+                # Verlet method to update the acceleration, velocity and position of the projectile after each discrete timestep
+                n = 0
+                t_drag = 0
+                while y_plot[n] &gt;= 0:
+                    t_drag = t_drag + dt
+                    ax = - (ux / u) * k * u**2
+                    ay = - g - (uy / u) * k * u**2
+                    d_x = d_x + ux * dt + 0.5 * ax * dt**2
+                    d_y = d_y + uy * dt + 0.5 * ay * dt**2
+                    x_plot.append(d_x)
+                    y_plot.append(d_y)
+                    ux = ux + ax * dt
+                    uy = uy + ay * dt
+                    u = math.sqrt(ux**2 + uy**2)
+                    n += 1
+
+
+                R_drag = x_plot[n]
+
+                # Generates the calculated values text
+                # Time of flight phrase
+                tflightph = "Time of flight (drag): " + str(round(t_drag, 2)) + " s"
+                label5 = CTkLabel(master=frame2, text=tflightph)
+                label5.pack(anchor="center", expand=True, pady=10, padx=100)
+                label5.place(relx=0.24, y=104)
+                    
+                # Range phrase
+                travel = "Range (drag): " + str(round(R_drag, 2)) + " m"    
+                label6 = CTkLabel(master=frame2, text=travel)
+                label6.pack(anchor="center", expand=True, pady=10, padx=100)
+                label6.place(relx=0.29, y=136)
+
+                # Parameters for non linear air resistance
+                # Sea level standard atmospheric pressure
+                p0 = 101325
+                # Intial height
+                h0 = h
+                # Specific gas constant for air
+                sgc = 287.052874
+                # mass of one air molecule
+                mass_am = 4.81e-26
+                # Boltzmann constant
+                kB = 1.380649e-23
+                # Initial temperature in Celsius (standard temperature at sea level)
+                T0 = 15
+
+                x_air = 0
+                y_air = h
+
+                u = utxt.get()            
+                u=float(u.rstrip("\n"))
+                ux = u * costheta
+                uy = u * sintheta
+
+                d_x = 0
+                d_y = h
+
+                # Verlet method for varying air density
+                def verlet_air(p0, h0, sgc, mass_am, kB, T0, d_x, d_y, ux, uy, m, A, dt, c_drag, u, h, density):
+                    t = 0
+                    x_air_plot = []
+                    y_air_plot = []
+
+                    x_air_plot.append(d_x)
+                    y_air_plot.append(d_y)
+                    
+                    n = 0
+                    while y_air_plot[n] &gt;= 0:
+                        k = (0.5 * c_drag * density * A) / m
+
+                        ax = - (ux / u) * k * u**2
+                        ay = - g - (uy / u) * k * u**2
+                        d_x = d_x + ux * dt + 0.5 * ax * dt**2
+                        d_y = d_y + uy * dt + 0.5 * ay * dt**2
+                        x_air_plot.append(d_x)
+                        y_air_plot.append(d_y)
+                        ux = ux + ax * dt
+                        uy = uy + ay * dt
+                        u = math.sqrt(ux**2 + uy**2)
+                        h = d_y
+
+                        temp = T0 - h * 0.00650
+                        temp = temp + 273.15
+                        p = p0 * math.exp((-mass_am * g * h) / (kB * temp))
+                        density = p / (sgc * temp)
+
+                        n += 1
+
+                        t = t + dt
+
+                    return x_air_plot, y_air_plot, n, t
+
+                x_air_plot, y_air_plot, n, t_air = verlet_air(p0, h0, sgc, mass_am, kB, T0, x_air, y_air, ux, uy, m, A, dt, c_drag, u, h, density)
+                
+                R_air = x_air_plot[n]
+
+                # Generates the calculated values text
+                # Time of flight phrase
+                tflightph = "Time (varying air density): " + str(round(t_air, 2)) + " s"
+                label5 = CTkLabel(master=frame2, text=tflightph)
+                label5.pack(anchor="center", expand=True, pady=10, padx=100)
+                label5.place(relx=0.1, y=168)
+                    
+                # Range phrase
+                travel = "Range (varying air density): " + str(round(R_air, 2)) + " m"    
+                label6 = CTkLabel(master=frame2, text=travel)
+                label6.pack(anchor="center", expand=True, pady=10, padx=100)
+                label6.place(x=25, y=200)
+
+                # Creates the figure
+                fig, ax = plt.subplots()
+
+                # Sets the parameters of the plot
+                ax.set_xlabel("Displacement in x / m")
+                ax.set_ylabel("Displacement in y / m")
+                ax.set_ylim(0, y_graph)
+                ax.set_xlim(0, R)
+
+                # Components to be plotted
+                ax.plot(x, y, label="No Air Resistance")
+                ax.grid()
+                ax.plot(x_plot, y_plot, label="Air Resistance")
+                ax.plot(x_air_plot, y_air_plot, label = "Air Resistance and Varying Air Density")
+
+                ax.legend()
+                
+                # Creates a canvas in the app for the plot to appear
+                canvas = FigureCanvasTkAgg(fig,master=frame3)
+                canvas.get_tk_widget().place(relx=0.012, rely=0.013, height=700, width=1000)
+                canvas.draw()
+
+                # Saves an image png of the figure when a button is pressed
+                def image_handler():
+                    path="/Users/Mark Watson/Desktop/Python Projects/BPHO/Projectiles"
+                    os.chdir(path)
+                    fig.savefig(fname='Extension1.png',dpi='figure', format='png')
+                
+                # Creates a save button for png image
+                img_btn = CTkButton(master=frame4, text="SAVE AS PNG", command=image_handler, width=100, height=30)
+                img_btn.pack(anchor="n")
+                img_btn.place(relx=0.23, rely=0.3)
+
+            # Creates title label
+            label10 = CTkLabel(master=app, text="Extension: Diminishing Air Density", font=("Helvetica", 40))
+            label10.pack(anchor="s", expand=True, padx=10)
+            label10.place(relx=0.3, rely=0.02)
+
+            # Creates the label for the parameters frame
+            label1 = CTkLabel(master=frame1, text="Enter Parameters Below:")
+            label1.pack(anchor="s", expand=True, pady=10, padx=30)
+            label1.place(relx=0.22, rely=0.05)
+
+            # Creates the label for the calculated values frame
+            label2 = CTkLabel(master=frame2, text="Calculated Values:")
+            label2.pack(anchor="center", expand=True, pady=10, padx=30)
+            label2.place(relx=0.3, rely=0.05)
+
+            # Creates input text fields for the parameters
+            # Initial velocity field
+            utxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Initial velocity in ms⁻¹")
+            utxt.place(relx=0.5, rely=0.15, anchor="n")
+
+            # Angle field
+            atxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Angle in °")
+            atxt.place(relx=0.5, rely=0.275, anchor="n")
+
+            # Initial height field
+            htxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Height in m")
+            htxt.place(relx=0.5, rely=0.4, anchor="n")
+
+            # Mass field
+            mtxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Mass of the projectile in kg")
+            mtxt.place(relx=0.5, rely=0.525, anchor="n")
+
+            # Area field
+            Atxt = CTkEntry(master=frame1, width=200, height=20, placeholder_text="Cross-sectional area in m²")
+            Atxt.place(relx=0.5, rely=0.65, anchor="n")
+
+            # Allows the user to select a different drag coefficient
+            btn = CTkButton(master=frame1, text="Change Drag Coefficient", command=c_drag_picker, width=100, height=30)
+            btn.place(relx=0.2, rely=0.75)
+
+            # Creates a submission button
+            btn = CTkButton(master=frame1, text="Submit", command=click_handler, width=100, height=30)
+            btn.pack(anchor="n")
+            btn.place(relx=0.3, rely=0.87)
+        
+        # Creates background for menu to select projectile
+        image_path = os.path.join(os.path.dirname(__file__), 'projectile_picker.png')
+
+        projectile_picker = CTkImage(light_image = Image.open(image_path), size=(1500,825)) 
+        image_label2 = CTkLabel(master=app, image = projectile_picker, text='')
+        image_label2.place(x=0, y=0)
+
+        # Creates 10 radio button options for the user to select a desireable drag coefficient
+        # Creates the radio_var2 variable to store the result of the radio button
+        global radio_var2            
+        radio_var2 = StringVar(value = "other")
+
+        rad1 = CTkRadioButton(master=app, text=" ", value="Projectile 1", variable=radio_var2, bg_color="#eeeeee")
+        rad1.place(x=500, y=200)
+
+        rad2 = CTkRadioButton(master=app, text=" ", value="Projectile 2", variable=radio_var2, bg_color="#eeeeee")
+        rad2.place(x=500, y=337.5)
+
+        rad3 = CTkRadioButton(master=app, text=" ", value="Projectile 3", variable=radio_var2, bg_color="#eeeeee")
+        rad3.place(x=500, y=475)
+
+        rad4 = CTkRadioButton(master=app, text=" ", value="Projectile 4", variable=radio_var2, bg_color="#eeeeee")
+        rad4.place(x=500, y=612.5)
+
+        rad5 = CTkRadioButton(master=app, text=" ", value="Projectile 5", variable=radio_var2, bg_color="#eeeeee")
+        rad5.place(x=500, y=750)
+
+        rad6 = CTkRadioButton(master=app, text=" ", value="Projectile 6", variable=radio_var2, bg_color="white")
+        rad6.place(x=1250, y=200)
+
+        rad7 = CTkRadioButton(master=app, text=" ", value="Projectile 7", variable=radio_var2, bg_color="white")
+        rad7.place(x=1250, y=337.5)
+
+        rad8 = CTkRadioButton(master=app, text=" ", value="Projectile 8", variable=radio_var2, bg_color="white")
+        rad8.place(x=1250, y=475)
+
+        rad9 = CTkRadioButton(master=app, text=" ", value="Projectile 9", variable=radio_var2, bg_color="white")
+        rad9.place(x=1250, y=612.5)
+
+        rad10 = CTkRadioButton(master=app, text=" ", value="Custom", variable=radio_var2, bg_color="white")
+        rad10.place(x=1325, y=715)
+
+        # Creates a procedure to return to the main menu
+        def delete_picker1():
+            image_label2.destroy()
+            rad1.destroy()
+            rad2.destroy()
+            rad3.destroy()
+            rad4.destroy()
+            rad5.destroy()
+            rad6.destroy()
+            rad7.destroy()
+            rad8.destroy()
+            rad9.destroy()
+            rad10.destroy()
+            del_btn.destroy()
+            btn.destroy()
+            c_dragtxt.destroy()
+
+            main_menu()
+
+        # Procedure to select a drag coefficient            
+        def delete_picker2():
+            image_label2.destroy()
+            rad1.destroy()
+            rad2.destroy()
+            rad3.destroy()
+            rad4.destroy()
+            rad5.destroy()
+            rad6.destroy()
+            rad7.destroy()
+            rad8.destroy()
+            rad9.destroy()
+            rad10.destroy()
+            del_btn.destroy()
+            btn.destroy()
+
+            # Obtains value for drag coefficient entered into the text field
+            if radio_var2.get() == "Custom":
+                global customc_drag
+                customc_drag = c_dragtxt.get()                    
+                customc_drag=float(customc_drag.rstrip("\n"))
+
+            c_dragtxt.destroy()
+                
+            display()
+            
+        c_dragtxt = CTkEntry(master=app, width=200, height=50, placeholder_text="Enter a custom drag coefficient")
+        c_dragtxt.place(x=1075, y=700)
+
+        # Creates a reset button
+        del_btn = CTkButton(master=app, text="RETURN TO HOME", command=delete_picker1, width=100, height=50)
+        del_btn.pack(anchor="n")
+        del_btn.place(x=1250, y=50)
+
+        # Creates a submission button
+        btn = CTkButton(master=app, text="SUBMIT", command=delete_picker2, width=100, height=50)
+        btn.pack(anchor="n")
+        btn.place(x=1050, y=50)
+
+# Procedure to create the main menu when needed
+def main_menu():
+    # Working directory path to the background image 
+    image_path = os.path.join(os.path.dirname(__file__), 'bg.png')
+
+    # Sets the background image of the main menu
+    bg = CTkImage(light_image = Image.open(image_path), size=(1500,825))
+    global image_label 
+    image_label = CTkLabel(master=app, image = bg, text='')
+    image_label.place(x=0, y=0)
+
+    # Array of challenges to select
+    challenges = ["Challenge 1 &amp; 2", "Challenge 3", "Challenge 4", "Challenge 5", "Challenge 6", "Challenge 7", "Challenge 8", "Challenge 9", "Extension"]
+    # Creates a combobox to select a prefab value for g
+    global chal_combo
+    chal_combo = CTkComboBox(master=app, width=300, height=50, values=challenges, command=chal_picker, state="readonly")
+    chal_combo.place(x=65, y=400)
+
+# Opens the main menu when the program is run
+main_menu()
+
+# Generates app
+app.mainloop()</code></pre>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

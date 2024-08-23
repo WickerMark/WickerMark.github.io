@@ -1,5 +1,38 @@
 ---
 title: "Home"
 
-subtitle: "Welcome to my portfolio of programming projects and competition submissions"
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "Contents"
+    toc-expand: 4
 ---
+<h4> Welcome to my portfolio of programming projects and competition submissions</h4>
+
+<hr>
+
+# Featured Projects
+
+<nav>
+  <ul style="list-style-type:none; padding:0">
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/primes.html">Generating the nth prime number</a></li>
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/optimisation.html">Optimisation</a></li>
+  </ul>
+</nav>
+
+# BPhO Computational Challenge 2024:
+
+## Video Submission
+
+<iframe width="800" height="400"
+src="https://www.youtube.com/embed/ViT6NdrrbJo">
+</iframe>
+
+## Code and Explanations
+
+<nav>
+  <ul style="list-style-type:none; padding:0">
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/cchallenge1.html">Challenge 1 & 2: Analytical Drag-Free Projectile Model</a></li>
+  </ul>
+</nav>

@@ -164,7 +164,7 @@ window.Quarto = {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../about.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">About Me</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -226,7 +226,7 @@ window.Quarto = {
 
 <p>The objective of this blog post is to create an implementation of a one-dimensional gradient descent algorithm used for optimisation in machine learning where a function needs to be minimised. Shown below is the code and explanations of my implementation of the algorithm.</p>
 <p>First, the required libraries are imported and the function f(x) is defined for future use. This can be changed to any function that the user would require. In this example, I have used the equation <span class="math inline">\(f(x)=x\sin(x)+\cos(x)+x\)</span>.</p>
-<div id="1aaa7740" class="cell" data-execution_count="1">
+<div id="af59cb8b" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -235,7 +235,7 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> np.sin(x) <span class="op">+</span> (np.cos(x) <span class="op">+</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This function calculates the numerical derivative using the small step ϵ. This is defined by the equation <span class="math inline">\(f'(x)\approx\frac{f(x + \epsilon)-f(x - \epsilon)}{2\epsilon}\)</span>.</p>
-<div id="e30f8850" class="cell" data-execution_count="2">
+<div id="7216445e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to differentiate</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> derivative(f, x):</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> <span class="fl">1e-8</span></span>
@@ -244,7 +244,7 @@ window.Quarto = {
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> der</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The following function performs the gradient descent algorithm. There are two stopping conditions for the algorithm, a maximum number of iterations, and if the absolute value of the gradient is lower than a set threshold value. The variable alpha is the learning rate of the algorithm, a scalar quantity which controls the size of the steps the algorithm takes. The equation <span class="math inline">\(\theta_{t+1}=\theta_t-\alpha\nabla_{\theta}f(\theta_t)\)</span> is used to update the position of the marker until the minimum point is found.</p>
-<div id="01d22063" class="cell" data-execution_count="3">
+<div id="3c43c7ef" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to perform the gradient descent algorithm</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> descent(f, derivative, xk, alpha<span class="op">=</span><span class="fl">1e-3</span>, tol<span class="op">=</span><span class="fl">1e-4</span>, max_iters<span class="op">=</span><span class="dv">10000</span>):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(max_iters):</span>
@@ -256,7 +256,7 @@ window.Quarto = {
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The algorithm is then ran from various different starting points until the lowest minima is found. Empty lits of x and y coordinates are created and appended to with the coordinates determined by the algorithm. In this example, I used starting points between -12 and 12. The y coordinate of the optimal minimum point is then determined and printed.</p>
-<div id="5a1592d5" class="cell" data-execution_count="4">
+<div id="51cc0850" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>xk_points <span class="op">=</span> []</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>yk_points <span class="op">=</span> []</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">12</span>,<span class="dv">12</span>):</span>
@@ -277,7 +277,7 @@ window.Quarto = {
 </div>
 </div>
 <p>The below code generates the function, its derivative and the minima found by the algorithm.</p>
-<div id="8e9d6faa" class="cell" data-execution_count="5">
+<div id="898ace6e" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an array of x coordinates and finds corresponding y coordinates </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for plotting</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">100</span>)</span>

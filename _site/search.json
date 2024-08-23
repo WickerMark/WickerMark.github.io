@@ -4,7 +4,7 @@
     "href": "posts/primes.html",
     "title": "Generating the nth Prime Number",
     "section": "",
-    "text": "Numpy will be used for the square root function later in the code.\nAn array used to store the prime numbers is created and the first two prime numbers are stored.\nNumber, the variable used to represent the current number to be checked if it is prime, is set to 3. This means that the counter, used to represent how many prime numbers have been found, is set to 2, since 3 is the second prime number.\n\nimport numpy as np\n\nprime_list = [2, 3]\nnumber = 3\ncounter = 2\n\nThe prime number to be generated can be set to anything, but for this example, I have used 1000. This means that the while loop will continue to iterate until the counter is no longer less than 1000.\nThe variable number is first incremented by 2 (to emit all even numbers since these cannot be prime).\nA new variable, called prime, stores a boolean value which states if a number is prime or not. Initially, prime is set to True.\nA for loop is used to check if number is divisible by previous prime numbers.\nThe square root function is used here because if the index of the prime number to be checked is greater than the square root of the number, it is not a factor. If this statement is true, the code breaks out of the for loop.\nHere, I use the modulo operator to determine if the number has a remainder when dividing by previous prime numbers. If it does, the number is determined as a composite number, and so prime is set to False.\nThe final if statement is used such that if the number was determined to be prime, the counter would be incremented, and the number would be appended to the list of prime numbers so that future numbers can be checked against it.\nFinally, counter is cast as a string and concatenated to output the nth prime number.\n\nwhile counter &lt; 1000:\n    number += 2\n    prime = True\n    for i in prime_list:\n        if i &gt; np.sqrt(number):\n            break\n        elif number % i == 0:\n            prime = False\n            break\n    \n    if prime == True:\n        counter += 1\n        prime_list.append(number)\nprint(\"The\", str(counter) + \"th prime number is\", number)\n\nThe 1000th prime number is 7919"
+    "text": "The ability to generate prime numbers is important for a variety of tasks, most notably, cryptography, the RSA algorithm for instance, in psuedo-random number generation and benchmarking algorithms.\nNumpy will be used for the square root function later in the code.\nAn array used to store the prime numbers is created and the first two prime numbers are stored.\nNumber, the variable used to represent the current number to be checked if it is prime, is set to 3. This means that the counter, used to represent how many prime numbers have been found, is set to 2, since 3 is the second prime number.\n\nimport numpy as np\n\nprime_list = [2, 3]\nnumber = 3\ncounter = 2\n\nThe prime number to be generated can be set to anything, but for this example, I have used 1000. This means that the while loop will continue to iterate until the counter is no longer less than 1000.\nThe variable number is first incremented by 2 (to emit all even numbers since these cannot be prime).\nA new variable, called prime, stores a boolean value which states if a number is prime or not. Initially, prime is set to True.\nA for loop is used to check if number is divisible by previous prime numbers.\nThe square root function is used here because if the index of the prime number to be checked is greater than the square root of the number, it is not a factor. If this statement is true, the code breaks out of the for loop.\nHere, I use the modulo operator to determine if the number has a remainder when dividing by previous prime numbers. If it does, the number is determined as a composite number, and so prime is set to False.\nThe final if statement is used such that if the number was determined to be prime, the counter would be incremented, and the number would be appended to the list of prime numbers so that future numbers can be checked against it.\nFinally, counter is cast as a string and concatenated to output the nth prime number.\n\nwhile counter &lt; 1000:\n    number += 2\n    prime = True\n    for i in prime_list:\n        if i &gt; np.sqrt(number):\n            break\n        elif number % i == 0:\n            prime = False\n            break\n    \n    if prime == True:\n        counter += 1\n        prime_list.append(number)\nprint(\"The\", str(counter) + \"th prime number is\", number)\n\nThe 1000th prime number is 7919"
   },
   {
     "objectID": "posts/derivative.html",
@@ -18,14 +18,63 @@
     "href": "portfolio.html",
     "title": "Coding Projects",
     "section": "",
-    "text": "A Numerical Method to Calculate the Derivative using a Small Step, ϵ\n\n\n\n\n\n\nPython\n\n\nNumerical Methods\n\n\n\nAn implementation of calculating the numerical derivative using the small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.\n\n\n\n\n\nJul 28, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nAn Animation of the Gas Giants (and Pluto) Orbiting the Sun\n\n\n\n\n\n\nPython\n\n\nComputational Astrophysics\n\n\nAnimation\n\n\nOrbits\n\n\n\nThe matplotlib library and its animation function in Python are used to create a 2D animation of the orbits of the outer planets.\n\n\n\n\n\nJan 25, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge: Challenges 1 & 2 2024: Creating a Simple Analytical Drag-Free Projectile Model\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.\n\n\n\n\n\nApr 11, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nGenerating the nth Prime Number\n\n\n\n\n\n\nPython\n\n\nPrime Numbers\n\n\n\nPython program which calculates an inputted nth prime number by dividing each consecutive number by previous prime numbers.\n\n\n\n\n\nAug 14, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nOptimisation: The Gradient Descent Algorithm for Maching Learning\n\n\n\n\n\n\nPython\n\n\nOptimisation\n\n\nMachine Learning\n\n\n\nPython program which uses the gradient descent algorithm to calculate minimum points for a given function. Used for optimisation in machine learning.\n\n\n\n\n\nAug 13, 2024\n\n\nMark Watson\n\n\n\n\n\n\nNo matching items"
+    "text": "A Numerical Method to Calculate the Derivative using a Small Step, ϵ\n\n\n\n\n\n\nPython\n\n\nNumerical Methods\n\n\n\nAn implementation of calculating the numerical derivative using the small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.\n\n\n\n\n\nJul 28, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge: Challenges 1 & 2 2024: Creating a Simple Analytical Drag-Free Projectile Model\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.\n\n\n\n\n\nApr 11, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nGenerating the nth Prime Number\n\n\n\n\n\n\nPython\n\n\nPrime Numbers\n\n\n\nPython program which calculates an inputted nth prime number by dividing each consecutive number by previous prime numbers.\n\n\n\n\n\nAug 14, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nOptimisation: The Gradient Descent Algorithm for Maching Learning\n\n\n\n\n\n\nPython\n\n\nOptimisation\n\n\nMachine Learning\n\n\n\nPython program which uses the gradient descent algorithm to calculate minimum points for a given function. Used for optimisation in machine learning.\n\n\n\n\n\nAug 13, 2024\n\n\nMark Watson\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "about.html#python-experience",
+    "href": "about.html#python-experience",
+    "title": "Mark Watson",
+    "section": "Python Experience",
+    "text": "Python Experience\nI have about 5 years of experience in Python, creating various projects and entering in competitions with Python, some of which are shown in the coding projects tab. Most notably, I have entered, along with my partner, into the BPhO Computational Challenge 2024."
+  },
+  {
+    "objectID": "about.html#bpho-computational-challenge-2024",
+    "href": "about.html#bpho-computational-challenge-2024",
+    "title": "Mark Watson",
+    "section": "BPhO Computational Challenge 2024",
+    "text": "BPhO Computational Challenge 2024\nThe aim of the challenge is to solve classical Physics problems computationally. For the 2024 rendition of the challenge, we created a GUI application consisting of 9 projectile models, including a projectile model considering both air restistance and varying air density with height. During the challenge, I also learnt how to write scientific papers using LaTex, one of the extensions of the competition."
+  },
+  {
+    "objectID": "about.html#machine-learning",
+    "href": "about.html#machine-learning",
+    "title": "Mark Watson",
+    "section": "Machine Learning",
+    "text": "Machine Learning"
+  },
+  {
+    "objectID": "about.html#epq",
+    "href": "about.html#epq",
+    "title": "Mark Watson",
+    "section": "EPQ",
+    "text": "EPQ"
+  },
+  {
+    "objectID": "about.html#web-development",
+    "href": "about.html#web-development",
+    "title": "Mark Watson",
+    "section": "Web Development",
+    "text": "Web Development\nThroughout the course of developing this and other websites, I have gained a lot of experience in HTML and CSS. While developing this website, I gained many valuable skills and learnt a lot, such as how Git works, using version control, developing websites and blogs using Quarto, creating mathematical expressions with LaTex and using GitHub and GitHub pages."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
     "section": "",
-    "text": "About me"
+    "text": "Welcome to my portfolio of programming projects and competition submissions"
+  },
+  {
+    "objectID": "index.html#video-submission",
+    "href": "index.html#video-submission",
+    "title": "Home",
+    "section": "Video Submission",
+    "text": "Video Submission"
+  },
+  {
+    "objectID": "index.html#code-and-explanations",
+    "href": "index.html#code-and-explanations",
+    "title": "Home",
+    "section": "Code and Explanations",
+    "text": "Code and Explanations\n\n\n\nChallenge 1 & 2: Analytical Drag-Free Projectile Model"
   },
   {
     "objectID": "posts/cchallenge1.html",
@@ -42,10 +91,24 @@
     "text": "The objective of this blog post is to create an implementation of a one-dimensional gradient descent algorithm used for optimisation in machine learning where a function needs to be minimised. Shown below is the code and explanations of my implementation of the algorithm.\nFirst, the required libraries are imported and the function f(x) is defined for future use. This can be changed to any function that the user would require. In this example, I have used the equation \\(f(x)=x\\sin(x)+\\cos(x)+x\\).\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Creates the function\ndef f(x):\n    return x * np.sin(x) + (np.cos(x) + x)\n\nThis function calculates the numerical derivative using the small step ϵ. This is defined by the equation \\(f'(x)\\approx\\frac{f(x + \\epsilon)-f(x - \\epsilon)}{2\\epsilon}\\).\n\n# Function to differentiate\ndef derivative(f, x):\n    eps = 1e-8\n    der = (f(x + eps) - f(x - eps)) / (2 * eps)\n    \n    return der\n\nThe following function performs the gradient descent algorithm. There are two stopping conditions for the algorithm, a maximum number of iterations, and if the absolute value of the gradient is lower than a set threshold value. The variable alpha is the learning rate of the algorithm, a scalar quantity which controls the size of the steps the algorithm takes. The equation \\(\\theta_{t+1}=\\theta_t-\\alpha\\nabla_{\\theta}f(\\theta_t)\\) is used to update the position of the marker until the minimum point is found.\n\n# Function to perform the gradient descent algorithm\ndef descent(f, derivative, xk, alpha=1e-3, tol=1e-4, max_iters=10000):\n    for i in range(max_iters):\n        grad = derivative(f, xk)\n        if abs(grad) &lt; tol:\n            break\n        xk = xk - alpha * grad\n\n    return xk\n\nThe algorithm is then ran from various different starting points until the lowest minima is found. Empty lits of x and y coordinates are created and appended to with the coordinates determined by the algorithm. In this example, I used starting points between -12 and 12. The y coordinate of the optimal minimum point is then determined and printed.\n\nxk_points = []\nyk_points = []\nfor i in np.arange(-12,12):\n    # Starting position\n    xk = i\n    # Finds the x coordinate of each minima\n    xk = descent(f, derivative, xk)\n    xk_points.append(xk)\n\n    # Finds the y coordinate of the minima for plotting\n    yk = f(xk)\n    yk_points.append(yk)\n\n# Prints the y coordiante of the optimal minimum\nprint(\"The optimal minimum has y coordinate\", min(yk_points))\n\nThe optimal minimum has y coordinate -22.036404343345218\n\n\nThe below code generates the function, its derivative and the minima found by the algorithm.\n\n# Creates an array of x coordinates and finds corresponding y coordinates \n# for plotting\nx = np.linspace(-15, 15, 100)\ny = f(x)\n\n# Differentiates x coordinates to create the graph of the first derivative\ndydx = np.array([derivative(f, xi) for xi in x])\n\n# Plots the curves\nplt.plot(x, y, label=\"f(x)\")\nplt.plot(x, dydx, label=\"f'(x)\")\nplt.scatter(xk_points, yk_points, marker=\"x\", color=\"red\", label=\"Minima\")\n\n# Sets parameters of the plot and plots the curves\nplt.xlim(-15, 15)\nplt.grid()\nplt.legend()\n\nplt.show()"
   },
   {
-    "objectID": "posts/orbits.html",
-    "href": "posts/orbits.html",
-    "title": "An Animation of the Gas Giants (and Pluto) Orbiting the Sun",
-    "section": "",
-    "text": "The matplotlib libraries are imported to create plots and animations of the planets. Next, numpy is imported for its mathematical and trigonometric functions.\n\nimport matplotlib.pyplot as plt\nfrom matplotlib.animation import FuncAnimation\nimport numpy as np\n\n\npi = 3.14159265359\nplu_angular_velocity = 0.0467\nnep_angular_velocity = 0.0545\nura_angular_velocity = 0.0679\nsat_angular_velocity = 0.0967\njup_angular_velocity = 0.1306\n\n\n# Pluto's orbit\nt = np.linspace(0, (2*np.pi * 247.94) / 247.94)\n    \nR = (39.482 * (1 - (0.2488 * 0.2488))) / (1 - (0.2488 * np.cos(t)))\n    \nx = R * np.cos(t)\ny = R * np.sin(t)\n\n# Neptune's orbit\nnep_t = np.linspace(0, (2*np.pi * 164.8) / 164.8)\n    \nnep_R = (30.07 * (1 - (0.008678 * 0.008678))) / (1 - (0.008678 * np.cos(nep_t)))\n    \nnep_x = nep_R * np.cos(nep_t)\nnep_y = nep_R * np.sin(nep_t)\n\n# Uranus Orbit\nura_t = np.linspace(0, (2*np.pi * 84.0205) / 84.0205)\n    \nura_R = (19.19126 * (1 - (0.04717 * 0.04717))) / (1 - (0.04717 * np.cos(ura_t)))\n    \nura_x = ura_R * np.cos(ura_t)\nura_y = ura_R * np.sin(ura_t)\n\n# Saturn Orbit\nsat_t = np.linspace(0, (2*np.pi * 1.03586301) / 1.03586301)\n    \nsat_R = (9.5826 * (1 - (0.0565 * 0.0565))) / (1 - (0.0565 * np.cos(sat_t)))\n    \nsat_x = sat_R * np.cos(sat_t)\nsat_y = sat_R * np.sin(sat_t)\n\n# Jupiter Orbit\njup_t = np.linspace(0, (2*np.pi * 11.862) / 11.862)\n    \njup_R = (5.2038 * (1 - (0.0489 * 0.0489))) / (1 - (0.0489 * np.cos(jup_t)))\n    \njup_x = jup_R * np.cos(jup_t)\njup_y = jup_R * np.sin(jup_t)\n\n\nfig, ax = plt.subplots()\n\n\n\n\n\n\n\n\n\npluto, = ax.plot([], [], 'o', color = \"tan\")\nneptune, = ax.plot([], [], 'o', color = \"blue\")\nuranus, = ax.plot([], [], 'o', color = \"lightblue\")\nsaturn, = ax.plot([], [], 'o', color = \"chocolate\")\njupiter, = ax.plot([], [], 'o', color = \"saddlebrown\")\nsun, = ax.plot([],[],'o',color=\"yellow\")\n\n\ndef update(frame):\n    plu_angle = plu_angular_velocity * frame  # Calculate the current angle based on frame number\n\n    plu_R = (39.482 * (1 - (0.2488 * 0.2488))) / (1 - (0.2488 * np.cos(plu_angle)))\n    \n    # Calculates the x and y coordinates of pluto\n    plu_x = plu_R * np.cos(plu_angle)     \n    plu_y = plu_R * np.sin(plu_angle)\n    \n    # Updates the position of pluto\n    pluto.set_data(plu_x, plu_y)\n    \n    nep_angle = nep_angular_velocity * frame  # Calculate the current angle based on frame number\n\n    nep_R = (30.07 * (1 - (0.008678 * 0.008678))) / (1 - (0.008678 * np.cos(nep_angle)))\n    \n    nep_x = nep_R * np.cos(nep_angle)     # Calculate x-coordinate of planet's position\n    nep_y = nep_R * np.sin(nep_angle)     # Calculate y-coordinate of planet's position\n    \n    # Update the position of the planet\n    neptune.set_data(nep_x, nep_y)\n    \n    ura_angle = ura_angular_velocity * frame  # Calculate the current angle based on frame number\n\n    ura_t = np.linspace(0, (2*np.pi) / 247.98)\n    ura_R = (19.19126 * (1 - (0.04717 * 0.04717))) / (1 - (0.04717 * np.cos(ura_angle)))\n    \n    ura_x = ura_R * np.cos(ura_angle)     # Calculate x-coordinate of planet's position\n    ura_y = ura_R * np.sin(ura_angle)     # Calculate y-coordinate of planet's position\n    \n    # Update the position of the planet\n    uranus.set_data(ura_x, ura_y)\n    \n    sat_angle = sat_angular_velocity * frame  # Calculate the current angle based on frame number\n\n    sat_R = (9.5826 * (1 - (0.0565 * 0.0565))) / (1 - (0.0565 * np.cos(sat_angle)))\n    \n    sat_x = sat_R * np.cos(sat_angle)     # Calculate x-coordinate of planet's position\n    sat_y = sat_R * np.sin(sat_angle)     # Calculate y-coordinate of planet's position\n    \n    # Update the position of the planet\n    saturn.set_data(sat_x, sat_y)\n    \n    jup_angle = jup_angular_velocity * frame  # Calculate the current angle based on frame number\n\n    jup_R = (5.2038 * (1 - (0.0489 * 0.0489))) / (1 - (0.0489 * np.cos(jup_angle)))\n    \n    jup_x = jup_R * np.cos(jup_angle)     # Calculate x-coordinate of planet's position\n    jup_y = jup_R * np.sin(jup_angle)     # Calculate y-coordinate of planet's position\n    \n    # Update the position of the planet\n    jupiter.set_data(jup_x, jup_y)   \n    \n    # Sun at Cartesian coordinates (0, 0)\n    sun_x = [0]\n    sun_y = [0]\n\n    plt.scatter(sun_x, sun_y, color = \"yellow\")\n    \n    return pluto, neptune, uranus, saturn, jupiter, sun,\n\n# Create an animation with FuncAnimation\nanimation = FuncAnimation(fig, update, frames = np.arange(0, 150), interval=50)\n\n\nplt.plot(x, y, color = \"tan\", label = \"Pluto\")\nplt.plot(nep_x, nep_y, color = \"blue\", label = \"Neptune\")\nplt.plot(ura_x, ura_y, color = \"lightblue\", label = \"Uranus\")\nplt.plot(sat_x, sat_y, color = \"chocolate\", label = \"Saturn\")\nplt.plot(jup_x, jup_y, color = \"saddlebrown\", label = \"Jupiter\")\n\n\n\n\n\n\n\n\n\n# Graph labels and title\nplt.xlabel(\"x / AU\")\nplt.ylabel(\"y / AU\")\nplt.title(\"Orbits of Jupiter, Saturn, Uranus, Neptune and Pluto\")\n\nText(0.5, 1.0, 'Orbits of Jupiter, Saturn, Uranus, Neptune and Pluto')\n\n\n\n\n\n\n\n\n\n\n# Displays graph and grid\nplt.axis(\"equal\")\nplt.grid()\nplt.legend()\nplt.show()\n\nNo artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument."
+    "objectID": "about.html#astrophotography",
+    "href": "about.html#astrophotography",
+    "title": "Mark Watson",
+    "section": "Astrophotography",
+    "text": "Astrophotography\nIn my free time, I enjoy capturing images of distant deep sky objects using astrophotography. Click the astrophotograhy tab to see my portfolio."
+  },
+  {
+    "objectID": "about.html#chess",
+    "href": "about.html#chess",
+    "title": "Mark Watson",
+    "section": "Chess",
+    "text": "Chess\nI am also a passionate chess player. I have several high tournament finishes in my category, including a bronze at the presitigious Doncaster Chess Congress and a silver at the Darnall & Handsworth Rapidplay September 2023. I have also regularly represented my local town, Rotherham, in the second division of the Sheffield & District Chess Association for the past 3 years. I founded and captained the Wickersley School Chess Club (my secondary school and sixth form) for the past 5 years and volunteered my time to tutor the younger students."
+  },
+  {
+    "objectID": "about.html#languages",
+    "href": "about.html#languages",
+    "title": "Mark Watson",
+    "section": "Languages",
+    "text": "Languages\nFinally, I love learning languages. I am fluent in Polish and have been learning Russian and German for the past few years."
   }
 ]
