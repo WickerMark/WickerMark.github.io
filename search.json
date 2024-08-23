@@ -81,21 +81,7 @@
     "href": "index.html",
     "title": "Home",
     "section": "",
-    "text": "Welcome to my portfolio of programming projects and competition submissions"
-  },
-  {
-    "objectID": "index.html#video-submission",
-    "href": "index.html#video-submission",
-    "title": "Home",
-    "section": "Video Submission",
-    "text": "Video Submission"
-  },
-  {
-    "objectID": "index.html#code-and-explanations",
-    "href": "index.html#code-and-explanations",
-    "title": "Home",
-    "section": "Code and Explanations",
-    "text": "Code and Explanations\n\n\n\nChallenge 1 & 2: Analytical Drag-Free Projectile Model"
+    "text": "Welcome to my portfolio of programming projects and competition submissions\n\n\nFeatured Projects\n\n\n\nGenerating the nth prime number\n\n\nOptimisation\n\n\n\n\n\nBPhO Computational Challenge 2024:\n\nVideo Submission\n\n\n\n\nCode and Explanations\n\n\n\nChallenge 1 & 2: Analytical Drag-Free Projectile Model"
   },
   {
     "objectID": "posts/cchallenge1.html",
