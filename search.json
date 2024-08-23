@@ -21,11 +21,39 @@
     "text": "A Numerical Method to Calculate the Derivative using a Small Step, ϵ\n\n\n\n\n\n\nPython\n\n\nNumerical Methods\n\n\n\nAn implementation of calculating the numerical derivative using the small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.\n\n\n\n\n\nJul 28, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge: Challenges 1 & 2 2024: Creating a Simple Analytical Drag-Free Projectile Model\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.\n\n\n\n\n\nApr 11, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nGenerating the nth Prime Number\n\n\n\n\n\n\nPython\n\n\nPrime Numbers\n\n\n\nPython program which calculates an inputted nth prime number by dividing each consecutive number by previous prime numbers.\n\n\n\n\n\nAug 14, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nOptimisation: The Gradient Descent Algorithm for Maching Learning\n\n\n\n\n\n\nPython\n\n\nOptimisation\n\n\nMachine Learning\n\n\n\nPython program which uses the gradient descent algorithm to calculate minimum points for a given function. Used for optimisation in machine learning.\n\n\n\n\n\nAug 13, 2024\n\n\nMark Watson\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About me"
+    "objectID": "about.html#python-experience",
+    "href": "about.html#python-experience",
+    "title": "Mark Watson",
+    "section": "Python Experience",
+    "text": "Python Experience\nI have about 5 years of experience in Python, creating various projects and entering in competitions with Python, some of which are shown in the coding projects tab. Most notably, I have entered, along with my partner, into the BPhO Computational Challenge 2024."
+  },
+  {
+    "objectID": "about.html#bpho-computational-challenge-2024",
+    "href": "about.html#bpho-computational-challenge-2024",
+    "title": "Mark Watson",
+    "section": "BPhO Computational Challenge 2024",
+    "text": "BPhO Computational Challenge 2024\nThe aim of the challenge is to solve classical Physics problems computationally. For the 2024 rendition of the challenge, we created a GUI application consisting of 9 projectile models, including a projectile model considering both air restistance and varying air density with height. During the challenge, I also learnt how to write scientific papers using LaTex, one of the extensions of the competition."
+  },
+  {
+    "objectID": "about.html#machine-learning",
+    "href": "about.html#machine-learning",
+    "title": "Mark Watson",
+    "section": "Machine Learning",
+    "text": "Machine Learning"
+  },
+  {
+    "objectID": "about.html#epq",
+    "href": "about.html#epq",
+    "title": "Mark Watson",
+    "section": "EPQ",
+    "text": "EPQ"
+  },
+  {
+    "objectID": "about.html#web-development",
+    "href": "about.html#web-development",
+    "title": "Mark Watson",
+    "section": "Web Development",
+    "text": "Web Development\nThroughout the course of developing this and other websites, I have gained a lot of experience in HTML and CSS. While developing this website, I gained many valuable skills and learnt a lot, such as how Git works, using version control, developing websites and blogs using Quarto, creating mathematical expressions with LaTex and using GitHub and GitHub pages."
   },
   {
     "objectID": "index.html",
