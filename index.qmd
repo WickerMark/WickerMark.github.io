@@ -21,13 +21,13 @@ format:
 
 # BPhO Computational Challenge 2024:
 
-## Video Submission
+### Video Submission
 
 <iframe width="800" height="400"
 src="https://www.youtube.com/embed/ViT6NdrrbJo">
 </iframe>
 
-## Code and Explanations
+### Code and Explanations
 
 <nav>
   <ul style="list-style-type:none; padding:0">
