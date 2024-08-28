@@ -236,12 +236,13 @@ window.Quarto = {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
+<p>Detailed in this blog post is the solution to the third challenge of the BPhO Computational Challenge 2024. The objective is to calculate the trajectories of three projectiles which are launched from (0, 0) and pass through fixed point (X, Y). One of these projectiles is the minimum launch velocity needed for the projectile to hit the chosen point, and the second and third are “low and high ball” trajectories, the highest and lowest possible angles the projectile can be launched at and still collide with the target coordinates based on the entered initial velocity.</p>
 <p>DISCLAIMER: This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href="https://youtu.be/ViT6NdrrbJo" target="_blank"> https://youtu.be/ViT6NdrrbJo </a>.</p>
 </section>
 <section id="setting-up-the-problem" class="level1">
 <h1>Setting up the Problem</h1>
 <p>First, the fundamental libraries are imported. Matplotlib for plotting, numpy for mathematical and trigonometric functions, math for trigonomatric functions (specifically arctan) and figure is imported from matplotlib to use the axes functions.</p>
-<div id="e5a2a45f" class="cell" data-execution_count="1">
+<div id="39aa1911" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
@@ -249,8 +250,8 @@ window.Quarto = {
 </div>
 <p>Next, the conditions / parameters of the model are set. In the final GUI application submitted for the competition, these would be inputted using text input boxes. <span class="math inline">\(g\)</span> would be set using a combobox containing popular celestial objects, such as the planets in our solar system, or using a text box to enter a custom value.</p>
 <p><span class="math inline">\(Y\)</span> is the y coordinate that is hit by the projectile and <span class="math inline">\(X\)</span> is the x coordinate.</p>
-<p>For the purpose of this demonstration of the algorithm, I have used the below values.</p>
-<div id="25878f93" class="cell" data-execution_count="2">
+<p>For the purpose of this demonstration of the algorithm, I have used the below values:</p>
+<div id="61ac616e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> <span class="dv">300</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="dv">150</span></span>
@@ -260,16 +261,19 @@ window.Quarto = {
 </section>
 <section id="minimum-launch-velocity" class="level1">
 <h1>Minimum Launch Velocity</h1>
-<p>The minimum launch velocity must be calculated. This is achieved using the equation <span class="math inline">\(u_{min}\sqrt{g}\sqrt{Y + \sqrt{X^2 + Y^2}}\)</span>.</p>
-<p>Now, the corresponding angle of projection must be calculated using <span class="math inline">\(\theta_{min}=\tan^{-1}\)</span>. Finally, the velocity of the projectile is</p>
-<div id="16ea82ed" class="cell" data-execution_count="3">
+<p>The minimum launch velocity must be calculated. This is achieved using the equation <span class="math inline">\(u_{min}=\sqrt{g}\sqrt{Y + \sqrt{X^2 + Y^2}}\)</span>.</p>
+<p>Now, the corresponding angle of projection must be calculated using <span class="math inline">\(\theta_{min}=\tan^{-1}(\frac{Y+\sqrt{X^2+Y^2}}{X})\)</span>.</p>
+<p>Then, the velocity of the projectile is resolved into its horizontal and vertial components using the equations <span class="math inline">\(u_x^{min}=u_{min}\cos(\theta_{min})\)</span> and <span class="math inline">\(u_y^{min}=u_{min}\sin(\theta_{min})\)</span>.</p>
+<p>Finally, the time of flight is calculated with <span class="math inline">\(T_{min}=\frac{X}{u_x^{min}}\)</span>.</p>
+<div id="5e7dc654" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>minu <span class="op">=</span> np.sqrt(g) <span class="op">*</span> (np.sqrt(Y <span class="op">+</span> np.sqrt(X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span>)))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mintheta <span class="op">=</span> math.atan((Y <span class="op">+</span> np.sqrt(X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span>)) <span class="op">/</span> X)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>minux <span class="op">=</span> minu <span class="op">*</span> np.cos(mintheta)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>minuy <span class="op">=</span> minu <span class="op">*</span> np.sin(mintheta)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mint <span class="op">=</span> X <span class="op">/</span> minux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b304d946" class="cell" data-execution_count="4">
+<p>An empty array of x and y coordinates for the minimum velocity trajectory are created. These will be appended to in the for loop. A timestep of 0.01s is used to calculate the position of the projectile between the instant the projectile is launched and the time of flight. The equations <span class="math inline">\(x_{min}=u_x^{min}t\)</span> and <span class="math inline">\(y_{min}=u_y^{min}t-\frac{1}{2}gt^2\)</span> are used to update the x and y coordinates of the projectile between each timestep.</p>
+<div id="4355cb44" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> []</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> []</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -282,62 +286,68 @@ window.Quarto = {
 </section>
 <section id="low-and-high-ball-trajectories" class="level1">
 <h1>Low and High Ball Trajectories</h1>
-<div id="f0c682e4" class="cell" data-execution_count="5">
+<p>The angle of projection for the low and high ball trajectories is determined using the following equations: <span class="math inline">\(\theta_{\pm}=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</span>, where <span class="math inline">\(a=\frac{g}{2u^2}X^2\)</span>, <span class="math inline">\(b=-X\)</span> and <span class="math inline">\(c=Y+\frac{gX^2}{2u^2}\)</span>.</p>
+<div id="652a667b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> (g <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> u<span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> X<span class="op">**</span><span class="dv">2</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span>  <span class="op">-</span>X</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Y <span class="op">+</span> ((g <span class="op">*</span> X<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">2</span> <span class="op">*</span> u<span class="op">**</span><span class="dv">2</span>))</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>low_theta <span class="op">=</span> math.atan((<span class="op">-</span> b <span class="op">-</span> np.sqrt(b<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> (<span class="dv">4</span> <span class="op">*</span> a <span class="op">*</span> c)))<span class="op">/</span>(<span class="dv">2</span> <span class="op">*</span> a))</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>high_theta <span class="op">=</span> math.atan((<span class="op">-</span> b <span class="op">+</span> np.sqrt(b<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> (<span class="dv">4</span> <span class="op">*</span> a <span class="op">*</span> c)))<span class="op">/</span>(<span class="dv">2</span> <span class="op">*</span> a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="fb285c20" class="cell" data-execution_count="6">
+<p>The velocity is resolved into its horizontal and vertical components and the time of flight for the low ball trajectory is calculated using the equations <span class="math inline">\(u_x^{-}=u\cos(\theta_{-})\)</span>, <span class="math inline">\(u_y^{-}=u\sin(\theta_{-})\)</span> and <span class="math inline">\(T_{-}=\frac{X}{u_x^{-}}\)</span> respectively.</p>
+<div id="1e05d8bf" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>low_ux <span class="op">=</span> u <span class="op">*</span> np.cos(low_theta)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>low_uy <span class="op">=</span> u <span class="op">*</span> np.sin(low_theta)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>low_tflight <span class="op">=</span> X <span class="op">/</span> low_ux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c56dee58" class="cell" data-execution_count="7">
+<p>Again, a for loop is used to calculate the x and y coordiantes of the projectile with a timestep of 0.01s between the instant the projectile is launched and the time of flight. Empty arrays of x and y coordinates are created and appended to using the equations: <span class="math inline">\(x_{-}=u_x^{-}t\)</span> for x coordiantes and <span class="math inline">\(y_{-}=u_y^{-}t-\frac{1}{2}gt^2\)</span> for y coordinates.</p>
+<div id="45924917" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>low_x <span class="op">=</span> []</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>low_y <span class="op">=</span> []</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> low_i <span class="kw">in</span> np.arange(<span class="dv">0</span>, low_tflight, <span class="fl">0.01</span>):</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    low_t <span class="op">=</span> low_i</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    low_x.append(low_ux <span class="op">*</span> low_t)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    low_T <span class="op">=</span> low_t<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    low_y.append((low_uy <span class="op">*</span> low_t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> low_T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    low_y.append((low_uy <span class="op">*</span> low_t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> low_t<span class="op">**</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="f7b319cc" class="cell" data-execution_count="8">
+<p>This process is then repeated for the high ball trajectory.</p>
+<div id="529749d1" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>high_ux <span class="op">=</span> u <span class="op">*</span> np.cos(high_theta)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>high_uy <span class="op">=</span> u <span class="op">*</span> np.sin(high_theta)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>high_tflight <span class="op">=</span> X <span class="op">/</span> high_ux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="66b5c2d2" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>high_x <span class="op">=</span> []</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>high_y <span class="op">=</span> []</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> high_i <span class="kw">in</span> np.arange(<span class="dv">0</span>, high_tflight, <span class="fl">0.01</span>):</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    high_t <span class="op">=</span> high_i</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    high_x.append(high_ux <span class="op">*</span> high_t)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    high_T <span class="op">=</span> high_t<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    high_y.append((high_uy <span class="op">*</span> high_t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> high_T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>high_tflight <span class="op">=</span> X <span class="op">/</span> high_ux</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>high_x <span class="op">=</span> []</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>high_y <span class="op">=</span> []</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> high_i <span class="kw">in</span> np.arange(<span class="dv">0</span>, high_tflight, <span class="fl">0.01</span>):</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    high_t <span class="op">=</span> high_i</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    high_x.append(high_ux <span class="op">*</span> high_t)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    high_y.append((high_uy <span class="op">*</span> high_t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> high_t<span class="op">**</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plotting-the-trajectories" class="level1">
 <h1>Plotting the Trajectories</h1>
-<div id="a1137561" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ax.plot(x, y)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ax.plot(low_x, low_y)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ax.plot(high_x, high_y)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>ax.scatter(X, Y, marker<span class="op">=</span><span class="st">"x"</span>, color<span class="op">=</span><span class="st">"red"</span>)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Displacement in x / m"</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Displacement in y / m"</span>)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>)</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>First, a figure of subplots is created to use the ax functions.</p>
+<p>The three trajectories are then plotted, along with the marker showing the user’s chosen coordinate.</p>
+<p>Finally, the parametrs of the plot are set, including labels for the axes, limits for the axes and labels for each of the trajectories.</p>
+<div id="6b896970" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ax.plot(x, y, label<span class="op">=</span><span class="st">"Minimum u"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>ax.plot(low_x, low_y, label<span class="op">=</span><span class="st">"Low Ball"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ax.plot(high_x, high_y, label<span class="op">=</span><span class="st">"High Ball"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>ax.scatter(X, Y, marker<span class="op">=</span><span class="st">"x"</span>, color<span class="op">=</span><span class="st">"red"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Displacement in x / m"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Displacement in y / m"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, X)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>ax.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="cchallenge3_files/figure-html/cell-11-output-1.png" width="618" height="429" class="figure-img"></p>
+<p><img src="cchallenge3_files/figure-html/cell-10-output-1.png" width="618" height="429" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -439,7 +449,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/WickerMark\.github\.io\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

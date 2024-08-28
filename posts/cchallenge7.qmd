@@ -79,14 +79,89 @@ r6 = rplot(85)
 
 t = tplot()
 ```
+
+```{python}
+# Function to find the t coordinate of the minima
+def mint(a):
+    u = 10
+    g = 10
+    a = a * (np.pi/180)
+
+    t = ((3 * u) / (2 * g)) * (np.sin(a) + np.sqrt(np.sin(a)**2 - (8/9)))
+
+    return t
+
+# Calls function and passses angle parameters
+mint1 = mint(78)
+mint2 = mint(85)
+
+# Function to find the r coordinate of the minima
+def minr(a, t):
+    u = 10
+    g = 10
+    a = a * (np.pi/180)
+
+    r = np.sqrt(u**2 * t**2 - g * t**3 * u * np.sin(a) + 0.25 * g**2 * t**4)
+
+    return r
+
+# Calls function and passes angle and t paramaters 
+minr1 = minr(78, mint1)
+minr2 = minr(85, mint2)
+
+# Function to find the t coordinate of the maxima 
+def maxt(a):
+    u = 10
+    g = 10
+    a = a * (np.pi/180)
+
+    t = ((3 * u) / (2 * g)) * (np.sin(a) - np.sqrt(np.sin(a)**2 - (8/9)))
+
+    return t
+
+# Calls function and passes angle parameters
+maxt1 = maxt(78)
+maxt2 = maxt(85)
+
+# Function to find the r coordinate of the maxima
+def maxr(a, t):
+    u = 10
+    g = 10
+    a = a * (np.pi/180)
+
+    r = np.sqrt(u**2 * t**2 - g * t**3 * u * np.sin(a) + 0.25 * g**2 * t**4)
+
+    return r
+
+# Calls the function and passes t coordinates and angles
+maxr1 = maxr(78, maxt1)
+maxr2 = maxr(85, maxt2)
+
+# Finds t and r coordinate of the point of inflection
+def stat():
+    u = 10
+    g = 10
+
+    t = (u / g) * np.sqrt(2)
+
+    return t 
+
+stat1 = stat()
+
+def star(a, t):
+    u = 10
+    g = 10
+    a = a * (np.pi / 180)
+
+    r = np.sqrt(u**2 * t**2 - g * t**3 * u * np.sin(a) + 0.25 * g**2 * t**4)
+
+    return r    
+
+star1 = star(70.5, stat1) 
+```
+
 ```{python}
 fig1, ax = plt.subplots()
-
-# Sets the parameters of the plot
-ax.set_xlabel("Range, r / m")
-ax.set_ylabel("Time, t / s")
-ax.set_ylim(0, 30)
-ax.set_xlim(0, 2.5)
 
 # Components to be plotted
 ax.plot(t, r1, label="θ = 30°")
@@ -95,11 +170,26 @@ ax.plot(t, r3, label="θ = 60°")
 ax.plot(t, r4, label="θ = 70.5°")
 ax.plot(t, r5, label="θ = 78°")
 ax.plot(t, r6, label="θ = 85°")
-ax.grid()
 
+# Plots minima
+ax.scatter(mint1, minr1, color="black", marker="x")
+ax.scatter(mint2, minr2, color="black", marker="x")
+
+# Plots maxima
+ax.scatter(maxt1, maxr1, color="red", marker="x")
+ax.scatter(maxt2, maxr2, color="red", marker="x")
+
+# Plots point of inflection
+ax.scatter(stat1, star1, color="blue", marker="x")
+
+# Sets the parameters of the plot
+ax.set_xlabel("Range, r / m")
+ax.set_ylabel("Time, t / s")
+ax.set_ylim(0, 30)
+ax.set_xlim(0, 2.5)
+ax.grid()
 ax.legend()
 ```
-
 ```{python}
 def xplot(a):
     u = 10
@@ -140,9 +230,8 @@ def yplot(a):
 
     return y    
 ```
-```{python}
-fig2, ax = plt.subplots()
 
+```{python}
 # Passes parameters of angles 
 x1 = xplot(30)
 x2 = xplot(45)
@@ -160,22 +249,71 @@ y5 = yplot(78)
 y6 = yplot(85)
 ```
 ```{python}
+# Plots maxima, minima and inflection points on y against x graph
+
+# Function to find x coordinate of each stationary point
+def stax(a, t):
+    u = 10
+    g = 10
+    a = a * (np.pi / 180)
+
+    ux = u * np.cos(a)
+
+    x = ux * t
+
+    return x
+
+# Calls function and passes paramters angle and t
+stax1 = stax(78, mint1)
+stax2 = stax(85, mint2)
+stax3 = stax(78, maxt1)
+stax4 = stax(85, maxt2)
+stax5 = stax(70.5, stat1)
+
+# Function to find the y coordinate of each stationary point
+def stay(a, t):
+    u = 10
+    g = 10
+    a = a * (np.pi / 180)
+
+    uy = u * np.sin(a)
+
+    y = uy * t - 0.5 * g * t**2
+
+    return y
+
+# Calls function and passes paramaters angle and t
+stay1 = stay(78, mint1)
+stay2 = stay(85, mint2)
+stay3 = stay(78, maxt1)
+stay4 = stay(85, maxt2)
+stay5 = stay(70.5, stat1)
+```
+
+```{python}
 # Components to be plotted
+fig2, ax = plt.subplots()
+
 ax.plot(x1, y1, label="θ = 30°")
 ax.plot(x2, y2, label="θ = 45°")
 ax.plot(x3, y3, label="θ = 60°")
 ax.plot(x4, y4, label="θ = 70.5°")
 ax.plot(x5, y5, label="θ = 78°")
 ax.plot(x6, y6, label="θ = 85°")
-ax.grid()
 
+# Plots stationary points
+ax.scatter(stax1, stay1, color="black", marker="x")
+ax.scatter(stax2, stay2, color="black", marker="x")
+ax.scatter(stax3, stay3, color="red", marker="x")
+ax.scatter(stax4, stay4, color="red", marker="x")
+ax.scatter(stax5, stay5, color="blue", marker="x")
 
 # Sets the parameters of the plot
 ax.set_xlabel("Displacement in x / m")
 ax.set_ylabel("Displacement in y / m")
 ax.set_ylim(-5, 5)
 ax.set_xlim(0, 15)
-
+ax.grid()
 ax.legend()
 
 plt.show()
