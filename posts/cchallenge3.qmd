@@ -1,0 +1,117 @@
+---
+title: "BPhO Computational Challenge 2024: Challenge 3: Creating a Simple Analytical Drag-Free Projectile Model"
+description: "The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee."
+date: 03/24/2024
+author: "Mark Watson"
+categories: 
+    - Python 
+    - BPhO Computational Challenge
+    - Computational Physics
+    - Projectile Motion
+link-external-icon: true
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "Contents"
+    toc-expand: 4
+---
+# Introduction
+DISCLAIMER: This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href = "https://youtu.be/ViT6NdrrbJo" target="_blank"> https://youtu.be/ViT6NdrrbJo </a>. 
+
+# Setting up the Problem
+First, the fundamental libraries are imported. Matplotlib for plotting, numpy for mathematical and trigonometric functions, math for trigonomatric functions (specifically arctan) and figure is imported from matplotlib to use the axes functions.
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+import math
+from matplotlib.figure import Figure 
+```
+Next, the conditions / parameters of the model are set. In the final GUI application submitted for the competition, these would be inputted using text input boxes. $g$ would be set using a combobox containing popular celestial objects, such as the planets in our solar system, or using a text box to enter a custom value. 
+
+$Y$ is the y coordinate that is hit by the projectile and $X$ is the x coordinate. 
+
+For the purpose of this demonstration of the algorithm, I have used the below values.
+```{python}
+X = 1000
+Y = 300
+u = 150
+g = 9.81
+```
+The problem must be decomposed into three separate problems. The first problem is the minimum velocity projectile. There are equations which can be used to calculate the minimum velocity and the corresponding angle of projection for the model. The second and third problems consist of the low and high ball trajectories. These can also be computed using equations.
+
+# Minimum Launch Velocity
+
+The minimum launch velocity must be calculated. This is achieved using the equation $u_{min}\sqrt{g}\sqrt{Y + \sqrt{X^2 + Y^2}}$.
+
+Now, the corresponding angle of projection must be calculated using $\theta_{min}=\tan^{-1}$. Finally, the velocity of the projectile is  
+```{python}
+minu = np.sqrt(g) * (np.sqrt(Y + np.sqrt(X**2 + Y**2)))
+mintheta = math.atan((Y + np.sqrt(X**2 + Y**2)) / X)
+minux = minu * np.cos(mintheta)
+minuy = minu * np.sin(mintheta)
+mint = X / minux
+```
+```{python}
+x = []
+y = []
+
+for i in np.arange(0, mint, 0.01):
+    t = i
+    x.append(minux * t)
+    T = t**2
+    y.append((minuy * t) - (0.5 * g * T))
+```
+# Low and High Ball Trajectories
+```{python}    
+a = (g / (2 * u**2)) * X**2
+b =  -X
+c = Y + ((g * X**2)/(2 * u**2))
+low_theta = math.atan((- b - np.sqrt(b**2 - (4 * a * c)))/(2 * a))
+high_theta = math.atan((- b + np.sqrt(b**2 - (4 * a * c)))/(2 * a))
+```
+```{python}
+low_ux = u * np.cos(low_theta)
+low_uy = u * np.sin(low_theta)
+low_tflight = X / low_ux
+```
+```{python}
+low_x = []
+low_y = []
+
+for low_i in np.arange(0, low_tflight, 0.01):
+    low_t = low_i
+    low_x.append(low_ux * low_t)
+    low_T = low_t**2
+    low_y.append((low_uy * low_t) - (0.5 * g * low_T))
+```
+```{python}
+high_ux = u * np.cos(high_theta)
+high_uy = u * np.sin(high_theta)
+high_tflight = X / high_ux
+```
+```{python}
+high_x = []
+high_y = []
+
+for high_i in np.arange(0, high_tflight, 0.01):
+    high_t = high_i
+    high_x.append(high_ux * high_t)
+    high_T = high_t**2
+    high_y.append((high_uy * high_t) - (0.5 * g * high_T))
+```
+
+# Plotting the Trajectories
+```{python}
+fig, ax = plt.subplots()
+
+ax.plot(x, y)
+ax.plot(low_x, low_y)
+ax.plot(high_x, high_y)
+ax.scatter(X, Y, marker="x", color="red")
+
+ax.set_xlabel("Displacement in x / m")
+ax.set_ylabel("Displacement in y / m")
+ax.set_ylim(0)
+ax.set_xlim(0, X)
+```

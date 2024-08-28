@@ -7,8 +7,18 @@ categories:
     - Python 
     - Optimisation
     - Machine Learning
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "Contents"
+    toc-expand: 4
 ---
+# Introduction
+
 The objective of this blog post is to create an implementation of a one-dimensional gradient descent algorithm used for optimisation in machine learning where a function needs to be minimised. Shown below is the code and explanations of my implementation of the algorithm.
+
+# Setting up the Problem
 
 First, the required libraries are imported and the function f(x) is defined for future use. This can be changed to any function that the user would require. In this example, I have used the equation $f(x)=x\sin(x)+\cos(x)+x$.
 ```{python}
@@ -19,6 +29,7 @@ import matplotlib.pyplot as plt
 def f(x):
     return x * np.sin(x) + (np.cos(x) + x)
 ```
+# Calculating the Derivative
 
 This function calculates the numerical derivative using the small step ϵ. This is defined by the equation $f'(x)\approx\frac{f(x + \epsilon)-f(x - \epsilon)}{2\epsilon}$.
 ```{python}
@@ -29,6 +40,7 @@ def derivative(f, x):
     
     return der
 ```
+# Creating the Gradient Descent Algorithm Function
 
 The following function performs the gradient descent algorithm. There are two stopping conditions for the algorithm, a maximum number of iterations, and if the absolute value of the gradient is lower than a set threshold value. The variable alpha is the learning rate of the algorithm, a scalar quantity which controls the size of the steps the algorithm takes. The equation $\theta_{t+1}=\theta_t-\alpha\nabla_{\theta}f(\theta_t)$ is used to update the position of the marker until the minimum point is found.
 ```{python}
@@ -42,6 +54,8 @@ def descent(f, derivative, xk, alpha=1e-3, tol=1e-4, max_iters=10000):
 
     return xk
 ```
+# Finding Minima
+
 The algorithm is then ran from various different starting points until the lowest minima is found. Empty lits of x and y coordinates are created and appended to with the coordinates determined by the algorithm. In this example, I used starting points between -12 and 12. The y coordinate of the optimal minimum point is then determined and printed.
 ```{python}
 xk_points = []
@@ -60,6 +74,8 @@ for i in np.arange(-12,12):
 # Prints the y coordiante of the optimal minimum
 print("The optimal minimum has y coordinate", min(yk_points))
 ```
+# Plotting the Function, Derivative and Minima
+
 The below code generates the function, its derivative and the minima found by the algorithm.
 ```{python}
 # Creates an array of x coordinates and finds corresponding y coordinates 

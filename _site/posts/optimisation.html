@@ -134,7 +134,6 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -177,8 +176,19 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#setting-up-the-problem" id="toc-setting-up-the-problem" class="nav-link" data-scroll-target="#setting-up-the-problem">Setting up the Problem</a></li>
+  <li><a href="#calculating-the-derivative" id="toc-calculating-the-derivative" class="nav-link" data-scroll-target="#calculating-the-derivative">Calculating the Derivative</a></li>
+  <li><a href="#creating-the-gradient-descent-algorithm-function" id="toc-creating-the-gradient-descent-algorithm-function" class="nav-link" data-scroll-target="#creating-the-gradient-descent-algorithm-function">Creating the Gradient Descent Algorithm Function</a></li>
+  <li><a href="#finding-minima" id="toc-finding-minima" class="nav-link" data-scroll-target="#finding-minima">Finding Minima</a></li>
+  <li><a href="#plotting-the-function-derivative-and-minima" id="toc-plotting-the-function-derivative-and-minima" class="nav-link" data-scroll-target="#plotting-the-function-derivative-and-minima">Plotting the Function, Derivative and Minima</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -224,9 +234,14 @@ window.Quarto = {
 </header>
 
 
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
 <p>The objective of this blog post is to create an implementation of a one-dimensional gradient descent algorithm used for optimisation in machine learning where a function needs to be minimised. Shown below is the code and explanations of my implementation of the algorithm.</p>
+</section>
+<section id="setting-up-the-problem" class="level1">
+<h1>Setting up the Problem</h1>
 <p>First, the required libraries are imported and the function f(x) is defined for future use. This can be changed to any function that the user would require. In this example, I have used the equation <span class="math inline">\(f(x)=x\sin(x)+\cos(x)+x\)</span>.</p>
-<div id="d1b8ba66" class="cell" data-execution_count="1">
+<div id="1a90614c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -234,8 +249,11 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> np.sin(x) <span class="op">+</span> (np.cos(x) <span class="op">+</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="calculating-the-derivative" class="level1">
+<h1>Calculating the Derivative</h1>
 <p>This function calculates the numerical derivative using the small step ϵ. This is defined by the equation <span class="math inline">\(f'(x)\approx\frac{f(x + \epsilon)-f(x - \epsilon)}{2\epsilon}\)</span>.</p>
-<div id="ddbf5c9c" class="cell" data-execution_count="2">
+<div id="9daed754" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to differentiate</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> derivative(f, x):</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> <span class="fl">1e-8</span></span>
@@ -243,8 +261,11 @@ window.Quarto = {
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> der</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="creating-the-gradient-descent-algorithm-function" class="level1">
+<h1>Creating the Gradient Descent Algorithm Function</h1>
 <p>The following function performs the gradient descent algorithm. There are two stopping conditions for the algorithm, a maximum number of iterations, and if the absolute value of the gradient is lower than a set threshold value. The variable alpha is the learning rate of the algorithm, a scalar quantity which controls the size of the steps the algorithm takes. The equation <span class="math inline">\(\theta_{t+1}=\theta_t-\alpha\nabla_{\theta}f(\theta_t)\)</span> is used to update the position of the marker until the minimum point is found.</p>
-<div id="59044d59" class="cell" data-execution_count="3">
+<div id="fcb6eff2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to perform the gradient descent algorithm</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> descent(f, derivative, xk, alpha<span class="op">=</span><span class="fl">1e-3</span>, tol<span class="op">=</span><span class="fl">1e-4</span>, max_iters<span class="op">=</span><span class="dv">10000</span>):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(max_iters):</span>
@@ -255,8 +276,11 @@ window.Quarto = {
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="finding-minima" class="level1">
+<h1>Finding Minima</h1>
 <p>The algorithm is then ran from various different starting points until the lowest minima is found. Empty lits of x and y coordinates are created and appended to with the coordinates determined by the algorithm. In this example, I used starting points between -12 and 12. The y coordinate of the optimal minimum point is then determined and printed.</p>
-<div id="ba784f6e" class="cell" data-execution_count="4">
+<div id="ca9ad80f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>xk_points <span class="op">=</span> []</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>yk_points <span class="op">=</span> []</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="op">-</span><span class="dv">12</span>,<span class="dv">12</span>):</span>
@@ -276,8 +300,11 @@ window.Quarto = {
 <pre><code>The optimal minimum has y coordinate -22.036404343345218</code></pre>
 </div>
 </div>
+</section>
+<section id="plotting-the-function-derivative-and-minima" class="level1">
+<h1>Plotting the Function, Derivative and Minima</h1>
 <p>The below code generates the function, its derivative and the minima found by the algorithm.</p>
-<div id="51cf80d5" class="cell" data-execution_count="5">
+<div id="c019f958" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an array of x coordinates and finds corresponding y coordinates </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for plotting</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">100</span>)</span>
@@ -307,6 +334,7 @@ window.Quarto = {
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -401,7 +429,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/WickerMark\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

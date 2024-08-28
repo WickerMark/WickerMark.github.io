@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Mark Watson">
+<meta name="dcterms.date" content="2024-05-09">
+<meta name="description" content="The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.">
 
-<title>Mark Watson – Portfolio</title>
+<title>BPhO Computational Challenge 2024: Challenge 9: Creating a Projectile Model Incorporating Air Resistance – Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,21 +26,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,14 +73,14 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Portfolio</span>
     </a>
   </div>
@@ -87,15 +91,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./portfolio.html"> 
+    <a class="nav-link" href="../portfolio.html"> 
 <span class="menu-text">Coding Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
 </ul>
@@ -109,82 +113,59 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
 <!-- main -->
-<div class="quarto-about-solana column-body">
-  <div class="about-entity">
-    <div class="entity-contents">
-      <header id="title-block-header" class="quarto-title-block default">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Mark Watson</h1>
-</div>
-<div class="quarto-title-meta">
+<h1 class="title">BPhO Computational Challenge 2024: Challenge 9: Creating a Projectile Model Incorporating Air Resistance</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">BPhO Computational Challenge</div>
+    <div class="quarto-category">Computational Physics</div>
+    <div class="quarto-category">Projectile Motion</div>
   </div>
-</header> <div class="about-links">
-  <a href="/portfolio.html" class="about-link" rel="" target="">
-     <span class="about-link-text">Coding Projects</span>
-  </a>
-  <a href="https://rating.englishchess.org.uk/v2/new/list_games_player.php?domain=S&amp;year=ALL&amp;show_games=on&amp;show_ratings=on&amp;ECF_code=346351F" class="about-link" rel="" target="">
-     <span class="about-link-text">ECF Chess Games</span>
-  </a>
-  <a href="https://github.com/WickerMark/" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">My GitHub Profile</span>
-  </a>
-  <a href="https://github.com/WickerMark/wickermark.github.io/" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">See my Code</span>
-  </a>
+  </div>
+
+<div>
+  <div class="description">
+    The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.
+  </div>
 </div>
-      <div class="about-contents"><main class="content" id="quarto-document-content">
-<p><img src="me.png" width="250" height="250"></p>
-<section id="why-do-i-want-to-study-computer-science" class="level1">
-<h1>Why do I want to study Computer Science?</h1>
-</section>
-<section id="computer-science-and-coding-experience" class="level1">
-<h1>Computer Science and Coding Experience</h1>
-<section id="python-experience" class="level2">
-<h2 data-anchor-id="python-experience">Python Experience</h2>
-<p>I have about 5 years of experience in Python, creating various projects and entering in competitions with Python, some of which are shown in the coding projects tab. Most notably, I have entered, along with my partner, into the BPhO Computational Challenge 2024.</p>
-</section>
-<section id="bpho-computational-challenge-2024" class="level2">
-<h2 data-anchor-id="bpho-computational-challenge-2024">BPhO Computational Challenge 2024</h2>
-<p>The aim of the challenge is to solve classical Physics problems computationally. For the 2024 rendition of the challenge, we created a GUI application consisting of 9 projectile models, including a projectile model considering both air restistance and varying air density with height. During the challenge, I also learnt how to write scientific papers using LaTex, one of the extensions of the competition.</p>
-</section>
-<section id="machine-learning" class="level2">
-<h2 data-anchor-id="machine-learning">Machine Learning</h2>
-<p>Most of my experience in machine learning is in the applications of machine learning, such as applying machine learning algorithms to galaxy classification, see my EPQ. Some of my projects have involved rudimentary machine learning algorithms, for instance, I explored how the gradient descent algorithm and optimisation could be used</p>
-</section>
-<section id="epq" class="level2">
-<h2 data-anchor-id="epq">EPQ</h2>
-</section>
-<section id="web-development" class="level2">
-<h2 data-anchor-id="web-development">Web Development</h2>
-<p>Throughout the course of developing this and other websites, I have gained a lot of experience in HTML and CSS. While developing this website, I gained many valuable skills and learnt a lot, such as how Git works, using version control, developing websites and blogs using Quarto, creating mathematical expressions with LaTex and using GitHub and GitHub pages.</p>
-</section>
-</section>
-<section id="hobbies" class="level1">
-<h1>Hobbies</h1>
-<section id="astrophotography" class="level2">
-<h2 data-anchor-id="astrophotography">Astrophotography</h2>
-<p>In my free time, I enjoy capturing images of distant deep sky objects using astrophotography. Click the astrophotograhy tab to see my portfolio.</p>
-</section>
-<section id="chess" class="level2">
-<h2 data-anchor-id="chess">Chess</h2>
-<p>I am also a passionate chess player. I have several high tournament finishes in my category, including a bronze at the presitigious <a href="https://mannchess.org.uk/DonCong/2024All.htm#mi" target="_blank">Doncaster Chess Congress</a> and a silver at the <a href="http://www.dhchessclub.co.uk/index.php/rapidplay/prize-winners" target="_blank">Darnall &amp; Handsworth Rapidplay September 2023</a>. I have also regularly represented my local town, Rotherham, in the second division of the Sheffield &amp; District Chess Association for the past 3 years. I founded and captained the Wickersley School Chess Club (my secondary school and sixth form) for the past 5 years and volunteered my time to tutor the younger students.</p>
-</section>
-<section id="languages" class="level2">
-<h2 data-anchor-id="languages">Languages</h2>
-<p>Finally, I love learning languages. I am fluent in Polish and have been learning Russian and German for the past few years.</p>
 
 
-</section>
-</section>
-</main></div>
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mark Watson </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 9, 2024</p>
     </div>
   </div>
-</div>
- <!-- /main -->
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>DISCLAIMER: This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href="https://youtu.be/ViT6NdrrbJo" target="_blank"> https://youtu.be/ViT6NdrrbJo </a>.</p>
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -205,6 +186,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
@@ -270,7 +258,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/WickerMark\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

@@ -5,9 +5,19 @@ date: 08/14/2024
 author: "Mark Watson"
 categories: 
     - Python 
-    - Prime Numbers 
+    - Prime Numbers
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "Contents"
+    toc-expand: 4
 ---
+# Introduction
+
 The ability to generate prime numbers is important for a variety of tasks, most notably, cryptography, the RSA algorithm for instance, in psuedo-random number generation and benchmarking algorithms.
+
+# Setting up the Problem
 
 Numpy will be used for the square root function later in the code. 
 
@@ -23,6 +33,8 @@ counter = 2
 
 ```
 The prime number to be generated can be set to anything, but for this example, I have used 1000. This means that the while loop will continue to iterate until the counter is no longer less than 1000.
+
+# Calculating and Outputting the nth Prime Number
 
 The variable number is first incremented by 2 (to emit all even numbers since these cannot be prime). 
 

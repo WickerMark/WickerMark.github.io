@@ -1,0 +1,182 @@
+---
+title: "BPhO Computational Challenge 2024: Challenge 7: An Examination of the Phenomenon of Local Maxima and Minima on Range Against Time Graphs in Projectile Motion"
+description: "The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee."
+date: 05/19/2024
+author: "Mark Watson"
+categories: 
+    - Python 
+    - BPhO Computational Challenge
+    - Computational Physics
+    - Projectile Motion
+link-external-icon: true
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "Contents"
+    toc-expand: 4
+---
+DISCLAIMER: This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href = "https://youtu.be/ViT6NdrrbJo" target="_blank"> https://youtu.be/ViT6NdrrbJo </a>. 
+To begin, the necessary librariesa are imported. Matplotlib is used for plotting, numpy is used for mathematical and trigonometric functions, and figure is imported from matplotlib to create two graphs which are displayed.
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.figure import Figure
+```
+
+```{python}
+# Function to plot r
+def rplot(a):
+    # Paramaters
+    u = 10
+    g = 10
+
+    arad = (a * np.pi) / 180
+
+    # Sin and cos of the angle
+    sintheta = np.sin(arad)
+
+    # Creates array of r and t valuse
+    range = []
+
+    # Appends array with inital conditions
+    range.append(0)
+
+    # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+    for i in np.arange(0, 2.6, 0.01):
+        t = i
+        r = np.sqrt(u**2 * t**2 - g * t**3 * u * sintheta + 0.25 * g**2 * t**4)
+        range.append(r)
+    
+    return range
+```
+```{python}
+# Function to plot t
+def tplot():
+
+    # Creates array for time valuse
+    time = []
+
+    # Appends array with inital condition
+    time.append(0)
+
+    # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+    for i in np.arange(0, 2.6, 0.01):
+        t = i
+        time.append(t)
+    
+    return time
+```
+
+```{python}
+# Passes parameters of angles 
+r1 = rplot(30)
+r2 = rplot(45)
+r3 = rplot(60)
+r4 = rplot(70.5)
+r5 = rplot(78)
+r6 = rplot(85)
+
+t = tplot()
+```
+```{python}
+fig1, ax = plt.subplots()
+
+# Sets the parameters of the plot
+ax.set_xlabel("Range, r / m")
+ax.set_ylabel("Time, t / s")
+ax.set_ylim(0, 30)
+ax.set_xlim(0, 2.5)
+
+# Components to be plotted
+ax.plot(t, r1, label="θ = 30°")
+ax.plot(t, r2, label="θ = 45°")
+ax.plot(t, r3, label="θ = 60°")
+ax.plot(t, r4, label="θ = 70.5°")
+ax.plot(t, r5, label="θ = 78°")
+ax.plot(t, r6, label="θ = 85°")
+ax.grid()
+
+ax.legend()
+```
+
+```{python}
+def xplot(a):
+    u = 10
+    g = 10
+
+    arad = (a * np.pi) / 180
+
+    ux = u * np.cos(arad)
+
+    # Creates an empty arrary for the x and y coordinates of the trajectory
+    x = []
+
+    # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+    for i in np.arange(0, 3, 0.01):
+        t = i
+        x.append(ux * t)
+
+    return x
+```
+```{python}
+def yplot(a):
+    u = 10
+    g = 10
+    h = 0
+
+    arad = (a * np.pi) / 180
+
+    uy = u * np.sin(arad)
+
+    # Creates an empty arrary for the x and y coordinates of the trajectory
+    y = []
+
+    # Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight
+    for i in np.arange(0, 3, 0.01):
+        t = i
+        T = t * t
+        y.append(h + (uy * t) - (0.5 * g * T))   
+
+    return y    
+```
+```{python}
+fig2, ax = plt.subplots()
+
+# Passes parameters of angles 
+x1 = xplot(30)
+x2 = xplot(45)
+x3 = xplot(60)
+x4 = xplot(70.5)
+x5 = xplot(78)
+x6 = xplot(85)
+
+# Passes parameters of angles 
+y1 = yplot(30)
+y2 = yplot(45)
+y3 = yplot(60)
+y4 = yplot(70.5)
+y5 = yplot(78)
+y6 = yplot(85)
+```
+```{python}
+# Components to be plotted
+ax.plot(x1, y1, label="θ = 30°")
+ax.plot(x2, y2, label="θ = 45°")
+ax.plot(x3, y3, label="θ = 60°")
+ax.plot(x4, y4, label="θ = 70.5°")
+ax.plot(x5, y5, label="θ = 78°")
+ax.plot(x6, y6, label="θ = 85°")
+ax.grid()
+
+
+# Sets the parameters of the plot
+ax.set_xlabel("Displacement in x / m")
+ax.set_ylabel("Displacement in y / m")
+ax.set_ylim(-5, 5)
+ax.set_xlim(0, 15)
+
+ax.legend()
+
+plt.show()
+```

@@ -1,0 +1,19 @@
+---
+title: "BPhO Computational Challenge 2024: Challenge 8: Bouncing Projectile Model"
+description: "The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee."
+date: 05/26/2024
+author: "Mark Watson"
+categories: 
+    - Python 
+    - BPhO Computational Challenge
+    - Computational Physics
+    - Projectile Motion
+link-external-icon: true
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "Contents"
+    toc-expand: 4
+---
+DISCLAIMER: This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href = "https://youtu.be/ViT6NdrrbJo" target="_blank"> https://youtu.be/ViT6NdrrbJo </a>. 

@@ -1,0 +1,130 @@
+---
+title: "BPhO Computational Challenge 2024: Challenge 5: Implementing the Bounding Parabola to the Projectile Model"
+description: "The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee."
+date: 04/11/2024
+author: "Mark Watson"
+categories: 
+    - Python 
+    - BPhO Computational Challenge
+    - Computational Physics
+    - Projectile Motion
+link-external-icon: true
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "Contents"
+    toc-expand: 4
+---
+DISCLAIMER: This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href = "https://youtu.be/ViT6NdrrbJo" target="_blank"> https://youtu.be/ViT6NdrrbJo </a>. 
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+import math
+
+# X = Xtxt.get()
+# Y = Ytxt.get()
+# u = utxt.get()
+
+X = 1000
+Y = 300
+u = 150
+g = 9.81
+
+minu = np.sqrt(g) * (np.sqrt(Y + np.sqrt(X**2 + Y**2)))
+mintheta = math.atan((Y + np.sqrt(X**2 + Y**2)) / X)
+minux = minu * np.cos(mintheta)
+minuy = minu * np.sin(mintheta)
+mint = 2 * (minuy / g)
+
+x = []
+y = []
+
+for i in np.arange(0, mint, 0.01):
+    t = i
+    x.append(minux * t)
+    T = t**2
+    y.append((minuy * t) - (0.5 * g * T))
+    
+a = (g / (2 * u**2)) * X**2
+b =  -X
+c = Y + ((g * X**2)/(2 * u**2))
+low_theta = math.atan((- b - np.sqrt(b**2 - (4 * a * c)))/(2 * a))
+high_theta = math.atan((- b + np.sqrt(b**2 - (4 * a * c)))/(2 * a))
+
+low_ux = u * np.cos(low_theta)
+low_uy = u * np.sin(low_theta)
+low_tflight = 2 * (low_uy / g)
+
+low_x = []
+low_y = []
+
+for low_i in np.arange(0, low_tflight, 0.01):
+    low_t = low_i
+    low_x.append(low_ux * low_t)
+    low_T = low_t**2
+    low_y.append((low_uy * low_t) - (0.5 * g * low_T))
+    
+high_ux = u * np.cos(high_theta)
+high_uy = u * np.sin(high_theta)
+high_tflight = 2 * (high_uy / g)
+
+high_x = []
+high_y = []
+
+for high_i in np.arange(0, high_tflight, 0.01):
+    high_t = high_i
+    high_x.append(high_ux * high_t)
+    high_T = high_t**2
+    high_y.append((high_uy * high_t) - (0.5 * g * high_T))
+
+u2 = u * u
+tgh = 2 * g
+tghu2 = (tgh) / (u2)
+arc = (1 / np.sqrt((2 + tghu2)))
+
+thetamax = np.arcsin(arc)
+
+costhetamax = np.cos(thetamax)
+sinthetamax = np.sin(thetamax)
+
+max_ux = u * costhetamax
+max_uy = u * sinthetamax
+max_tflight = 2 * (max_uy / g)
+
+# Creates an empty arrary for the x and y coordinates of the trajectory
+max_x = []
+max_y = []
+
+# Plots the parabolic path of the projectile with a timestep of 0.01s and an interval of 10s
+for max_i in np.arange(0, max_tflight, 0.01):
+    max_t = max_i
+    max_x.append(max_ux * max_t)
+    max_T = max_t * max_t
+    max_y.append((max_uy * max_t) - (0.5 * g * max_T))
+    
+max_range = max_tflight * max_ux
+    
+bounding_a = - (g / (2 * u**2))
+bounding_c = (u**2) / (2 * g)
+bounding_x = np.linspace(0, max_range, 100)
+bounding_y = bounding_a * bounding_x**2 + bounding_c
+
+plt.plot(x, y, label="Minimum u", zorder=1)
+plt.plot(low_x, low_y, label="Low Ball", zorder=2)
+plt.plot(high_x, high_y, label="High Ball", zorder=3)
+plt.plot(bounding_x, bounding_y, label="Bounding Parabola", zorder=4)
+plt.plot(max_x, max_y, label="Maximum Range", zorder=5)
+plt.scatter(X, Y, color="red", marker="x", zorder=6, label=(X,Y))
+
+plt.xlabel("Displacement in x / m")
+plt.ylabel("Displacement in y / m")
+plt.ylim(0)
+plt.xlim(0, max_range)
+plt.grid()
+plt.legend(loc="upper right")
+
+
+plt.show()
+```

@@ -32,5 +32,14 @@ src="https://www.youtube.com/embed/ViT6NdrrbJo">
 <nav>
   <ul style="list-style-type:none; padding:0">
     <li style="display:inline; margin-right: 20px;"><a href="/posts/cchallenge1.html">Challenge 1 & 2: Analytical Drag-Free Projectile Model</a></li>
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/cchallenge2.html">Challenge 1 & 2: Analytical Drag-Free Projectile Model</a></li>
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/cchallenge3.html">Challenge 1 & 2: Analytical Drag-Free Projectile Model</a></li>
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/cchallenge4.html">Challenge 1 & 2: Analytical Drag-Free Projectile Model</a></li>
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/cchallenge5.html">Challenge 1 & 2: Analytical Drag-Free Projectile Model</a></li>
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/cchallenge6.html">Challenge 1 & 2: Analytical Drag-Free Projectile Model</a></li>
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/cchallenge7.html">Challenge 1 & 2: Analytical Drag-Free Projectile Model</a></li>
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/cchallenge8.html">Challenge 1 & 2: Analytical Drag-Free Projectile Model</a></li>
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/cchallenge9.html">Challenge 1 & 2: Analytical Drag-Free Projectile Model</a></li>   
+    <li style="display:inline; margin-right: 20px;"><a href="/posts/cchallengee1.html">Challenge 1 & 2: Analytical Drag-Free Projectile Model</a></li>
   </ul>
 </nav>
