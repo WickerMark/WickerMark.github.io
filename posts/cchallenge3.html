@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mark Watson">
-<meta name="dcterms.date" content="2024-07-28">
-<meta name="description" content="An implementation of calculating the numerical derivative using the small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.">
+<meta name="dcterms.date" content="2024-03-24">
+<meta name="description" content="The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.">
 
-<title>A Numerical Method to Calculate the Derivative using a Small Step, ϵ – Portfolio</title>
+<title>BPhO Computational Challenge 2024: Challenge 3: Creating a Simple Analytical Drag-Free Projectile Model – Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -183,8 +183,9 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#setting-up-the-problem" id="toc-setting-up-the-problem" class="nav-link" data-scroll-target="#setting-up-the-problem">Setting up the Problem</a></li>
-  <li><a href="#calculating-the-derivative" id="toc-calculating-the-derivative" class="nav-link" data-scroll-target="#calculating-the-derivative">Calculating the Derivative</a></li>
-  <li><a href="#outputting-a-graph-of-the-derivative" id="toc-outputting-a-graph-of-the-derivative" class="nav-link" data-scroll-target="#outputting-a-graph-of-the-derivative">Outputting a Graph of the Derivative</a></li>
+  <li><a href="#minimum-launch-velocity" id="toc-minimum-launch-velocity" class="nav-link" data-scroll-target="#minimum-launch-velocity">Minimum Launch Velocity</a></li>
+  <li><a href="#low-and-high-ball-trajectories" id="toc-low-and-high-ball-trajectories" class="nav-link" data-scroll-target="#low-and-high-ball-trajectories">Low and High Ball Trajectories</a></li>
+  <li><a href="#plotting-the-trajectories" id="toc-plotting-the-trajectories" class="nav-link" data-scroll-target="#plotting-the-trajectories">Plotting the Trajectories</a></li>
   </ul>
 </nav>
     </div>
@@ -193,16 +194,18 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">A Numerical Method to Calculate the Derivative using a Small Step, ϵ</h1>
+<h1 class="title">BPhO Computational Challenge 2024: Challenge 3: Creating a Simple Analytical Drag-Free Projectile Model</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Python</div>
-    <div class="quarto-category">Numerical Methods</div>
+    <div class="quarto-category">BPhO Computational Challenge</div>
+    <div class="quarto-category">Computational Physics</div>
+    <div class="quarto-category">Projectile Motion</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    An implementation of calculating the numerical derivative using the small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.
+    The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.
   </div>
 </div>
 
@@ -219,7 +222,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 28, 2024</p>
+      <p class="date">March 24, 2024</p>
     </div>
   </div>
   
@@ -233,70 +236,112 @@ window.Quarto = {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>The algorithm created is based on the equation <span class="math inline">\(f'(x)\approx\frac{f(x + \epsilon)-f(x - \epsilon)}{2\epsilon}\)</span> to approximate the derivative using a small step. I have set the small step to <span class="math inline">\(\epsilon=1\times10^{-8}\)</span>, however, this can be modified to the specification of the user.</p>
+<p>DISCLAIMER: This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href="https://youtu.be/ViT6NdrrbJo" target="_blank"> https://youtu.be/ViT6NdrrbJo </a>.</p>
 </section>
 <section id="setting-up-the-problem" class="level1">
 <h1>Setting up the Problem</h1>
-<p>To begin the algorithm, the required libraries are imported, specifically numpy for trigonometric and logarithmic functions and matplotlib for the plotting.</p>
-<p>Next, the function to be differentiated is defined. For the purpose of this example, the function used is <span class="math inline">\(f(x)=\ln(x^2)\sin(x)\)</span>. The user can change the function to whatever may be required.</p>
-<div id="14f4846f" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates the function</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.log(x<span class="op">**</span><span class="dv">2</span>) <span class="op">*</span> np.sin(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>First, the fundamental libraries are imported. Matplotlib for plotting, numpy for mathematical and trigonometric functions, math for trigonomatric functions (specifically arctan) and figure is imported from matplotlib to use the axes functions.</p>
+<div id="bed142ae" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.figure <span class="im">import</span> Figure </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, the conditions / parameters of the model are set. In the final GUI application submitted for the competition, these would be inputted using text input boxes. <span class="math inline">\(g\)</span> would be set using a combobox containing popular celestial objects, such as the planets in our solar system, or using a text box to enter a custom value.</p>
+<p><span class="math inline">\(Y\)</span> is the y coordinate that is hit by the projectile and <span class="math inline">\(X\)</span> is the x coordinate.</p>
+<p>For the purpose of this demonstration of the algorithm, I have used the below values.</p>
+<div id="cae775e8" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> <span class="dv">300</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="dv">150</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> <span class="fl">9.81</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The problem must be decomposed into three separate problems. The first problem is the minimum velocity projectile. There are equations which can be used to calculate the minimum velocity and the corresponding angle of projection for the model. The second and third problems consist of the low and high ball trajectories. These can also be computed using equations.</p>
+</section>
+<section id="minimum-launch-velocity" class="level1">
+<h1>Minimum Launch Velocity</h1>
+<p>The minimum launch velocity must be calculated. This is achieved using the equation <span class="math inline">\(u_{min}\sqrt{g}\sqrt{Y + \sqrt{X^2 + Y^2}}\)</span>.</p>
+<p>Now, the corresponding angle of projection must be calculated using <span class="math inline">\(\theta_{min}=\tan^{-1}\)</span>. Finally, the velocity of the projectile is</p>
+<div id="70a020e0" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>minu <span class="op">=</span> np.sqrt(g) <span class="op">*</span> (np.sqrt(Y <span class="op">+</span> np.sqrt(X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span>)))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mintheta <span class="op">=</span> math.atan((Y <span class="op">+</span> np.sqrt(X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span>)) <span class="op">/</span> X)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>minux <span class="op">=</span> minu <span class="op">*</span> np.cos(mintheta)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>minuy <span class="op">=</span> minu <span class="op">*</span> np.sin(mintheta)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mint <span class="op">=</span> X <span class="op">/</span> minux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e644dd0e" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> []</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> []</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">0</span>, mint, <span class="fl">0.01</span>):</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> i</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    x.append(minux <span class="op">*</span> t)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> t<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    y.append((minuy <span class="op">*</span> t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="calculating-the-derivative" class="level1">
-<h1>Calculating the Derivative</h1>
-<p>This function finds the derivative using the small step, ϵ, at a given x coordinate. This is useful for plotting, because the desired array of x coordinates can be passed to the function to generate an f’(x) function for that set of values. For other algorithms, the gradient descent algorithm for instance, finding the derivative at a given x coordinate is useful for further calculations.</p>
-<div id="79ef5f7a" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to differentiate</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> derivative(f, x):</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> <span class="fl">1e-8</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    der <span class="op">=</span> (f(x <span class="op">+</span> eps) <span class="op">-</span> f(x <span class="op">-</span> eps)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> eps)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> der</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="low-and-high-ball-trajectories" class="level1">
+<h1>Low and High Ball Trajectories</h1>
+<div id="fca6ab05" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> (g <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> u<span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> X<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span>  <span class="op">-</span>X</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Y <span class="op">+</span> ((g <span class="op">*</span> X<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">2</span> <span class="op">*</span> u<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>low_theta <span class="op">=</span> math.atan((<span class="op">-</span> b <span class="op">-</span> np.sqrt(b<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> (<span class="dv">4</span> <span class="op">*</span> a <span class="op">*</span> c)))<span class="op">/</span>(<span class="dv">2</span> <span class="op">*</span> a))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>high_theta <span class="op">=</span> math.atan((<span class="op">-</span> b <span class="op">+</span> np.sqrt(b<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> (<span class="dv">4</span> <span class="op">*</span> a <span class="op">*</span> c)))<span class="op">/</span>(<span class="dv">2</span> <span class="op">*</span> a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="62862423" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>low_ux <span class="op">=</span> u <span class="op">*</span> np.cos(low_theta)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>low_uy <span class="op">=</span> u <span class="op">*</span> np.sin(low_theta)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>low_tflight <span class="op">=</span> X <span class="op">/</span> low_ux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="0bded2cf" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>low_x <span class="op">=</span> []</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>low_y <span class="op">=</span> []</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> low_i <span class="kw">in</span> np.arange(<span class="dv">0</span>, low_tflight, <span class="fl">0.01</span>):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    low_t <span class="op">=</span> low_i</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    low_x.append(low_ux <span class="op">*</span> low_t)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    low_T <span class="op">=</span> low_t<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    low_y.append((low_uy <span class="op">*</span> low_t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> low_T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d74c325b" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>high_ux <span class="op">=</span> u <span class="op">*</span> np.cos(high_theta)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>high_uy <span class="op">=</span> u <span class="op">*</span> np.sin(high_theta)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>high_tflight <span class="op">=</span> X <span class="op">/</span> high_ux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="87607a51" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>high_x <span class="op">=</span> []</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>high_y <span class="op">=</span> []</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> high_i <span class="kw">in</span> np.arange(<span class="dv">0</span>, high_tflight, <span class="fl">0.01</span>):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    high_t <span class="op">=</span> high_i</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    high_x.append(high_ux <span class="op">*</span> high_t)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    high_T <span class="op">=</span> high_t<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    high_y.append((high_uy <span class="op">*</span> high_t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> high_T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="outputting-a-graph-of-the-derivative" class="level1">
-<h1>Outputting a Graph of the Derivative</h1>
-<p>Here, np.linspace(-15, 15, 500) is used to create an equally spaced array of 500 x coordinates between x = -15 and x = 15. Then, for each x coordinate, a corresponding y coordinate is found by passing each x coordinate into the function.</p>
-<div id="a344df0a" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an array of x coordinates and finds corresponding y coordinates </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for plotting</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">500</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> f(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now, list comprehension is used to apply the derivative function to each element <span class="math inline">\(x_i\)</span> in <span class="math inline">\(x\)</span>. The result is then stored as a numpy array for plotting.</p>
-<div id="f35119d2" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Differentiates x coordinates to create the graph of the first derivative</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dydx <span class="op">=</span> np.array([derivative(f, xi) <span class="cf">for</span> xi <span class="kw">in</span> x])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Lastly, the curves f(x) and f’(x) are plotted and given appropriate labels.</p>
-<p>Then, the paramaters of the plot are set, the limit for the x axis, the creation of a grid and also the legend to display labels.</p>
-<p>These graphs are then displayed.</p>
-<div id="c91597da" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots the curves</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, label<span class="op">=</span><span class="st">"f(x)"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, dydx, label<span class="op">=</span><span class="st">"f'(x)"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets parameters of the plot and plots the curves</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="plotting-the-trajectories" class="level1">
+<h1>Plotting the Trajectories</h1>
+<div id="64492911" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ax.plot(x, y)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ax.plot(low_x, low_y)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ax.plot(high_x, high_y)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>ax.scatter(X, Y, marker<span class="op">=</span><span class="st">"x"</span>, color<span class="op">=</span><span class="st">"red"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Displacement in x / m"</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Displacement in y / m"</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="derivative_files/figure-html/cell-6-output-1.png" width="577" height="411" class="figure-img"></p>
+<p><img src="cchallenge3_files/figure-html/cell-11-output-1.png" width="618" height="429" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>This algorithm has been curated for use in the gradient descent algorithm, which will be a future post.</p>
 
 
 </section>
@@ -408,6 +453,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         if (link.dataset.originalHref !== undefined) {
           link.href = link.dataset.originalHref;
         }
+          // default icon
+          link.classList.add("external");
       }
     }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {

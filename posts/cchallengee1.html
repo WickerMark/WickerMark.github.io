@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Mark Watson">
+<meta name="dcterms.date" content="2024-06-10">
+<meta name="description" content="The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.">
 
-<title>Home – Portfolio</title>
+<title>BPhO Computational Challenge 2024: Extension: Creating a Projectile Model Incorporating both Air Resistance and Varying Air Density with Height – Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +26,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -77,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Portfolio</span>
     </a>
   </div>
@@ -88,15 +91,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./portfolio.html"> 
+    <a class="nav-link" href="../portfolio.html"> 
 <span class="menu-text">Coding Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
 </ul>
@@ -110,33 +113,45 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#featured-projects" id="toc-featured-projects" class="nav-link active" data-scroll-target="#featured-projects">Featured Projects</a></li>
-  <li><a href="#bpho-computational-challenge-2024" id="toc-bpho-computational-challenge-2024" class="nav-link" data-scroll-target="#bpho-computational-challenge-2024">BPhO Computational Challenge 2024:</a>
-  <ul class="collapse">
-  <li><a href="#video-submission" id="toc-video-submission" class="nav-link" data-scroll-target="#video-submission">Video Submission</a></li>
-  <li><a href="#code-and-explanations" id="toc-code-and-explanations" class="nav-link" data-scroll-target="#code-and-explanations">Code and Explanations</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Home</h1>
-</div>
+<h1 class="title">BPhO Computational Challenge 2024: Extension: Creating a Projectile Model Incorporating both Air Resistance and Varying Air Density with Height</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">BPhO Computational Challenge</div>
+    <div class="quarto-category">Computational Physics</div>
+    <div class="quarto-category">Projectile Motion</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    The solution to the first two challenges of the BPhO Computational Challenge, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mark Watson </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 10, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -146,69 +161,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<h4 class="anchored">
-Welcome to my portfolio of programming projects and competition submissions
-</h4>
-<section id="featured-projects" class="level1">
-<h1>Featured Projects</h1>
-<nav>
-<ul style="list-style-type:none; padding:0">
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/primes.html">Generating the nth prime number</a>
-</li>
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/optimisation.html">Optimisation</a>
-</li>
-</ul>
-</nav>
-</section>
-<section id="bpho-computational-challenge-2024" class="level1">
-<h1>BPhO Computational Challenge 2024:</h1>
-<section id="video-submission" class="level3">
-<h3 class="anchored" data-anchor-id="video-submission">Video Submission</h3>
-<iframe width="800" height="400" src="https://www.youtube.com/embed/ViT6NdrrbJo">
-</iframe>
-</section>
-<section id="code-and-explanations" class="level3">
-<h3 class="anchored" data-anchor-id="code-and-explanations">Code and Explanations</h3>
-<nav>
-<ul style="list-style-type:none; padding:0">
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/cchallenge1.html">Challenge 1 &amp; 2: Analytical Drag-Free Projectile Model</a>
-</li>
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/cchallenge2.html">Challenge 1 &amp; 2: Analytical Drag-Free Projectile Model</a>
-</li>
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/cchallenge3.html">Challenge 1 &amp; 2: Analytical Drag-Free Projectile Model</a>
-</li>
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/cchallenge4.html">Challenge 1 &amp; 2: Analytical Drag-Free Projectile Model</a>
-</li>
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/cchallenge5.html">Challenge 1 &amp; 2: Analytical Drag-Free Projectile Model</a>
-</li>
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/cchallenge6.html">Challenge 1 &amp; 2: Analytical Drag-Free Projectile Model</a>
-</li>
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/cchallenge7.html">Challenge 1 &amp; 2: Analytical Drag-Free Projectile Model</a>
-</li>
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/cchallenge8.html">Challenge 1 &amp; 2: Analytical Drag-Free Projectile Model</a>
-</li>
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/cchallenge9.html">Challenge 1 &amp; 2: Analytical Drag-Free Projectile Model</a>
-</li>
-<li style="display:inline; margin-right: 20px;">
-<a href="./posts/cchallengee1.html">Challenge 1 &amp; 2: Analytical Drag-Free Projectile Model</a>
-</li>
-</ul>
-</nav>
+<p>DISCLAIMER: This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href="https://youtu.be/ViT6NdrrbJo" target="_blank"> https://youtu.be/ViT6NdrrbJo </a>.</p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -317,6 +272,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         if (link.dataset.originalHref !== undefined) {
           link.href = link.dataset.originalHref;
         }
+          // default icon
+          link.classList.add("external");
       }
     }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
