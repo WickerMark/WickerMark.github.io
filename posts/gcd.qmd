@@ -1,0 +1,47 @@
+---
+title: "Computing the Greatest Common Divisior (GCD) Using the Euclidean Algorithm"
+description: "Implementing the Euclidean Algorithm to find the Greatest Common Divisor (GCD) of two positive integers."
+date: 08/29/2024
+author: "Mark Watson"
+categories: 
+    - Python 
+    - Number Theory
+link-external-icon: true
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "Contents"
+    toc-expand: 4
+---
+# Introduction
+Euclid's algorithm to find the Greatest Common Divisor (GCD), that is the largest number that divides two positive integers without a remainder, was first described in the 7th book of Euclid's <i>Elements</i> written c. 300 BC, making it one of the oldest algorithms.
+
+The algorithm works by using the fact that the GCD of two numbers, a and b, is the same as the GCD of b and the remainder of a divided by b. In Python, this is achieved using the modulus function, or %. This process is then repeated until there is no remainder.
+
+The Euclidean algorithm has a time complexity of O(log(min(a, b))).
+
+Interestingly, the extended Euclidian algorithm calculates the coefficients of Bézout's identity such that $ax+by=gcd(a,b)$. This is used in solving Diophantine equations and in modular arithmetic, for instance, the RSA encryption algorithm when calculating the modular inverses for key generation.
+
+# Inputs
+The algorithm requires two inputs - two positive integers, a and b. Normally, the user would be asked to input these integers, however, for the purpose of this example, I have used the integers shown below.
+```{python}
+a = 2376
+b = 4832
+```
+# Function to Perform Euclid's Algorithm
+The function consists of a while loop which only stops when the remainder is 0 (and therefore the algorithm has found the GCD). First, the remainder of a divided by b is calculated using the modulus (%) function. Then, b is set to a, and the remainder is set to b in order to repeat the algorithm until the GCD is found.
+```{python}
+def gcd(a,b):
+    while b != 0:
+        remainder = a % b
+        a = b
+        b = remainder
+
+    return a
+```
+# Output
+To output the GCD, the program calls the function, passes the two integers a and b, and prints the result.
+```{python}
+print(gcd(a, b))
+```

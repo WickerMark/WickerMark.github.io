@@ -13,9 +13,23 @@ format:
 # Featured Projects
 
 <nav>
-  <ul style="list-style-type:none; padding:0">
-    <li style="display:inline; margin-right: 20px;"><a href="/posts/primes.html">Generating the nth prime number</a></li>
-    <li style="display:inline; margin-right: 20px;"><a href="/posts/optimisation.html">Optimisation</a></li>
+  <ul style="width: 100%; list-style-type: none; margin: 0; padding: 0; overflow: hidden; border: 1px solid #e7e7e7; background-color: #f3f3f3;">
+    <li>
+      <a style="float: left; display: block; color: black; text-align: center; padding: 14px 16px; text-decoration: none;" href="/posts/primes.html">
+        <figure>
+          <img src="me.png" style="width:42px;height:42px;">
+          <figcaption>Generating the nth Prime Number</figcaption>
+        </figure>
+      </a>
+    </li>
+    <li>
+      <a style="float: left; display: block; color: black; text-align: center; padding: 14px 16px; text-decoration: none;" href="/posts/optimisation.html">
+        <figure>
+          <img src="optimisation.png" style="width:275px;height:200px;">
+          <figcaption>Optimisation: The Gradient Descent Algorithm</figcaption>
+        </figure>
+      </a>
+    </li>
   </ul>
 </nav>
 
