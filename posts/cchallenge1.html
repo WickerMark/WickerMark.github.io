@@ -244,12 +244,12 @@ window.Quarto = {
 <section id="setting-up-the-problem" class="level1">
 <h1>Setting up the Problem</h1>
 <p>First, the plotting library matplotlib is imported, which will be used to plot the trajectory of the projectile. Also, numpy will be imported for its trigonometric and mathematical functions.</p>
-<div id="83c6e5f0" class="cell" data-execution_count="1">
+<div id="b5002b29" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The program takes inputs <span class="math inline">\(\theta\)</span>, <span class="math inline">\(u\)</span>, <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>. The commented out sections of code show how the user would be asked to input these. In this example, I have used <span class="math inline">\(\theta=37\)</span>, <span class="math inline">\(u=23.31\)</span>, <span class="math inline">\(g=9.81\)</span> and <span class="math inline">\(h = 12.32\)</span>. The angle entered in degrees is converted into radians for future use.</p>
-<div id="9082dfd0" class="cell" data-execution_count="2">
+<div id="4276f1df" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enables the user to enter conditions for the trajectory</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># angle = float(input("Enter the angle of projection in degrees: "))</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>angle <span class="op">=</span> <span class="dv">37</span></span>
@@ -264,13 +264,13 @@ window.Quarto = {
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="fl">12.32</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This section of code prevents the user inputting an invalid height less than 0.</p>
-<div id="5260ef3c" class="cell" data-execution_count="3">
+<div id="8cd275d8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> h <span class="op">&lt;</span> <span class="dv">0</span>:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ERROR Height must be greater than 0"</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    exit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The variables costheta and sintheta are created since they are used frequently in the program. Then, the velocity is resolved into horizontal and vertical components using the equations <span class="math inline">\(u_x=u\cos\theta\)</span> and <span class="math inline">\(u_y=u\sin\theta\)</span>.</p>
-<div id="ae425753" class="cell" data-execution_count="4">
+<div id="ba778dad" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resloves forces into horizontal and vertical component</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>costheta <span class="op">=</span> np.cos(theta)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sintheta <span class="op">=</span> np.sin(theta)</span>
@@ -282,7 +282,7 @@ window.Quarto = {
 <section id="calculating-the-range" class="level1">
 <h1>Calculating the Range</h1>
 <p>Now, the program calculates the range of the projectile and outputs the calculated value. This is achieved using the equation <span class="math inline">\(R=\frac{u^2}{g}(\sin\theta\cos\theta+\cos\theta\sqrt{\sin^2\theta+\frac{2gh}{u^2}})\)</span>. The x_graph variable is used to determine the highest x coordinate displayed on the plot, which is determined from the range. This is purely aesthetic.</p>
-<div id="b1e1d6fd" class="cell" data-execution_count="5">
+<div id="3667d209" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> (u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g) <span class="op">*</span> (sintheta <span class="op">*</span> costheta <span class="op">+</span> costheta <span class="op">*</span> np.sqrt(sintheta<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> h)<span class="op">/</span> (u<span class="op">**</span><span class="dv">2</span>)))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The range is"</span>, <span class="bu">round</span>(R, <span class="dv">2</span>), <span class="st">"m"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>x_graph <span class="op">=</span> R <span class="op">+</span> R <span class="op">*</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -294,7 +294,7 @@ window.Quarto = {
 <section id="calculating-the-time-of-flight" class="level1">
 <h1>Calculating the Time of Flight</h1>
 <p>The time of flight is then calculated using the general time equation and the range. The equation for the time of flight at a given x coordinate is <span class="math inline">\(t=\frac{x}{u_x}\)</span> so the time of flight across the range is <span class="math inline">\(T=\frac{R}{u_x}\)</span>. The calculated value is then output along with a phrase.</p>
-<div id="2a966d47" class="cell" data-execution_count="6">
+<div id="0f98c373" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Time of flight calculation</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tflight <span class="op">=</span> R <span class="op">/</span> ux</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The time of flight is"</span>, <span class="bu">round</span>(tflight, <span class="dv">2</span>), <span class="st">"s"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -307,7 +307,7 @@ window.Quarto = {
 <h1>Computing the Trajectory of the Drag-Free Projectile</h1>
 <p>An empty list of x and y coordinates are created. These will then be appended to when the position of the projectile is updated.</p>
 <p>A for loop with a timestep of 0.01s, updates the position of the projectile between 0s and the time of flight every 0.01s. The equations <span class="math inline">\(x=u_xt\)</span> and <span class="math inline">\(y=h+u_yt-\frac{1}{2}gt^2\)</span> are used to update the x and y coordinates respectively at a given time, <span class="math inline">\(t\)</span>.</p>
-<div id="524f645d" class="cell" data-execution_count="7">
+<div id="416515f9" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an empty arrary for the x and y coordinates of the trajectory</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> []</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> []</span>
@@ -324,7 +324,7 @@ window.Quarto = {
 <section id="calculating-the-apogee" class="level1">
 <h1>Calculating the Apogee</h1>
 <p>Then, the x and y coordinates of the apogee are calculated using the equations <span class="math inline">\(x_a=\frac{u^2}{g}\sin\theta\cos\theta\)</span> and <span class="math inline">\(y_a=h+\frac{u^2}{2g}\sin^2\theta\)</span>. The y_graph variable is used to determine the y limit of the graph, the highest y coordinate displayed. Finally, a phrase is created which outputs the coordinates of the apogee.</p>
-<div id="986835fe" class="cell" data-execution_count="8">
+<div id="bdee5a5b" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apogee calculation</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>apx <span class="op">=</span> u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g <span class="op">*</span> sintheta <span class="op">*</span> costheta</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -340,7 +340,7 @@ window.Quarto = {
 <section id="plotting-the-trajectory" class="level1">
 <h1>Plotting the Trajectory</h1>
 <p>For the last portion of code, the graph is plotted along with the coordinates of the apogee. The parameters of the graph are then set, including labels and limits, and then the graph is plotted.</p>
-<div id="fbc9ac91" class="cell" data-execution_count="9">
+<div id="91cd742c" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(apx, apy, marker<span class="op">=</span><span class="st">"x"</span>, color<span class="op">=</span><span class="st">"red"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
