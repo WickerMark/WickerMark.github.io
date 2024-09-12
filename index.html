@@ -151,14 +151,15 @@ Welcome to my portfolio of programming projects and competition submissions
 </h4>
 <section id="featured-projects" class="level1">
 <h1>Featured Projects</h1>
+<p>Here are some of my favourite projects ranging from numerical methods to optimisation for machine learning. For all my projects check out the <a href="./portfolio.html">Coding Projects</a> tab.</p>
 <nav>
 <ul style="width: 100%; list-style-type: none; margin: 0; padding: 0; overflow: hidden; border: 1px solid #e7e7e7; background-color: #f3f3f3;">
 <li>
-<a style="float: left; display: block; color: black; text-align: center; padding: 14px 16px; text-decoration: none;" href="./posts/primes.html">
+<a style="float: left; display: block; color: black; text-align: center; padding: 14px 16px; text-decoration: none;" href="./posts/newton-raphson.html">
 <figure class="figure">
-<img src="me.png" style="width:42px;height:42px;" class="figure-img">
+<img src="newton-raphson_graph.png" style="width:275px;height:200px;" class="figure-img">
 <figcaption>
-Generating the nth Prime Number
+Root Finding using the Newton-Raphson Method
 </figcaption>
 </figure>
 </a>
@@ -331,6 +332,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         if (link.dataset.originalHref !== undefined) {
           link.href = link.dataset.originalHref;
         }
+          // default icon
+          link.classList.add("external");
       }
     }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {

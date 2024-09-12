@@ -8,9 +8,9 @@
 
 <meta name="author" content="Mark Watson">
 <meta name="dcterms.date" content="2024-07-28">
-<meta name="description" content="An implementation of calculating the numerical derivative using the small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.">
+<meta name="description" content="An implementation of calculating the numerical derivative using the central difference method and a small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.">
 
-<title>A Numerical Method to Calculate the Derivative using a Small Step, ϵ – Portfolio</title>
+<title>A Numerical Method to Calculate the Derivative using the Central Difference Method and a Small Step, ϵ – Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -193,16 +193,17 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">A Numerical Method to Calculate the Derivative using a Small Step, ϵ</h1>
+<h1 class="title">A Numerical Method to Calculate the Derivative using the Central Difference Method and a Small Step, ϵ</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Python</div>
     <div class="quarto-category">Numerical Methods</div>
+    <div class="quarto-category">Numeric Differentiation</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    An implementation of calculating the numerical derivative using the small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.
+    An implementation of calculating the numerical derivative using the central difference method and a small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.
   </div>
 </div>
 
@@ -233,13 +234,13 @@ window.Quarto = {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>The algorithm created is based on the equation <span class="math inline">\(f'(x)\approx\frac{f(x + \epsilon)-f(x - \epsilon)}{2\epsilon}\)</span> to approximate the derivative using a small step. I have set the small step to <span class="math inline">\(\epsilon=1\times10^{-8}\)</span>, however, this can be modified to the specification of the user.</p>
+<p>The function created is based on the equation <span class="math inline">\(f'(x)\approx\frac{f(x + \epsilon)-f(x - \epsilon)}{2\epsilon}\)</span> to accurately approximate the first derivative using the central difference method and a small step. I have set the small step to <span class="math inline">\(\epsilon=1\times10^{-8}\)</span>, however, this can be modified to the specification of the user.</p>
 </section>
 <section id="setting-up-the-problem" class="level1">
 <h1>Setting up the Problem</h1>
 <p>To begin the algorithm, the required libraries are imported, specifically numpy for trigonometric and logarithmic functions and matplotlib for the plotting.</p>
 <p>Next, the function to be differentiated is defined. For the purpose of this example, the function used is <span class="math inline">\(f(x)=\ln(x^2)\sin(x)\)</span>. The user can change the function to whatever may be required.</p>
-<div id="3cdd15a5" class="cell" data-execution_count="1">
+<div id="b991c265" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -250,8 +251,8 @@ window.Quarto = {
 </section>
 <section id="calculating-the-derivative" class="level1">
 <h1>Calculating the Derivative</h1>
-<p>This function finds the derivative using the small step, ϵ, at a given x coordinate. This is useful for plotting, because the desired array of x coordinates can be passed to the function to generate an f’(x) function for that set of values. For other algorithms, the gradient descent algorithm for instance, finding the derivative at a given x coordinate is useful for further calculations.</p>
-<div id="0bbd1617" class="cell" data-execution_count="2">
+<p>This function finds the derivative using the central difference method and a small step, ϵ, at a given x coordinate. This is useful for plotting, because the desired array of x coordinates can be passed to the function to generate an f’(x) function for that set of values. For other algorithms, the gradient descent algorithm for instance, finding the derivative at a given x coordinate is useful for further calculations.</p>
+<div id="bb605861" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to differentiate</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> derivative(f, x):</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> <span class="fl">1e-8</span></span>
@@ -263,21 +264,21 @@ window.Quarto = {
 <section id="outputting-a-graph-of-the-derivative" class="level1">
 <h1>Outputting a Graph of the Derivative</h1>
 <p>Here, np.linspace(-15, 15, 500) is used to create an equally spaced array of 500 x coordinates between x = -15 and x = 15. Then, for each x coordinate, a corresponding y coordinate is found by passing each x coordinate into the function.</p>
-<div id="2a782689" class="cell" data-execution_count="3">
+<div id="1ac6ec3c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an array of x coordinates and finds corresponding y coordinates </span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for plotting</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">500</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> f(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, list comprehension is used to apply the derivative function to each element <span class="math inline">\(x_i\)</span> in <span class="math inline">\(x\)</span>. The result is then stored as a numpy array for plotting.</p>
-<div id="bdf651e5" class="cell" data-execution_count="4">
+<div id="81b52e80" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Differentiates x coordinates to create the graph of the first derivative</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dydx <span class="op">=</span> np.array([derivative(f, xi) <span class="cf">for</span> xi <span class="kw">in</span> x])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Lastly, the curves f(x) and f’(x) are plotted and given appropriate labels.</p>
-<p>Then, the paramaters of the plot are set, the limit for the x axis, the creation of a grid and also the legend to display labels.</p>
-<p>These graphs are then displayed.</p>
-<div id="36e08718" class="cell" data-execution_count="5">
+<p>Then, the parameters of the plot are set, the limit for the x axis, the creation of a grid and also the legend to display labels.</p>
+<p>This graph is then displayed.</p>
+<div id="84e36f30" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots the curves</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, label<span class="op">=</span><span class="st">"f(x)"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, dydx, label<span class="op">=</span><span class="st">"f'(x)"</span>)</span>
