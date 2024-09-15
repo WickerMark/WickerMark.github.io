@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mark Watson">
-<meta name="dcterms.date" content="2024-06-23">
+<meta name="dcterms.date" content="2024-06-24">
 <meta name="description" content="By integrating a polynomial and trigonometric function using both Simpson’s Rule and Trapezium Rule and measuring the time taken for each to be calculated, I aim to compare and analyse the two methods.">
 
 <title>A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule – Portfolio</title>
@@ -185,9 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-categories">
     <div class="quarto-category">Python</div>
     <div class="quarto-category">Numerical Methods</div>
-    <div class="quarto-category">Integration</div>
-    <div class="quarto-category">Simpson’s Rule</div>
-    <div class="quarto-category">Trapezium Rule</div>
+    <div class="quarto-category">Numeric Integration</div>
   </div>
   </div>
 
@@ -210,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 23, 2024</p>
+      <p class="date">June 24, 2024</p>
     </div>
   </div>
   
@@ -229,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Setting up Both Problems</h1>
 <section id="imported-libraries" class="level2">
 <h2 class="anchored" data-anchor-id="imported-libraries">Imported Libraries</h2>
-<div id="2f1007ef" class="cell" data-execution_count="1">
+<div id="83653800" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> timeit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -237,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="defining-the-polynomial-and-trigonometric-functions" class="level2">
 <h2 class="anchored" data-anchor-id="defining-the-polynomial-and-trigonometric-functions">Defining the Polynomial and Trigonometric Functions</h2>
-<div id="b784bec2" class="cell" data-execution_count="2">
+<div id="8d1ca64f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defines the functions to be integrated</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Polynomial (quartic) function</span></span>
@@ -251,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="setting-the-limits-and-number-of-intervals" class="level2">
 <h2 class="anchored" data-anchor-id="setting-the-limits-and-number-of-intervals">Setting the Limits and Number of Intervals</h2>
-<div id="ed0f3148" class="cell" data-execution_count="3">
+<div id="df38cbce" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets the limits to integrate between</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>a1 <span class="op">=</span> <span class="op">-</span><span class="dv">10</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> <span class="dv">5</span></span>
@@ -269,14 +267,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Simpson’s Rule</h1>
 <section id="timer" class="level2">
 <h2 class="anchored" data-anchor-id="timer">Timer</h2>
-<div id="bf4e3ed7" class="cell" data-execution_count="4">
+<div id="07fdb3c8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Starts run time timer</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> timeit.default_timer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="calculating-the-integral" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-the-integral">Calculating the Integral</h2>
-<div id="47b9e6ec" class="cell" data-execution_count="5">
+<div id="54dc3283" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to perform Simpson's Rule</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> SimpsonsRule(f, a, b, n):</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculating the interval between each value of x</span></span>
@@ -313,14 +311,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Simpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337</code></pre>
 </div>
 </div>
-<div id="e46cb04e" class="cell" data-execution_count="6">
+<div id="565650a3" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stops the timer</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>stop <span class="op">=</span> timeit.default_timer()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates run time</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Run Time: '</span>, stop <span class="op">-</span> start)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Run Time:  0.23843610000039916</code></pre>
+<pre><code>Run Time:  0.2386810999996669</code></pre>
 </div>
 </div>
 </section>
@@ -332,14 +330,14 @@ Simpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337</
 <h1>Trapezium Rule</h1>
 <section id="timer-1" class="level2">
 <h2 class="anchored" data-anchor-id="timer-1">Timer</h2>
-<div id="50e90c39" class="cell" data-execution_count="7">
+<div id="f889f759" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Starts run time timer</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> timeit.default_timer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="calculating-the-integral-1" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-the-integral-1">Calculating the Integral</h2>
-<div id="0e4d78f7" class="cell" data-execution_count="8">
+<div id="3c1883a5" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trapezium Rule</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> TrapeziumRule(f, a, b, n):</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculating the interval between each value of x</span></span>
@@ -367,14 +365,14 @@ Simpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337</
 Trapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481</code></pre>
 </div>
 </div>
-<div id="cc364002" class="cell" data-execution_count="9">
+<div id="1c982688" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stops the timer</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>stop <span class="op">=</span> timeit.default_timer()</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates run time</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Run Time: '</span>, stop <span class="op">-</span> start)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Run Time:  0.22118290000071283</code></pre>
+<pre><code>Run Time:  0.2273157000017818</code></pre>
 </div>
 </div>
 </section>
@@ -384,7 +382,7 @@ Trapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481</c
 </section>
 <section id="using-scipy" class="level1">
 <h1>Using Scipy</h1>
-<div id="317ab857" class="cell" data-execution_count="10">
+<div id="df3f7017" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scipy for comparison</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> integrate</span>
