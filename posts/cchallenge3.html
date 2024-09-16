@@ -242,7 +242,7 @@ window.Quarto = {
 <section id="setting-up-the-problem" class="level1">
 <h1>Setting up the Problem</h1>
 <p>First, the fundamental libraries are imported. Matplotlib for plotting, numpy for mathematical and trigonometric functions, math for trigonomatric functions (specifically arctan) and figure is imported from matplotlib to use the axes functions.</p>
-<div id="15a6b0ed" class="cell" data-execution_count="1">
+<div id="81f2c6e8" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
@@ -251,7 +251,7 @@ window.Quarto = {
 <p>Next, the conditions / parameters of the model are set. In the final GUI application submitted for the competition, these would be inputted using text input boxes. <span class="math inline">\(g\)</span> would be set using a combobox containing popular celestial objects, such as the planets in our solar system, or using a text box to enter a custom value.</p>
 <p><span class="math inline">\(Y\)</span> is the y coordinate that is hit by the projectile and <span class="math inline">\(X\)</span> is the x coordinate.</p>
 <p>For the purpose of this demonstration of the algorithm, I have used the below values:</p>
-<div id="67553cc5" class="cell" data-execution_count="2">
+<div id="3b658d71" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> <span class="dv">300</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="dv">150</span></span>
@@ -265,7 +265,7 @@ window.Quarto = {
 <p>Now, the corresponding angle of projection must be calculated using <span class="math inline">\(\theta_{min}=\tan^{-1}(\frac{Y+\sqrt{X^2+Y^2}}{X})\)</span>.</p>
 <p>Then, the velocity of the projectile is resolved into its horizontal and vertial components using the equations <span class="math inline">\(u_x^{min}=u_{min}\cos(\theta_{min})\)</span> and <span class="math inline">\(u_y^{min}=u_{min}\sin(\theta_{min})\)</span>.</p>
 <p>Finally, the time of flight is calculated with <span class="math inline">\(T_{min}=\frac{X}{u_x^{min}}\)</span>.</p>
-<div id="21134fe5" class="cell" data-execution_count="3">
+<div id="f474cff0" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>minu <span class="op">=</span> np.sqrt(g) <span class="op">*</span> (np.sqrt(Y <span class="op">+</span> np.sqrt(X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span>)))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mintheta <span class="op">=</span> math.atan((Y <span class="op">+</span> np.sqrt(X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span>)) <span class="op">/</span> X)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>minux <span class="op">=</span> minu <span class="op">*</span> np.cos(mintheta)</span>
@@ -273,7 +273,7 @@ window.Quarto = {
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mint <span class="op">=</span> X <span class="op">/</span> minux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>An empty array of x and y coordinates for the minimum velocity trajectory are created. These will be appended to in the for loop. A timestep of 0.01s is used to calculate the position of the projectile between the instant the projectile is launched and the time of flight. The equations <span class="math inline">\(x_{min}=u_x^{min}t\)</span> and <span class="math inline">\(y_{min}=u_y^{min}t-\frac{1}{2}gt^2\)</span> are used to update the x and y coordinates of the projectile between each timestep.</p>
-<div id="601fc9d4" class="cell" data-execution_count="4">
+<div id="4fa9f9a9" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> []</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> []</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -287,7 +287,7 @@ window.Quarto = {
 <section id="low-and-high-ball-trajectories" class="level1">
 <h1>Low and High Ball Trajectories</h1>
 <p>The angle of projection for the low and high ball trajectories is determined using the following equations: <span class="math inline">\(\theta_{\pm}=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</span>, where <span class="math inline">\(a=\frac{g}{2u^2}X^2\)</span>, <span class="math inline">\(b=-X\)</span> and <span class="math inline">\(c=Y+\frac{gX^2}{2u^2}\)</span>.</p>
-<div id="66aed78d" class="cell" data-execution_count="5">
+<div id="7cc86589" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> (g <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> u<span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> X<span class="op">**</span><span class="dv">2</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span>  <span class="op">-</span>X</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Y <span class="op">+</span> ((g <span class="op">*</span> X<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">2</span> <span class="op">*</span> u<span class="op">**</span><span class="dv">2</span>))</span>
@@ -295,13 +295,13 @@ window.Quarto = {
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>high_theta <span class="op">=</span> math.atan((<span class="op">-</span> b <span class="op">+</span> np.sqrt(b<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> (<span class="dv">4</span> <span class="op">*</span> a <span class="op">*</span> c)))<span class="op">/</span>(<span class="dv">2</span> <span class="op">*</span> a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The velocity is resolved into its horizontal and vertical components and the time of flight for the low ball trajectory is calculated using the equations <span class="math inline">\(u_x^{-}=u\cos(\theta_{-})\)</span>, <span class="math inline">\(u_y^{-}=u\sin(\theta_{-})\)</span> and <span class="math inline">\(T_{-}=\frac{X}{u_x^{-}}\)</span> respectively.</p>
-<div id="2d3be738" class="cell" data-execution_count="6">
+<div id="65c55b3c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>low_ux <span class="op">=</span> u <span class="op">*</span> np.cos(low_theta)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>low_uy <span class="op">=</span> u <span class="op">*</span> np.sin(low_theta)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>low_tflight <span class="op">=</span> X <span class="op">/</span> low_ux</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Again, a for loop is used to calculate the x and y coordiantes of the projectile with a timestep of 0.01s between the instant the projectile is launched and the time of flight. Empty arrays of x and y coordinates are created and appended to using the equations: <span class="math inline">\(x_{-}=u_x^{-}t\)</span> for x coordiantes and <span class="math inline">\(y_{-}=u_y^{-}t-\frac{1}{2}gt^2\)</span> for y coordinates.</p>
-<div id="9a19ad7f" class="cell" data-execution_count="7">
+<div id="fb4ba580" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>low_x <span class="op">=</span> []</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>low_y <span class="op">=</span> []</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -311,7 +311,7 @@ window.Quarto = {
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    low_y.append((low_uy <span class="op">*</span> low_t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> low_t<span class="op">**</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This process is then repeated for the high ball trajectory.</p>
-<div id="4ecb82a1" class="cell" data-execution_count="8">
+<div id="4f07f532" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>high_ux <span class="op">=</span> u <span class="op">*</span> np.cos(high_theta)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>high_uy <span class="op">=</span> u <span class="op">*</span> np.sin(high_theta)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>high_tflight <span class="op">=</span> X <span class="op">/</span> high_ux</span>
@@ -330,7 +330,7 @@ window.Quarto = {
 <p>First, a figure of subplots is created to use the ax functions.</p>
 <p>The three trajectories are then plotted, along with the marker showing the user’s chosen coordinate.</p>
 <p>Finally, the parametrs of the plot are set, including labels for the axes, limits for the axes and labels for each of the trajectories.</p>
-<div id="ed7bc2c1" class="cell" data-execution_count="9">
+<div id="bf56785e" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ax.plot(x, y, label<span class="op">=</span><span class="st">"Minimum u"</span>)</span>

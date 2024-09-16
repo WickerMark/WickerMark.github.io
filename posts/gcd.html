@@ -234,14 +234,14 @@ window.Quarto = {
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>Euclid’s algorithm to find the Greatest Common Divisor (GCD), that is the largest number that divides two positive integers without a remainder, was first described in the 7th book of Euclid’s <i>Elements</i> written c.&nbsp;300 BC, making it one of the oldest algorithms.</p>
-<p>The algorithm works by using the fact that the GCD of two numbers, a and b, is the same as the GCD of b and the remainder of a divided by b. In Python, this is achieved using the modulus function, or %. This process is then repeated until there is no remainder.</p>
+<p>The algorithm works by using the fact that the GCD of two numbers, a and b, is the same as the GCD of b and the remainder of a divided by b. In Python, this is achieved using the modulo function, or %. This process is then repeated until there is no remainder.</p>
 <p>The Euclidean algorithm has a time complexity of O(log(min(a, b))).</p>
 <p>Interestingly, the extended Euclidian algorithm calculates the coefficients of Bézout’s identity such that <span class="math inline">\(ax+by=gcd(a,b)\)</span>. This is used in solving Diophantine equations and in modular arithmetic, for instance, the RSA encryption algorithm when calculating the modular inverses for key generation.</p>
 </section>
 <section id="inputs" class="level1">
 <h1>Inputs</h1>
 <p>The algorithm requires two inputs - two positive integers, a and b. Normally, the user would be asked to input these integers, however, for the purpose of this example, I have used the integers shown below.</p>
-<div id="3a474d31" class="cell" data-execution_count="1">
+<div id="046bcff4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining positive integers a and b</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">2376</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">4832</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -249,8 +249,8 @@ window.Quarto = {
 </section>
 <section id="function-to-perform-euclids-algorithm" class="level1">
 <h1>Function to Perform Euclid’s Algorithm</h1>
-<p>The function consists of a while loop which only stops when the remainder is 0 (and therefore the algorithm has found the GCD). First, the remainder of a divided by b is calculated using the modulus (%) function. Then, b is set to a, and the remainder is set to b in order to repeat the algorithm until the GCD is found.</p>
-<div id="16b5fd12" class="cell" data-execution_count="2">
+<p>The function consists of a while loop which only stops when the remainder is 0 (and therefore the algorithm has found the GCD). First, the remainder of a divided by b is calculated using the modulo (%) function. Then, b is set to a, and the remainder is set to b in order to repeat the algorithm until the GCD is found.</p>
+<div id="4ac874a7" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to perform the Euclidian algorithm</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gcd(a,b):</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> b <span class="op">!=</span> <span class="dv">0</span>:</span>
@@ -264,7 +264,7 @@ window.Quarto = {
 <section id="output" class="level1">
 <h1>Output</h1>
 <p>To output the GCD, the program calls the function, passes the two integers a and b, and prints the result.</p>
-<div id="f733c48d" class="cell" data-execution_count="3">
+<div id="22c5a567" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Outputs the GCD</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The Greatest Common Divisor (GCD) is"</span>, gcd(a, b))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
