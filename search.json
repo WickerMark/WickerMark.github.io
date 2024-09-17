@@ -102,14 +102,14 @@
     "href": "about.html#astrophotography",
     "title": "Mark Watson",
     "section": "Astrophotography",
-    "text": "Astrophotography\nIn my free time, I enjoy capturing images of distant deep sky objects using astrophotography. Click the astrophotograhy tab to see my portfolio."
+    "text": "Astrophotography\nIn my free time, I enjoy capturing images of distant deep sky objects using astrophotography."
   },
   {
     "objectID": "about.html#chess",
     "href": "about.html#chess",
     "title": "Mark Watson",
     "section": "Chess",
-    "text": "Chess\nI am also a passionate chess player. I have several high tournament finishes in my category, including a bronze at the prestigious Doncaster Chess Congress and a silver at the Darnall & Handsworth Rapidplay September 2023. I have also regularly represented my local town, Rotherham, in the second division of the Sheffield & District Chess Association for the past 3 years. I founded and captained the Wickersley School Chess Club (my secondary school and sixth form) for the past 5 years and volunteered my time to tutor the younger students."
+    "text": "Chess\nI am also a passionate chess player. I have several high tournament finishes in my category, including a bronze at the prestigious Doncaster Chess Congress and a silver at the Darnall & Handsworth Rapidplay September 2023. I have also regularly represented my local town, Rotherham, in the second division of the Sheffield & District Chess Association for the past 3 years. I founded and captained my school’s Chess Club for the past 5 years and volunteered my time to tutor the younger students."
   },
   {
     "objectID": "about.html#languages",
@@ -200,14 +200,14 @@
     "href": "posts/integration.html#function-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 1",
-    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.026118100009625778"
+    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.028761900000972673"
   },
   {
     "objectID": "posts/integration.html#function-2",
     "href": "posts/integration.html#function-2",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 2",
-    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.24444590002531186"
+    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23041550000198185"
   },
   {
     "objectID": "posts/integration.html#analysis",
@@ -228,14 +228,14 @@
     "href": "posts/integration.html#function-1-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 1",
-    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.020694300008472055"
+    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.02263439999660477"
   },
   {
     "objectID": "posts/integration.html#function-2-1",
     "href": "posts/integration.html#function-2-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 2",
-    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.25418759998865426"
+    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.22901690000435337"
   },
   {
     "objectID": "posts/integration.html#analysis-1",
