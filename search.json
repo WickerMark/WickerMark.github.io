@@ -53,14 +53,14 @@
     "href": "posts/integration.html#function-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 1",
-    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.03254600000218488"
+    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.020750599971506745"
   },
   {
     "objectID": "posts/integration.html#function-2",
     "href": "posts/integration.html#function-2",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 2",
-    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.2371780000103172"
+    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.24841290002223104"
   },
   {
     "objectID": "posts/integration.html#analysis",
@@ -81,14 +81,14 @@
     "href": "posts/integration.html#function-1-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 1",
-    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.02016889999504201"
+    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.019558299973141402"
   },
   {
     "objectID": "posts/integration.html#function-2-1",
     "href": "posts/integration.html#function-2-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 2",
-    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.22914399998262525"
+    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23379980004392564"
   },
   {
     "objectID": "posts/integration.html#analysis-1",
@@ -249,7 +249,7 @@
     "href": "posts/montecarlo.html",
     "title": "Monte Carlo Simulation: Estimating π",
     "section": "",
-    "text": "import matplotlib.pyplot as plt\nimport matplotlib.patches as patches\nimport random\nimport numpy as np\n\n\n# The total number of coordinates in the square\ntotal_points = 10000000\n\n# Generates a random set of x and y coordinates inside the square\nx = np.random.uniform(0, 5, total_points)\ny = np.random.uniform(0, 5, total_points)\n\n\n# Calculate squared distance from center of the circle\nr_squared = (x - 2.5)**2 + (y - 2.5)**2\n\n# Placing points inside the circle\ninside_circle = r_squared &lt;= 2.5**2\n\n# Count points inside the circle\npoints_in_circle = np.sum(inside_circle)\n\n\n# Creates a square\nfig, ax = plt.subplots()\nsquare = patches.Rectangle((0, 0), 5, 5, edgecolor='blue', facecolor='none')\n\n# Creates a circle\ncircle = plt.Circle((2.5, 2.5), 2.5, color='red', fill=False)\n\n# Plotting the points\nplt.scatter(x[~inside_circle], y[~inside_circle], color=\"blue\", s=0.1)\nplt.scatter(x[inside_circle], y[inside_circle], color=\"red\", s=0.1)\nax.add_patch(square)\nax.add_patch(circle)\n\n# Sets parameters of the plot\nplt.xlim(-1, 6)\nplt.ylim(-1, 6)\nplt.gca().set_aspect('equal', adjustable='box')  # Ensures equal aspect ratio\nplt.title('Monte Carlo Simulation')\nplt.show()\n\n\n\n\n\n\n\n\n\n# Approximating pi\npi = 4 * points_in_circle / total_points\nprint(pi)\n\n3.1412052"
+    "text": "import matplotlib.pyplot as plt\nimport matplotlib.patches as patches\nimport random\nimport numpy as np\n\n\n# The total number of coordinates in the square\ntotal_points = 10000000\n\n# Generates a random set of x and y coordinates inside the square\nx = np.random.uniform(0, 5, total_points)\ny = np.random.uniform(0, 5, total_points)\n\n\n# Calculate squared distance from center of the circle\nr_squared = (x - 2.5)**2 + (y - 2.5)**2\n\n# Placing points inside the circle\ninside_circle = r_squared &lt;= 2.5**2\n\n# Count points inside the circle\npoints_in_circle = np.sum(inside_circle)\n\n\n# Creates a square\nfig, ax = plt.subplots()\nsquare = patches.Rectangle((0, 0), 5, 5, edgecolor='blue', facecolor='none')\n\n# Creates a circle\ncircle = plt.Circle((2.5, 2.5), 2.5, color='red', fill=False)\n\n# Plotting the points\nplt.scatter(x[~inside_circle], y[~inside_circle], color=\"blue\", s=0.1)\nplt.scatter(x[inside_circle], y[inside_circle], color=\"red\", s=0.1)\nax.add_patch(square)\nax.add_patch(circle)\n\n# Sets parameters of the plot\nplt.xlim(-1, 6)\nplt.ylim(-1, 6)\nplt.gca().set_aspect('equal', adjustable='box')  # Ensures equal aspect ratio\nplt.title('Monte Carlo Simulation')\nplt.show()\n\n\n\n\n\n\n\n\n\n# Approximating pi\npi = 4 * points_in_circle / total_points\nprint(pi)\n\n3.142366"
   },
   {
     "objectID": "posts/optimisation.html",
