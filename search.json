@@ -14,88 +14,88 @@
     "text": "Introduction\nDeveloped in the 17th century by mathematicians Sir Isaac Newton and Joseph Raphson, the Newton-Raphson method is a powerful and efficient numerical technique for iterative root finding. It is based on the idea of linear approximation (tangent line approximation) and provides increasingly accurate estimates of the root. # Setting up the Problem The sympy library is used for symbolic differentiation. Numpy is used for the np.arange() function. Matplotlib is used to plot a graph to show the roots found.\n\nimport sympy as sp\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nTo begin, we will define f(x) and f’(x) symbolically. Next, we will convert these equations to numerical functions using the function sp.lambdify() to enter values of x into the function and first derivative.\n\n# Defines x for sympy\nx = sp.Symbol('x')\n\n# Defines f(x)\nf = 2 * x**3 + 2 * x**2 - 10 * x - 8\n\n# Calculating the symbolic derivative using sympy and defining f'(x)\nderivative = sp.diff(f, x)\n\n# Convert symbolic function and derivative to numerical functions using lambdify\nf_lambdified = sp.lambdify(x, f)\nderivative_lambdified = sp.lambdify(x, derivative)\n\nNext, we must set the parameters of the iterative method. The first parameter is a range of initial approximations of the roots which will be refined iteratively by the algorithm to find a better approximation of the root. The next parameter is a limit to the number of iterations that can occur in the for loop to determine the roots. This is so prevent the risk of non-convergence (so the loop does not continue infinitely). For this example, I used 1000 iterations, however, this could be changed to the preference and specification of the user. The final parameter is the tolerance, a small number that will determine if the root determined by the method is close enough to 0 to be considered a root. I have used 1e-6, but again, in reality, the user would change this to their preference.\n\n# Other parameters for the Newton-Raphson Method\n# Define the range of initial guesses to find multiple roots\ninitial_guesses = np.linspace(-4, 4, 10)\n# Maximum iteration\nmax_iterations = 1000\n# Tolerance\ntolerance=1e-6\n\n\n\nNewton-Raphson Method\nFirst, the initial guess is set as the current approximation for the root. Then, \\(f(x_n)\\) and \\(f'(x_n)\\) are calculated. To ensure no divide by zero errors occur, the value of the derivative is checked. The equation \\(x_{n+1}=x_n-\\frac{f(x_n)}{f'(x_n)}\\) is used to update the approximation of the root. Finally, if \\(|{x_{n+1}-x_n}|&lt;tolerance\\), then the y coordinate of the approximation is close enough to 0 that the function return the value of x to prevent non-convergence. Otherwise, the ‘next’ approximation is set to the current approximation.\n\n# Defines the function for the Newton-Raphson Method\ndef newtonraphson(f, derivative, x_0, max_iterations, tolerance):\n    # Sets the starting x value\n    x_n = x_0\n    for i in range(max_iterations):\n        fx_n = f_lambdified(x_n)\n        dfx_n = derivative_lambdified(x_n)\n        \n        # Ensures the prevention of a divide by zero error\n        if dfx_n == 0: \n            print(\"Zero derivative encountered. No solution found.\")\n            return None\n        \n        # Uses the equation to find the next x coordinate\n        x_next = x_n - (fx_n / dfx_n)\n\n        # Check if the result is within the desired tolerance\n        if abs(x_next - x_n) &lt; tolerance:\n            return x_next\n        \n        # Updates x\n        x_n = x_next\n\n\n\nOutputs and Plotting\nAn empty array of x and y coordinates is created for the purpose of plotting the roots on a graph for visualisation. For every guess in the list of inital guesses, the function to perform the Newton-Raphson method is called and passed the current inital guess. The root is then rounded to 10 decimal places. This is a fairly arbitrary value, and the user could set this to whatever they wanted. The if statement is used to ensure that duplicate roots are not considered. The x coordinates of the roots found are printed and are also appended to the empty array created earlier. 0 is appended to the y coordinate.\n\n# Creates empty array of x coordinates to plot the roots\nrootx = []\nrooty = []\n\n# Finds multiple roots using different initial guesses\nfor x_0 in initial_guesses:\n    # Calls the function\n    rootx_n = (newtonraphson(f, derivative, x_0, max_iterations, tolerance))\n    rootx_n = round(rootx_n, 10)\n\n    # If statement to avoid duplicates and ignore None results\n    if rootx_n is not None and rootx_n not in rootx:\n        # Prints the x coordinate of each root\n        print(\"Root: x =\", rootx_n)\n\n        # Updates x and y coordinate of root in the arrays\n        rootx.append(rootx_n)\n        rooty.append(0)\n\nRoot: x = -2.3913823806\nRoot: x = -0.7728655578\nRoot: x = 2.1642479385\n\n\nThe results of the program are very accurate. The results match the correct x coordinate of the roots to the ninth decimal place, which demonstrates the reliability of the method.\nA list of x and y coordinates for f(x) are created in order to plot the graph. The scatter function is used to plot the roots.\nThen, the parameters of the plot are set: the limit for the x axis, the creation of a grid, a solid line for the x axis, and also the legend to display labels.\nLastly, the graph is then displayed.\n\n# Creates an array of x coordinates and finds corresponding y coordinates \n# for plotting\nx = np.linspace(-4, 4, 100)\ny = f_lambdified(x)\n\n# Plots the curves\nplt.plot(x, y)\nplt.scatter(rootx, rooty, marker=\"x\", color=\"red\", label=\"Roots\")\n\n# Sets parameters of the plot and plots the curves\nplt.xlim(-4, 4)\nplt.ylim(-15, 15)\n\nplt.grid()\nplt.legend()\nplt.axhline(y=0, color=\"black\")\n\nplt.show()"
   },
   {
-    "objectID": "posts/integration.html",
-    "href": "posts/integration.html",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "objectID": "posts/linearregression.html#libraries",
+    "href": "posts/linearregression.html#libraries",
+    "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
+    "section": "Libraries",
+    "text": "Libraries\nNumpy is used for mathematical and random functions. Matplotlib is used to plot the linear regression at the end of the program.\n\nimport numpy as np\nimport matplotlib.pyplot as plt"
+  },
+  {
+    "objectID": "posts/linearregression.html#simulated-data",
+    "href": "posts/linearregression.html#simulated-data",
+    "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
+    "section": "Simulated Data",
+    "text": "Simulated Data\nFirst, we must simulate some data for the model to fit. In reality, this could be any set of independent and dependent data.\nAn equally spaced list of 20 x coordinates between \\(x=0\\) and \\(x=8\\) is created to begin.\nThe simulated data I have used is \\(y=4.513x+4.421\\) with some noise introduced using the np.random.normal function, which generates random numbers from a normal (Gaussian) distribution with a mean of 0 and a standard deviation of 1, to simulate real data.\n\n# Creates simulated data for the regression to fit\nx = np.linspace(0,8,20)\ny = 4.513 * x + 4.421 + np.random.normal(0, 1, len(x))"
+  },
+  {
+    "objectID": "posts/linearregression.html#linear-model",
+    "href": "posts/linearregression.html#linear-model",
+    "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
+    "section": "Linear Model",
+    "text": "Linear Model\nNow, we need to define the model to fit the data in the form \\(y=mx+c\\). \\(\\theta\\), called the coefficients or parameters in a regression model, is used to calculate the gradient and y-intercept. Therefore, for the purpose of this linear regression model, the equation used is \\(y=\\theta_{0}x+\\theta_{1}\\). This equation could be modified to fit the data points better, for example, if a cubic relationship would be more appropriate, then \\(y=\\theta_{0}x^3+\\theta_{1}x^2+\\theta_{2}x+\\theta_{4}\\) could be used. However, for the simplicity of this demonstration, a linear regression is used.\n\n# Defines the model\ndef model(theta, x):\n    return theta[0] * x + theta[1]"
+  },
+  {
+    "objectID": "posts/linearregression.html#initial-guess",
+    "href": "posts/linearregression.html#initial-guess",
+    "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
+    "section": "Initial Guess",
+    "text": "Initial Guess\nA list is used to store the initial guess for each value of theta from the model. The values of the coefficients are set to \\(\\theta_{0}=0.0\\) and \\(\\theta_{1}=0.0\\) respectively, but this could be changed to the specification of the user.\n\n# Initial guess of theta\ntheta = [0.0, 0.0]"
+  },
+  {
+    "objectID": "posts/linearregression.html#loss-function",
+    "href": "posts/linearregression.html#loss-function",
+    "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
+    "section": "Loss Function",
+    "text": "Loss Function\nThe loss function needs to be defined so that it can be minimised using optimisation. The parameters past to this function are the coefficients and args, a tuple containing x and y data for the model. As you can see, this x and y data is unpacked from the tuple for use in the function. To create the function, we will make use of Mean Absolute Error (MAE). This is initially set to zero. To calculate the MAE, the equation \\(MAE=\\frac{1}{n}\\sum_{i=1}^n|y_i-\\hat{y_i}|\\) is used. The code calculates the absolute difference between, \\(y_i\\), which reprsents the actual value of the i-th data point in the data set, and \\(\\hat{y_i}\\), the predicted value for the i-th data point given by passing the value for theta and the i-th x data point. Alternatively, Mean Squared Error could be used, which would use the equation \\(MSE=\\frac{1}{n}\\sum_{i=1}^n({y_i-\\hat{y_i}})^2\\).\n\n# Loss function\ndef loss(theta, args):\n    x_data,y_data = args\n    mae = 0\n    for i in range(len(x_data)):\n        mae += abs(model(theta,x_data[i])-y_data[i])\n        \n    return mae / len(x_data)"
+  },
+  {
+    "objectID": "posts/linearregression.html#calculating-the-numerical-derivative",
+    "href": "posts/linearregression.html#calculating-the-numerical-derivative",
+    "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
+    "section": "Calculating the Numerical Derivative",
+    "text": "Calculating the Numerical Derivative\nThis code is used to find the gradient of the loss function with respect to the parameters (theta) using the finite difference method. The function is passed the parameters, the args tuple and \\(\\epsilon\\) is set to \\(1e^{-5}\\). Initially, the NumPy array of grad values is set to zero, such that grad = [0.0, 0.0], corresponding to the gradient of each parameter. Now, the gradient is calculated using the forward method of finite differences. A copy of theta is used as to not effect its value when it is perturbed. Theta is incremented by \\(\\epsilon\\). The equation \\(f'(x)\\approx\\frac{f(x+h)-f(x)}{\\epsilon}\\) is used to approximate the derivative for future use.\n\n# Gradient calculation for each value of theta\ndef gradient(theta, args, eps=1e-5):\n    grad = np.zeros(len(theta))\n    for i in range(len(theta)):\n        theta_eps = theta.copy()\n        theta_eps[i] += eps\n        grad[i] = (loss(theta_eps, args) - loss(theta, args)) / eps\n\n    return grad"
+  },
+  {
+    "objectID": "posts/linearregression.html#optimisation",
+    "href": "posts/linearregression.html#optimisation",
+    "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
+    "section": "Optimisation",
+    "text": "Optimisation\nThis function is almost identical to the one used in my previous blog post, so check out that post for more detail. The major difference is the use of np.linalg.norm to find the Euclidean norm (the magnitude) of the gradient vector.\n\n# Performs gradient descent algorithm to minimse loss function\ndef descent(loss, gradient, theta, args, alpha=1e-3, tol=1e-4, max_iters=10000):\n    for i in range(max_iters):\n        grad = gradient(theta, args)\n        if np.linalg.norm(grad) &lt; tol:\n            break\n        theta = theta - alpha * grad\n\n    return theta"
+  },
+  {
+    "objectID": "posts/linearregression.html#performing-optimisation",
+    "href": "posts/linearregression.html#performing-optimisation",
+    "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
+    "section": "Performing Optimisation",
+    "text": "Performing Optimisation\nThis calls the function which optimises the model. theta_opt stores the optimised values for each theta. It passes the loss function, gradient calculation function, the two parameters and the set of x and y data (which is passed as a tuple).\n\n# Perform gradient descent to minimize the loss\ntheta_opt = descent(loss, gradient, theta, (x, y))"
+  },
+  {
+    "objectID": "posts/linearregression.html#creating-test-data",
+    "href": "posts/linearregression.html#creating-test-data",
+    "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
+    "section": "Creating Test Data",
+    "text": "Creating Test Data\nNow, we need to generate the test data for the model. This would be used to evaluate the effectiveness of the model, but since this example consists of simulated data this would be somewhat pointless. In this instance, the test data is used to plot the graph of the regression\n\n# Test data\nx_test = np.linspace(0,8,100)\ny_test = model(theta_opt,x_test)"
+  },
+  {
+    "objectID": "posts/linearregression.html#graph",
+    "href": "posts/linearregression.html#graph",
+    "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
+    "section": "Graph",
+    "text": "Graph\nThis plots the data. Scatter points display the x and y coordinates used to train the model and the fitted line is also displaced.\nThe parameters of the plot are defined, an appropriate title is set, the x and y labels are displayed, the legend of the graph (which displays the label for the plots) and the graph is displayed.\n\nplt.scatter(x, y, label=\"Data\", color=\"blue\")\nplt.plot(x_test, y_test, label=\"Fitted Line\", color=\"red\")\n\n# Sets parameters of the plot\nplt.title(\"Linear Regression using Gradient Descent\")\nplt.xlabel(\"x\")\nplt.ylabel(\"y\")\nplt.legend()\nplt.show()"
+  },
+  {
+    "objectID": "posts/linearregression.html#optimised-values-for-the-gradient-and-y-intercept",
+    "href": "posts/linearregression.html#optimised-values-for-the-gradient-and-y-intercept",
+    "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
+    "section": "Optimised Values for the Gradient and y-intercept",
+    "text": "Optimised Values for the Gradient and y-intercept\nFinally, we print the optimised parameters.\n\n# Output the optimized parameters\nprint(f\"Optimized parameters: {theta_opt}\")\n\nOptimized parameters: [4.52213433 4.15246069]"
+  },
+  {
+    "objectID": "posts/gcd.html",
+    "href": "posts/gcd.html",
+    "title": "Computing the Greatest Common Divisior (GCD) Using the Euclidean Algorithm",
     "section": "",
-    "text": "In order to compare Simpson’s Rule and Trapezium Rule for calculating the numerical integral, I have created two functions: the first function is a polynomial (specifically quartic) function, and the second function is trigonometric. Simpson’s Rule and Trapezium Rule will then be used to calculate the integral for each of these function. Each of the algorithms will also be timed to further compare them."
-  },
-  {
-    "objectID": "posts/integration.html#imported-libraries",
-    "href": "posts/integration.html#imported-libraries",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Imported Libraries",
-    "text": "Imported Libraries\nNumpy is used for trigonometric functions, specifically sin and cos. The timeit library is used to find the run time of each method, which will then be used to compare them.\n\nimport numpy as np\n\nimport timeit"
-  },
-  {
-    "objectID": "posts/integration.html#defining-the-polynomial-and-trigonometric-functions",
-    "href": "posts/integration.html#defining-the-polynomial-and-trigonometric-functions",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Defining the Polynomial and Trigonometric Functions",
-    "text": "Defining the Polynomial and Trigonometric Functions\nThe quartic function I used for this demonstration was \\(f(x)=x^4+5x^3-2x^2-10x-8\\) as shown below. The trigonometric function used was \\(f(x)=\\sin^3(x)+\\cos(x)\\). I used functions to define these expressions such that passing the value of x to the function would return \\(f(x)\\).\n\n# Defines the functions to be integrated\n\n# Polynomial (quartic) function\ndef f1(x):\n    return x**4 + 5 * x**3 - 2 * x**2 - 10 * x - 8\n\n# Trigonometric function\ndef f2(x):\n    return np.sin(x)**3 + np.cos(x)"
-  },
-  {
-    "objectID": "posts/integration.html#setting-the-limits-and-number-of-intervals",
-    "href": "posts/integration.html#setting-the-limits-and-number-of-intervals",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Setting the Limits and Number of Intervals",
-    "text": "Setting the Limits and Number of Intervals\nThe limits applied to the first integral are \\(a=-10\\) and \\(b=5\\) such that \\(\\int_{-10}^{5} x^5+5x^3-2x^2-10x-8 \\,dx\\). The limits applied to the second function are \\(a=0\\) and \\(b=\\pi\\) such that \\(\\int_{0}^{\\pi} \\sin^3(x)+\\cos(x) \\,dx\\). For the first function, each of the methods will have 1000 intervals, and for the second function, 10000 intervals will be used. This is somewhat fairer since the trigonometric function has more fluctuations and so a higher interval can help cature the integral more accurately, while also allowing for comparison between the methods at different intervals.\n\n# Sets the limits to integrate between\n# Function 1\na1 = -10\nb1 = 5\n\n# Function 2\na2 = 0\nb2 = np.pi\n\n# Number of intervals\n# Function 1\nn1 = 1000\n\n# Function 2\nn2 = 100000"
-  },
-  {
-    "objectID": "posts/integration.html#calculating-the-integral",
-    "href": "posts/integration.html#calculating-the-integral",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Calculating the Integral",
-    "text": "Calculating the Integral\nThe interval between each value of \\(x_i\\) is calculated using the equation \\(h=\\frac{b-a}{n}\\), where \\(h\\) is the interval.\nTwo empty arrays for coordinates of \\(f(x)\\) are created. The first array (list) will contain all the values of \\(f(x_i)\\) when \\(i\\) is even, and the second list will contain all the values of \\(f(x_i)\\) when \\(i\\) is odd.\nNext, \\(f(a)\\) and \\(f(b)\\) are calculated for further use.\nA for loop is used between \\(i=1\\) (the first value of \\(x_i\\)) and \\(n\\), the number of intervals.\nThe coordinate \\(x_i\\) is updated using the formula \\(x_i=a+ih\\). Then, \\(f(x_i)\\) is found.\nThe if statement is used to determine which list \\(x_i\\) belongs in. By using the modulo operator (%), we can find if there is a remainder when dividing by 2, and therefore if the value of \\(i\\) is odd or even.\nAfter the for loop is completed, and all the values of \\(f(x_i)\\) are sorted in the correct list, Simpson’s Rule is used to approximate the integral. Here is the formula: \\(\\int_{a}^{b} f(x) \\,dx\\approx\\frac{h}{3}[f(a)+4\\sum_{odd} f(x_i) +2\\sum_{even} f(x_i) +f(b)]\\).\n\n# Function to perform Simpson's Rule\ndef SimpsonsRule(f, a, b, n):\n    # Calculating the interval between each value of x\n    h = (b - a) / n\n\n    # Empty arrays for storing the f(x) values corresponding to odd and even i\n    fx_ieven = []\n    fx_iodd = []\n\n    # Setting the first term and calculating f(a) and f(b)\n    fa = f(a)\n    fb = f(b)\n\n    for i in range(1, n):\n        # Updates the current x coordinate and finds f(x)\n        x_i = a + i * h\n        fx_i = f(x_i)\n        \n        # Checks to see if i is odd or even and appends f(x)\n        if i % 2 == 0:\n            fx_ieven.append(fx_i)\n        else:\n            fx_iodd.append(fx_i)\n\n    # Calculation to approximate the value of the integral\n    I = (h/3) * (fa + 4 * sum(fx_iodd) + 2 * sum(fx_ieven) + fb)\n\n    return I"
-  },
-  {
-    "objectID": "posts/integration.html#function-1",
-    "href": "posts/integration.html#function-1",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Function 1",
-    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.022837300086393952"
-  },
-  {
-    "objectID": "posts/integration.html#function-2",
-    "href": "posts/integration.html#function-2",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Function 2",
-    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.2346514998935163"
-  },
-  {
-    "objectID": "posts/integration.html#analysis",
-    "href": "posts/integration.html#analysis",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Analysis",
-    "text": "Analysis"
-  },
-  {
-    "objectID": "posts/integration.html#calculating-the-integral-1",
-    "href": "posts/integration.html#calculating-the-integral-1",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Calculating the Integral",
-    "text": "Calculating the Integral\n\n# Trapezium Rule\ndef TrapeziumRule(f, a, b, n):\n    # Calculating the interval between each value of x\n    h = (b - a) / n\n\n    fa = f(a)\n    fb = f(b)\n\n    fx_ilist = []\n\n    for i in range(1, n):\n        x_i = a + h * i\n\n        fx_ilist.append(f(x_i))\n\n    I = (h / 2) * (fa + 2 * sum(fx_ilist) + fb)\n\n    return I"
-  },
-  {
-    "objectID": "posts/integration.html#function-1-1",
-    "href": "posts/integration.html#function-1-1",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Function 1",
-    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.01902509992942214"
-  },
-  {
-    "objectID": "posts/integration.html#function-2-1",
-    "href": "posts/integration.html#function-2-1",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Function 2",
-    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.22995579987764359"
-  },
-  {
-    "objectID": "posts/integration.html#analysis-1",
-    "href": "posts/integration.html#analysis-1",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Analysis",
-    "text": "Analysis"
+    "text": "Introduction\nEuclid’s algorithm to find the Greatest Common Divisor (GCD), that is the largest number that divides two positive integers without a remainder, was first described in the 7th book of Euclid’s Elements written c. 300 BC, making it one of the oldest algorithms.\nThe algorithm works by using the fact that the GCD of two numbers, a and b, is the same as the GCD of b and the remainder of a divided by b. In Python, this is achieved using the modulo function, or %. This process is then repeated until there is no remainder.\nThe Euclidean algorithm has a time complexity of O(log(min(a, b))).\nInterestingly, the extended Euclidian algorithm calculates the coefficients of Bézout’s identity such that \\(ax+by=gcd(a,b)\\). This is used in solving Diophantine equations and in modular arithmetic, for instance, the RSA encryption algorithm when calculating the modular inverses for key generation.\n\n\nInputs\nThe algorithm requires two inputs - two positive integers, a and b. Normally, the user would be asked to input these integers, however, for the purpose of this example, I have used the integers shown below.\n\n# Defining positive integers a and b\na = 2376\nb = 4832\n\n\n\nFunction to Perform Euclid’s Algorithm\nThe function consists of a while loop which only stops when the remainder is 0 (and therefore the algorithm has found the GCD). First, the remainder of a divided by b is calculated using the modulo (%) function. Then, b is set to a, and the remainder is set to b in order to repeat the algorithm until the GCD is found.\n\n# Function to perform the Euclidian algorithm\ndef gcd(a,b):\n    while b != 0:\n        remainder = a % b\n        a = b\n        b = remainder\n\n    return a\n\n\n\nOutput\nTo output the GCD, the program calls the function, passes the two integers a and b, and prints the result.\n\n# Outputs the GCD\nprint(\"The Greatest Common Divisor (GCD) is\", gcd(a, b))\n\nThe Greatest Common Divisor (GCD) is 8"
   },
   {
     "objectID": "posts/derivative.html",
@@ -179,7 +179,7 @@
     "href": "portfolio.html",
     "title": "Coding Projects",
     "section": "",
-    "text": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule\n\n\n\n\n\n\nPython\n\n\nNumerical Methods\n\n\nNumeric Integration\n\n\n\nBy integrating a polynomial and trigonometric function using both Simpson’s Rule and Trapezium Rule and measuring the time taken for each to be calculated, I aim to compare and analyse the two methods.\n\n\n\n\n\nJun 24, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nA Numerical Method to Calculate the Derivative using the Central Difference Method and a Small Step, ϵ\n\n\n\n\n\n\nPython\n\n\nNumerical Methods\n\n\nNumeric Differentiation\n\n\n\nAn implementation of calculating the numerical derivative using the central difference method and a small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.\n\n\n\n\n\nJul 28, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 1 & 2: Creating a Simple Analytical Drag-Free Projectile Model\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the first two challenges of the BPhO Computational Challenge 2024, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.\n\n\n\n\n\nMar 7, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 3: Calculating the trajectories of the Low Ball, High Ball and Minimum Initial Velocity to Hit (X, Y)\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the third challenge of the BPhO Computational Challenge 2024, calculating the trajectory of three projectiles, the lowest and highest angles to hit coordinate (X, Y) based on an inputted initial velocity and the minimum initial velocity needed to hit the given coordinate.\n\n\n\n\n\nMar 24, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 4: Maximising the Range of a Projectile Using a Given Initial Velocity\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the fourth challenge of the BPhO Computational Challenge 2024, comparing a custom projectile with a projectile which maximises horizontal range using the same initial velocity.\n\n\n\n\n\nApr 9, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 5: Implementing the Bounding Parabola to the Projectile Model\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the fifth challenge of the BPhO Computational Challenge 2024, implementing the bounding parabola, the region of possible points the projectile can reach based on a given initial velocity.\n\n\n\n\n\nApr 11, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 6: Calculating the Distance Travelled by a Drag-Free Projectile using Integration\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the sixth challenge of the BPhO Computational Challenge 2024, calculating the distance travelled by the projectile, the length of the inverted parabolic arc, using integration.\n\n\n\n\n\nMay 5, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 7: An Examination of the Phenomenon of Local Maxima and Minima on Range Against Time Graphs in Projectile Motion\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the seventh challenge of the BPhO Computational Challenge 2024, investigating the idea that the range of a projectile from a launch point plotted against time passes through a local maximum and then a minimum.\n\n\n\n\n\nMay 19, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 8: Creating a Bouncing Projectile Model Using Verlet Integration\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the eighth challenges of the BPhO Computational Challenge 2024, calculating the trajectory of a bouncing ball using Verlet integration.\n\n\n\n\n\nMay 26, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 9: Creating a Projectile Model Incorporating Air Resistance Using Verlet Integration\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the ninth challenge of the BPhO Computational Challenge 2024, creating a projectile model incoporating air resistance using Verlet integration for comparison with a drag-free model.\n\n\n\n\n\nMay 9, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Extension: Creating a Projectile Model Incorporating both Air Resistance and Varying Air Density with Height Using Verlet Integration\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the extension of the BPhO Computational Challenge 2024, incorporating varying air density with height using Verlet integration for comparsion with the models with and without air resistance.\n\n\n\n\n\nJun 10, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nComputing the Greatest Common Divisior (GCD) Using the Euclidean Algorithm\n\n\n\n\n\n\nPython\n\n\nNumber Theory\n\n\n\nImplementing the Euclidean Algorithm to find the Greatest Common Divisor (GCD) of two positive integers.\n\n\n\n\n\nAug 29, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nGenerating the nth Prime Number\n\n\n\n\n\n\nPython\n\n\nPrime Numbers\n\n\nProject Euler\n\n\n\nPython program which calculates an inputted nth prime number by dividing each consecutive number by previous prime numbers.\n\n\n\n\n\nAug 14, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nMonte Carlo Simulation: Estimating π\n\n\n\n\n\n\nPython\n\n\nMonte Carlo\n\n\nSimulation\n\n\nStatistics\n\n\nNumerical Methods\n\n\n\nEstimating π using the famous Monte Carlo Simulation.\n\n\n\n\n\nSep 18, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nOptimisation: The Gradient Descent Algorithm for Maching Learning\n\n\n\n\n\n\nPython\n\n\nOptimisation\n\n\nMachine Learning\n\n\n\nPython program which uses the gradient descent algorithm to calculate minimum points for a given function. Used for optimisation in machine learning.\n\n\n\n\n\nAug 13, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nRoot Finding using the Newton-Raphson Method\n\n\n\n\n\n\nPython\n\n\nNumerical Methods\n\n\nIterative Root Finding\n\n\n\nThe Newton-Raphson Method: A powerful numerical technique to efficiently find the roots of non-linear functions iteratively.\n\n\n\n\n\nSep 12, 2024\n\n\nMark Watson\n\n\n\n\n\n\nNo matching items"
+    "text": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule\n\n\n\n\n\n\nPython\n\n\nNumerical Methods\n\n\nNumeric Integration\n\n\n\nBy integrating a polynomial and trigonometric function using both Simpson’s Rule and Trapezium Rule and measuring the time taken for each to be calculated, I aim to compare and analyse the two methods.\n\n\n\n\n\nAug 30, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nA Numerical Method to Calculate the Derivative using the Central Difference Method and a Small Step, ϵ\n\n\n\n\n\n\nPython\n\n\nNumerical Methods\n\n\nNumeric Differentiation\n\n\n\nAn implementation of calculating the numerical derivative using the central difference method and a small step, ϵ, in Python, for the purpose of plotting and use in the gradient descent algorithm.\n\n\n\n\n\nAug 12, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 1 & 2: Creating a Simple Analytical Drag-Free Projectile Model\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the first two challenges of the BPhO Computational Challenge 2024, an analytical projectile model which creates a trajectory and outputs time of flight, range and the apogee.\n\n\n\n\n\nMar 7, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 3: Calculating the trajectories of the Low Ball, High Ball and Minimum Initial Velocity to Hit (X, Y)\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the third challenge of the BPhO Computational Challenge 2024, calculating the trajectory of three projectiles, the lowest and highest angles to hit coordinate (X, Y) based on an inputted initial velocity and the minimum initial velocity needed to hit the given coordinate.\n\n\n\n\n\nMar 24, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 4: Maximising the Range of a Projectile Using a Given Initial Velocity\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the fourth challenge of the BPhO Computational Challenge 2024, comparing a custom projectile with a projectile which maximises horizontal range using the same initial velocity.\n\n\n\n\n\nApr 9, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 5: Implementing the Bounding Parabola to the Projectile Model\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the fifth challenge of the BPhO Computational Challenge 2024, implementing the bounding parabola, the region of possible points the projectile can reach based on a given initial velocity.\n\n\n\n\n\nApr 11, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 6: Calculating the Distance Travelled by a Drag-Free Projectile using Integration\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the sixth challenge of the BPhO Computational Challenge 2024, calculating the distance travelled by the projectile, the length of the inverted parabolic arc, using integration.\n\n\n\n\n\nMay 5, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 7: An Examination of the Phenomenon of Local Maxima and Minima on Range Against Time Graphs in Projectile Motion\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the seventh challenge of the BPhO Computational Challenge 2024, investigating the idea that the range of a projectile from a launch point plotted against time passes through a local maximum and then a minimum.\n\n\n\n\n\nMay 19, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 8: Creating a Bouncing Projectile Model Using Verlet Integration\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the eighth challenges of the BPhO Computational Challenge 2024, calculating the trajectory of a bouncing ball using Verlet integration.\n\n\n\n\n\nMay 26, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Challenge 9: Creating a Projectile Model Incorporating Air Resistance Using Verlet Integration\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the ninth challenge of the BPhO Computational Challenge 2024, creating a projectile model incoporating air resistance using Verlet integration for comparison with a drag-free model.\n\n\n\n\n\nMay 9, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024: Extension: Creating a Projectile Model Incorporating both Air Resistance and Varying Air Density with Height Using Verlet Integration\n\n\n\n\n\n\nPython\n\n\nBPhO Computational Challenge\n\n\nComputational Physics\n\n\nProjectile Motion\n\n\n\nThe solution to the extension of the BPhO Computational Challenge 2024, incorporating varying air density with height using Verlet integration for comparsion with the models with and without air resistance.\n\n\n\n\n\nJun 10, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nComputing the Greatest Common Divisior (GCD) Using the Euclidean Algorithm\n\n\n\n\n\n\nPython\n\n\nNumber Theory\n\n\n\nImplementing the Euclidean Algorithm to find the Greatest Common Divisor (GCD) of two positive integers.\n\n\n\n\n\nAug 29, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nCreating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm\n\n\n\n\n\n\nPython\n\n\nOptimisation\n\n\nMachine Learning\n\n\nNumerical Methods\n\n\n\nUsing optimisation with the gradient descent algorithm to minimise the loss function to create a linear regression model between a set of x and y data.\n\n\n\n\n\nSep 21, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nEPQ: A COMPARATIVE ANALYSIS OF THE ROLE OF VISUAL AND COMPUTATIONAL METHODS IN THE MORPHOLOGICAL CLASSIFICATION OF GALAXIES USING ASTROPHOTOGRAPHY\n\n\n\n\n\n\nEPQ\n\n\nMachine Learning\n\n\nComputational Physics\n\n\n\nAn overview of my EPQ project about classifying galaxies using machine learning.\n\n\n\n\n\nAug 10, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nGenerating the nth Prime Number\n\n\n\n\n\n\nPython\n\n\nPrime Numbers\n\n\nProject Euler\n\n\n\nPython program which calculates an inputted nth prime number by dividing each consecutive number by previous prime numbers.\n\n\n\n\n\nAug 14, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nMonte Carlo Simulation: Estimating π\n\n\n\n\n\n\nPython\n\n\nMonte Carlo\n\n\nSimulation\n\n\nStatistics\n\n\nNumerical Methods\n\n\n\nEstimating π using the famous Monte Carlo Simulation.\n\n\n\n\n\nSep 18, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nOptimisation: The Gradient Descent Algorithm for Maching Learning\n\n\n\n\n\n\nPython\n\n\nOptimisation\n\n\nMachine Learning\n\n\nNumerical Methods\n\n\n\nPython program which uses the gradient descent algorithm to calculate minimum points for a given function. Used for optimisation in machine learning.\n\n\n\n\n\nAug 13, 2024\n\n\nMark Watson\n\n\n\n\n\n\n\n\n\n\n\n\nRoot Finding using the Newton-Raphson Method\n\n\n\n\n\n\nPython\n\n\nNumerical Methods\n\n\nIterative Root Finding\n\n\n\nThe Newton-Raphson Method: A powerful numerical technique to efficiently find the roots of non-linear functions iteratively.\n\n\n\n\n\nSep 12, 2024\n\n\nMark Watson\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html#python-experience",
@@ -200,14 +200,14 @@
     "href": "about.html#machine-learning",
     "title": "Mark Watson",
     "section": "Machine Learning",
-    "text": "Machine Learning\nMost of my experience in machine learning is in the applications of machine learning, such as applying machine learning algorithms to galaxy classification, see my EPQ. Some of my projects have involved rudimentary machine learning algorithms, for instance, I explored how the gradient descent algorithm and optimisation could be used"
+    "text": "Machine Learning\nMost of my experience in machine learning is in the applications of machine learning, such as applying machine learning algorithms to galaxy classification, see my EPQ. Some of my projects have involved rudimentary machine learning algorithms, for instance, I explored how the gradient descent algorithm and optimisation could be used to create a linear (or polynomial) regression."
   },
   {
     "objectID": "about.html#epq",
     "href": "about.html#epq",
     "title": "Mark Watson",
     "section": "EPQ",
-    "text": "EPQ"
+    "text": "EPQ\nMy EPQ consisted of a comparative analysis, with examples, of the traditional, visual method for classifying galaxies, and a modern computational approach. I captured images of 15 galaxies for the purpose of discussing the pros and cons of the two methods for classification. For more information, click here: EPQ Blog Post."
   },
   {
     "objectID": "about.html#web-development",
@@ -242,7 +242,14 @@
     "href": "index.html",
     "title": "Home",
     "section": "",
-    "text": "Welcome to my portfolio of programming projects and competition submissions\n\n\nFeatured Projects\nHere are some of my favourite projects ranging from numerical methods to optimisation for machine learning. For all my projects check out the Coding Projects tab.\n\n\n\n\n\n\n\nRoot Finding using the Newton-Raphson Method\n\n\n\n\n\n\n\n\n\nOptimisation: The Gradient Descent Algorithm\n\n\n\n\n\n\n\n\n\nMonte Carlo Simulation: Estimating π\n\n\n\n\n\n\n\n\nBPhO Computational Challenge 2024:\n\nVideo Submission\n\n\nCode and Explanations\n\n\n\n\n\n\n\nChallenge 1 & 2: Drag-Free Projectile Model\n\n\n\n\n\n\n\n\n\nChallenge 3: Minimum u, Low Ball and High Ball\n\n\n\n\n\n\n\n\n\nChallenge 4: Maximising Range\n\n\n\n\n\n\n\n\n\nChallenge 5: The Bounding Parabola\n\n\n\n\n\n\n\n\n\nChallenge 6: Calculating Distance Travelled\n\n\n\n\n\n\n\n\n\nChallenge 7: Local Maxima and Minima\n\n\n\n\n\n\n\n\n\nChallenge 8: Bouncing Ball Model\n\n\n\n\n\n\n\n\n\nChallenge 9: Incorporating Air Resistance\n\n\n\n\n\n\n\n\n\nExtension: Incorporating Varying Air Density"
+    "text": "Welcome to my portfolio of programming projects and competition submissions"
+  },
+  {
+    "objectID": "index.html#epq",
+    "href": "index.html#epq",
+    "title": "Home",
+    "section": "EPQ",
+    "text": "EPQ\nMy EPQ consisted of a comparative analysis, with examples, of the traditional, visual method for classifying galaxies, and a modern computational approach. I captured images of 15 galaxies for the purpose of discussing the pros and cons of the two methods for classification. For more information, click here: EPQ Blog Post."
   },
   {
     "objectID": "posts/cchallenge1.html",
@@ -280,18 +287,137 @@
     "text": "Introduction\nDISCLAIMER: This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here:  https://youtu.be/ViT6NdrrbJo .\n\n\nSetting up the Problem\n\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport math\n\n\n# Input parameters\nangle = 30\nu = 100\ng = 9.81\nh = 1000\nA = 0.002\nc_drag = 0.1\nm = 0.01\ndt = 0.01\ndensity = 1.225\n\n\n# Converts the angle to radians\ntheta = (angle * np.pi) / 180\n\n# Resloves forces into horizontal and vertical component\ncostheta = math.cos(theta)\nsintheta = math.sin(theta)\n\nux = u * costheta\nuy = u * sintheta\n\n\n\nNo Air Resistance\n\n# Calculates the range and time of flight of the projectile\nR = (u**2 / g) * (sintheta*costheta+costheta*math.sqrt(sintheta**2 + ((2 * g * h) / (u**2))))\ntflight = R / (u * costheta)\n\n# Time of flight phrase\nprint(\"Time of flight: \" + str(round(tflight, 2)) + \" s\")\n\n# Range phrase\nprint(\"Range: \" + str(round(R, 2)) + \" m\")   \n\nTime of flight: 20.26 s\nRange: 1754.37 m\n\n\n\n# Creates an empty arrary for the x and y coordinates of the trajectory\nx = []\ny = []\n\n# Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight\nfor i in np.arange(0, tflight, 0.01):\n    t = i\n    x.append(ux * t)\n    T = t * t\n    y.append(h + (uy * t) - (0.5 * g * T))\n\n\n# Apogee calculation\napy = (0 - (uy*uy)) / (2 * g * -1) + h\ny_graph = apy + apy * 0.1\n\n\n\nAir Resistance\n\n# Calculation for k\nk = (0.5 * c_drag * density * A) / m\n\n\n# Creates arrays for air resistance x and y values\nx_plot = []\ny_plot = []\n\n# Sets initial x and y values\nd_x = 0\nd_y = h\n\n# Adds initial x and y values to the arrays\nx_plot.append(d_x)\ny_plot.append(d_y)\n\n# Verlet method to update the acceleration, velocity and position of the projectile after each discrete timestep\nn = 0\nt_drag = 0\nwhile y_plot[n] &gt;= 0:\n    t_drag = t_drag + dt\n    ax = - (ux / u) * k * u**2\n    ay = - g - (uy / u) * k * u**2\n    d_x = d_x + ux * dt + 0.5 * ax * dt**2\n    d_y = d_y + uy * dt + 0.5 * ay * dt**2\n    x_plot.append(d_x)\n    y_plot.append(d_y)\n    ux = ux + ax * dt\n    uy = uy + ay * dt\n    u = math.sqrt(ux**2 + uy**2)\n    n += 1\n\nR_drag = x_plot[n]\n\n\n# Generates the calculated values text\n# Time of flight phrase\nprint(\"Time of flight (drag): \" + str(round(t_drag, 2)) + \" s\")\n    \n# Range phrase\nprint(\"Range (drag): \" + str(round(R_drag, 2)) + \" m\")\n\nTime of flight (drag): 41.15 s\nRange (drag): 179.22 m\n\n\n\n\nAir Resistance and Varying Air Density with Height\n\n# Parameters for non linear air resistance\n# Sea level standard atmospheric pressure\np0 = 101325\n# Intial height\nh0 = h\n# Specific gas constant for air\nsgc = 287.052874\n# mass of one air molecule\nmass_am = 4.81e-26\n# Boltzmann constant\nkB = 1.380649e-23\n# Initial temperature in Celsius (standard temperature at sea level)\nT0 = 15\n\nx_air = 0\ny_air = h\n\nux = u * costheta\nuy = u * sintheta\n\nd_x = 0\nd_y = h\n\n\n# Verlet method for varying air density\ndef verlet_air(p0, h0, sgc, mass_am, kB, T0, d_x, d_y, ux, uy, m, A, dt, c_drag, u, h, density):\n    t = 0\n    x_air_plot = []\n    y_air_plot = []\n\n    x_air_plot.append(d_x)\n    y_air_plot.append(d_y)\n    \n    n = 0\n    while y_air_plot[n] &gt;= 0:\n        k = (0.5 * c_drag * density * A) / m\n\n        ax = - (ux / u) * k * u**2\n        ay = - g - (uy / u) * k * u**2\n        d_x = d_x + ux * dt + 0.5 * ax * dt**2\n        d_y = d_y + uy * dt + 0.5 * ay * dt**2\n        x_air_plot.append(d_x)\n        y_air_plot.append(d_y)\n        ux = ux + ax * dt\n        uy = uy + ay * dt\n        u = math.sqrt(ux**2 + uy**2)\n        h = d_y\n\n        temp = T0 - h * 0.00650\n        temp = temp + 273.15\n        p = p0 * math.exp((-mass_am * g * h) / (kB * temp))\n        density = p / (sgc * temp)\n\n        n += 1\n\n        t = t + dt\n\n    return x_air_plot, y_air_plot, n, t\n\nx_air_plot, y_air_plot, n, t_air = verlet_air(p0, h0, sgc, mass_am, kB, T0, x_air, y_air, ux, uy, m, A, dt, c_drag, u, h, density)\n\nR_air = x_air_plot[n]\n\n\n# Generates the calculated values text\n# Time of flight phrase\nprint(\"Time (varying air density): \" + str(round(t_air, 2)) + \" s\")\n\n# Range phrase\nprint(\"Range (varying air density): \" + str(round(R_air, 2)) + \" m\")    \n\nTime (varying air density): 38.2 s\nRange (varying air density): 97.53 m\n\n\n\n# Creates the figure\nfig, ax = plt.subplots()\n\n# Sets the parameters of the plot\nax.set_xlabel(\"Displacement in x / m\")\nax.set_ylabel(\"Displacement in y / m\")\nax.set_ylim(0, y_graph)\nax.set_xlim(0, R)\n\n# Components to be plotted\nax.plot(x, y, label=\"No Air Resistance\")\nax.grid()\nax.plot(x_plot, y_plot, label=\"Air Resistance\")\nax.plot(x_air_plot, y_air_plot, label = \"Air Resistance and Varying Air Density\")\n\nax.legend()"
   },
   {
-    "objectID": "posts/gcd.html",
-    "href": "posts/gcd.html",
-    "title": "Computing the Greatest Common Divisior (GCD) Using the Euclidean Algorithm",
+    "objectID": "posts/EPQ.html",
+    "href": "posts/EPQ.html",
+    "title": "EPQ: A COMPARATIVE ANALYSIS OF THE ROLE OF VISUAL AND COMPUTATIONAL METHODS IN THE MORPHOLOGICAL CLASSIFICATION OF GALAXIES USING ASTROPHOTOGRAPHY",
     "section": "",
-    "text": "Introduction\nEuclid’s algorithm to find the Greatest Common Divisor (GCD), that is the largest number that divides two positive integers without a remainder, was first described in the 7th book of Euclid’s Elements written c. 300 BC, making it one of the oldest algorithms.\nThe algorithm works by using the fact that the GCD of two numbers, a and b, is the same as the GCD of b and the remainder of a divided by b. In Python, this is achieved using the modulo function, or %. This process is then repeated until there is no remainder.\nThe Euclidean algorithm has a time complexity of O(log(min(a, b))).\nInterestingly, the extended Euclidian algorithm calculates the coefficients of Bézout’s identity such that \\(ax+by=gcd(a,b)\\). This is used in solving Diophantine equations and in modular arithmetic, for instance, the RSA encryption algorithm when calculating the modular inverses for key generation.\n\n\nInputs\nThe algorithm requires two inputs - two positive integers, a and b. Normally, the user would be asked to input these integers, however, for the purpose of this example, I have used the integers shown below.\n\n# Defining positive integers a and b\na = 2376\nb = 4832\n\n\n\nFunction to Perform Euclid’s Algorithm\nThe function consists of a while loop which only stops when the remainder is 0 (and therefore the algorithm has found the GCD). First, the remainder of a divided by b is calculated using the modulo (%) function. Then, b is set to a, and the remainder is set to b in order to repeat the algorithm until the GCD is found.\n\n# Function to perform the Euclidian algorithm\ndef gcd(a,b):\n    while b != 0:\n        remainder = a % b\n        a = b\n        b = remainder\n\n    return a\n\n\n\nOutput\nTo output the GCD, the program calls the function, passes the two integers a and b, and prints the result.\n\n# Outputs the GCD\nprint(\"The Greatest Common Divisor (GCD) is\", gcd(a, b))\n\nThe Greatest Common Divisor (GCD) is 8"
+    "text": "My EPQ consisted of a comparative analysis, with examples, of the traditional, visual method for classifying galaxies, and a modern computational approach. I captured images of 15 galaxies for the purpose of discussing the pros and cons of the two methods for classification"
+  },
+  {
+    "objectID": "posts/EPQ.html#spiral-galaxies",
+    "href": "posts/EPQ.html#spiral-galaxies",
+    "title": "EPQ: A COMPARATIVE ANALYSIS OF THE ROLE OF VISUAL AND COMPUTATIONAL METHODS IN THE MORPHOLOGICAL CLASSIFICATION OF GALAXIES USING ASTROPHOTOGRAPHY",
+    "section": "Spiral Galaxies",
+    "text": "Spiral Galaxies\nThe spiral galaxies are further divided into normal or unbarred spirals (SA), intermediate spirals (SAB), and barred spirals (SB) depending on the stage of development of the bar in the centre of each galaxy. The next element of spiral classification is the character of the spiral arms, ‘a’ - ‘d’ is used, with ‘a’ representing tightly bound spiral arms and ‘d’ representing loose arms. The symbols ‘s’, ‘rs’, and ‘r’ are used to denote the development of an external ring structure."
+  },
+  {
+    "objectID": "posts/EPQ.html#ellipticals",
+    "href": "posts/EPQ.html#ellipticals",
+    "title": "EPQ: A COMPARATIVE ANALYSIS OF THE ROLE OF VISUAL AND COMPUTATIONAL METHODS IN THE MORPHOLOGICAL CLASSIFICATION OF GALAXIES USING ASTROPHOTOGRAPHY",
+    "section": "Ellipticals",
+    "text": "Ellipticals\nEllipticals are denoted by the character ‘E’ followed by an ellipticity between 0 and 7, with E0 being globular nebulae and E7 being the most flattened."
+  },
+  {
+    "objectID": "posts/EPQ.html#lenticulars",
+    "href": "posts/EPQ.html#lenticulars",
+    "title": "EPQ: A COMPARATIVE ANALYSIS OF THE ROLE OF VISUAL AND COMPUTATIONAL METHODS IN THE MORPHOLOGICAL CLASSIFICATION OF GALAXIES USING ASTROPHOTOGRAPHY",
+    "section": "Lenticulars",
+    "text": "Lenticulars\nLenticular galaxies are said to be “stuck in the middle”, having characteristics of both spiral and elliptical galaxies, yet fitting neither classification."
+  },
+  {
+    "objectID": "posts/EPQ.html#the-backpropagation-algorithm-ann",
+    "href": "posts/EPQ.html#the-backpropagation-algorithm-ann",
+    "title": "EPQ: A COMPARATIVE ANALYSIS OF THE ROLE OF VISUAL AND COMPUTATIONAL METHODS IN THE MORPHOLOGICAL CLASSIFICATION OF GALAXIES USING ASTROPHOTOGRAPHY",
+    "section": "The Backpropagation Algorithm (ANN)",
+    "text": "The Backpropagation Algorithm (ANN)\nOne example of a machine learning algorithm used for galaxy classification is the ANN Backpropagation algorithm. This algorithm consists of a network defined by 13 entered parameters used as an input layer for the algorithm which is then output as a collection of five galaxy classifications in the output layer.\nAny layer connecting the input and output layers is defined as a ‘hidden layer’. Backpropagation algorithms are constructed using nodes “analogous to human neurons”. The network created functions by the nodes in the hidden layer receiving parameters passed from each node in the previous layer and then this information is output to the next layer and the process continues until a classification is found in the output layer."
+  },
+  {
+    "objectID": "posts/EPQ.html#locally-weighted-regressions",
+    "href": "posts/EPQ.html#locally-weighted-regressions",
+    "title": "EPQ: A COMPARATIVE ANALYSIS OF THE ROLE OF VISUAL AND COMPUTATIONAL METHODS IN THE MORPHOLOGICAL CLASSIFICATION OF GALAXIES USING ASTROPHOTOGRAPHY",
+    "section": "Locally Weighted Regressions",
+    "text": "Locally Weighted Regressions\nAnother example is Locally Weighted Regressions (LWRs), which can be used to classify galaxies. LWRs belong to the family of instance-based learning methods.\nWhen a galaxy is classified, similar galaxies are identified in training data and this information is applied to the new “query instance”. The LWR finds “an explicit approximation for the target function f over a local region surrounding a query point” which is then used to best classify the galaxy."
+  },
+  {
+    "objectID": "posts/integration.html",
+    "href": "posts/integration.html",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "",
+    "text": "In order to compare Simpson’s Rule and Trapezium Rule for calculating the numerical integral, I have created two functions: the first function is a polynomial (specifically quartic) function, and the second function is trigonometric. Simpson’s Rule and Trapezium Rule will then be used to calculate the integral for each of these function. Each of the algorithms will also be timed to further compare them."
+  },
+  {
+    "objectID": "posts/integration.html#imported-libraries",
+    "href": "posts/integration.html#imported-libraries",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "Imported Libraries",
+    "text": "Imported Libraries\nNumpy is used for trigonometric functions, specifically sin and cos. The timeit library is used to find the run time of each method, which will then be used to compare them.\n\nimport numpy as np\n\nimport timeit"
+  },
+  {
+    "objectID": "posts/integration.html#defining-the-polynomial-and-trigonometric-functions",
+    "href": "posts/integration.html#defining-the-polynomial-and-trigonometric-functions",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "Defining the Polynomial and Trigonometric Functions",
+    "text": "Defining the Polynomial and Trigonometric Functions\nThe quartic function I used for this demonstration was \\(f(x)=x^4+5x^3-2x^2-10x-8\\) as shown below. The trigonometric function used was \\(f(x)=\\sin^3(x)+\\cos(x)\\). I used functions to define these expressions such that passing the value of x to the function would return \\(f(x)\\).\n\n# Defines the functions to be integrated\n\n# Polynomial (quartic) function\ndef f1(x):\n    return x**4 + 5 * x**3 - 2 * x**2 - 10 * x - 8\n\n# Trigonometric function\ndef f2(x):\n    return np.sin(x)**3 + np.cos(x)"
+  },
+  {
+    "objectID": "posts/integration.html#setting-the-limits-and-number-of-intervals",
+    "href": "posts/integration.html#setting-the-limits-and-number-of-intervals",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "Setting the Limits and Number of Intervals",
+    "text": "Setting the Limits and Number of Intervals\nThe limits applied to the first integral are \\(a=-10\\) and \\(b=5\\) such that \\(\\int_{-10}^{5} x^5+5x^3-2x^2-10x-8 \\,dx\\). The limits applied to the second function are \\(a=0\\) and \\(b=\\pi\\) such that \\(\\int_{0}^{\\pi} \\sin^3(x)+\\cos(x) \\,dx\\). For the first function, each of the methods will have 1000 intervals, and for the second function, 10000 intervals will be used. This is somewhat fairer since the trigonometric function has more fluctuations and so a higher interval can help cature the integral more accurately, while also allowing for comparison between the methods at different intervals.\n\n# Sets the limits to integrate between\n# Function 1\na1 = -10\nb1 = 5\n\n# Function 2\na2 = 0\nb2 = np.pi\n\n# Number of intervals\n# Function 1\nn1 = 1000\n\n# Function 2\nn2 = 100000"
+  },
+  {
+    "objectID": "posts/integration.html#calculating-the-integral",
+    "href": "posts/integration.html#calculating-the-integral",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "Calculating the Integral",
+    "text": "Calculating the Integral\nThe interval between each value of \\(x_i\\) is calculated using the equation \\(h=\\frac{b-a}{n}\\), where \\(h\\) is the interval.\nTwo empty arrays for coordinates of \\(f(x)\\) are created. The first array (list) will contain all the values of \\(f(x_i)\\) when \\(i\\) is even, and the second list will contain all the values of \\(f(x_i)\\) when \\(i\\) is odd.\nNext, \\(f(a)\\) and \\(f(b)\\) are calculated for further use.\nA for loop is used between \\(i=1\\) (the first value of \\(x_i\\)) and \\(n\\), the number of intervals.\nThe coordinate \\(x_i\\) is updated using the formula \\(x_i=a+ih\\). Then, \\(f(x_i)\\) is found.\nThe if statement is used to determine which list \\(x_i\\) belongs in. By using the modulo operator (%), we can find if there is a remainder when dividing by 2, and therefore if the value of \\(i\\) is odd or even.\nAfter the for loop is completed, and all the values of \\(f(x_i)\\) are sorted in the correct list, Simpson’s Rule is used to approximate the integral. Here is the formula: \\(\\int_{a}^{b} f(x) \\,dx\\approx\\frac{h}{3}[f(a)+4\\sum_{odd} f(x_i) +2\\sum_{even} f(x_i) +f(b)]\\).\n\n# Function to perform Simpson's Rule\ndef SimpsonsRule(f, a, b, n):\n    # Calculating the interval between each value of x\n    h = (b - a) / n\n\n    # Empty arrays for storing the f(x) values corresponding to odd and even i\n    fx_ieven = []\n    fx_iodd = []\n\n    # Setting the first term and calculating f(a) and f(b)\n    fa = f(a)\n    fb = f(b)\n\n    for i in range(1, n):\n        # Updates the current x coordinate and finds f(x)\n        x_i = a + i * h\n        fx_i = f(x_i)\n        \n        # Checks to see if i is odd or even and appends f(x)\n        if i % 2 == 0:\n            fx_ieven.append(fx_i)\n        else:\n            fx_iodd.append(fx_i)\n\n    # Calculation to approximate the value of the integral\n    I = (h/3) * (fa + 4 * sum(fx_iodd) + 2 * sum(fx_ieven) + fb)\n\n    return I"
+  },
+  {
+    "objectID": "posts/integration.html#function-1",
+    "href": "posts/integration.html#function-1",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "Function 1",
+    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.02326750010251999"
+  },
+  {
+    "objectID": "posts/integration.html#function-2",
+    "href": "posts/integration.html#function-2",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "Function 2",
+    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23637269996106625"
+  },
+  {
+    "objectID": "posts/integration.html#analysis",
+    "href": "posts/integration.html#analysis",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "Analysis",
+    "text": "Analysis"
+  },
+  {
+    "objectID": "posts/integration.html#calculating-the-integral-1",
+    "href": "posts/integration.html#calculating-the-integral-1",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "Calculating the Integral",
+    "text": "Calculating the Integral\n\n# Trapezium Rule\ndef TrapeziumRule(f, a, b, n):\n    # Calculating the interval between each value of x\n    h = (b - a) / n\n\n    fa = f(a)\n    fb = f(b)\n\n    fx_ilist = []\n\n    for i in range(1, n):\n        x_i = a + h * i\n\n        fx_ilist.append(f(x_i))\n\n    I = (h / 2) * (fa + 2 * sum(fx_ilist) + fb)\n\n    return I"
+  },
+  {
+    "objectID": "posts/integration.html#function-1-1",
+    "href": "posts/integration.html#function-1-1",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "Function 1",
+    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.019083399791270494"
+  },
+  {
+    "objectID": "posts/integration.html#function-2-1",
+    "href": "posts/integration.html#function-2-1",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "Function 2",
+    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23051440017297864"
+  },
+  {
+    "objectID": "posts/integration.html#analysis-1",
+    "href": "posts/integration.html#analysis-1",
+    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
+    "section": "Analysis",
+    "text": "Analysis"
   },
   {
     "objectID": "posts/montecarlo.html",
     "href": "posts/montecarlo.html",
     "title": "Monte Carlo Simulation: Estimating π",
     "section": "",
-    "text": "import matplotlib.pyplot as plt\nimport matplotlib.patches as patches\nimport random\nimport numpy as np\n\n\n# The total number of coordinates in the square\ntotal_points = 10000000\n\n# Generates a random set of x and y coordinates inside the square\nx = np.random.uniform(0, 5, total_points)\ny = np.random.uniform(0, 5, total_points)\n\n\n# Calculate squared distance from center of the circle\nr_squared = (x - 2.5)**2 + (y - 2.5)**2\n\n# Placing points inside the circle\ninside_circle = r_squared &lt;= 2.5**2\n\n# Count points inside the circle\npoints_in_circle = np.sum(inside_circle)\n\n\n# Creates a square\nfig, ax = plt.subplots()\nsquare = patches.Rectangle((0, 0), 5, 5, edgecolor='blue', facecolor='none')\n\n# Creates a circle\ncircle = plt.Circle((2.5, 2.5), 2.5, color='red', fill=False)\n\n# Plotting the points\nplt.scatter(x[~inside_circle], y[~inside_circle], color=\"blue\", s=0.1)\nplt.scatter(x[inside_circle], y[inside_circle], color=\"red\", s=0.1)\nax.add_patch(square)\nax.add_patch(circle)\n\n# Sets parameters of the plot\nplt.xlim(-1, 6)\nplt.ylim(-1, 6)\nplt.gca().set_aspect('equal', adjustable='box')  # Ensures equal aspect ratio\nplt.title('Monte Carlo Simulation')\nplt.show()\n\n\n\n\n\n\n\n\n\n# Approximating pi\npi = 4 * points_in_circle / total_points\nprint(pi)\n\n3.1408108"
+    "text": "import matplotlib.pyplot as plt\nimport matplotlib.patches as patches\nimport random\nimport numpy as np\n\n\n# The total number of coordinates in the square\ntotal_points = 10000000\n\n# Generates a random set of x and y coordinates inside the square\nx = np.random.uniform(0, 5, total_points)\ny = np.random.uniform(0, 5, total_points)\n\n\n# Calculate squared distance from center of the circle\nr_squared = (x - 2.5)**2 + (y - 2.5)**2\n\n# Placing points inside the circle\ninside_circle = r_squared &lt;= 2.5**2\n\n# Count points inside the circle\npoints_in_circle = np.sum(inside_circle)\n\n\n# Creates a square\nfig, ax = plt.subplots()\nsquare = patches.Rectangle((0, 0), 5, 5, edgecolor='blue', facecolor='none')\n\n# Creates a circle\ncircle = plt.Circle((2.5, 2.5), 2.5, color='red', fill=False)\n\n# Plotting the points\nplt.scatter(x[~inside_circle], y[~inside_circle], color=\"blue\", s=0.1)\nplt.scatter(x[inside_circle], y[inside_circle], color=\"red\", s=0.1)\nax.add_patch(square)\nax.add_patch(circle)\n\n# Sets parameters of the plot\nplt.xlim(-1, 6)\nplt.ylim(-1, 6)\nplt.gca().set_aspect('equal', adjustable='box')  # Ensures equal aspect ratio\nplt.title('Monte Carlo Simulation')\nplt.show()\n\n\n\n\n\n\n\n\n\n# Approximating pi\npi = 4 * points_in_circle / total_points\nprint(pi)\n\n3.1414612"
   },
   {
     "objectID": "posts/optimisation.html",
