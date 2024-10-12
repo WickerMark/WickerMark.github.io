@@ -194,14 +194,12 @@ window.Quarto = {
   <li><a href="#calculating-the-integral" id="toc-calculating-the-integral" class="nav-link" data-scroll-target="#calculating-the-integral">Calculating the Integral</a></li>
   <li><a href="#function-1" id="toc-function-1" class="nav-link" data-scroll-target="#function-1">Function 1</a></li>
   <li><a href="#function-2" id="toc-function-2" class="nav-link" data-scroll-target="#function-2">Function 2</a></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
   </ul></li>
   <li><a href="#trapezium-rule" id="toc-trapezium-rule" class="nav-link" data-scroll-target="#trapezium-rule">Trapezium Rule</a>
   <ul class="collapse">
   <li><a href="#calculating-the-integral-1" id="toc-calculating-the-integral-1" class="nav-link" data-scroll-target="#calculating-the-integral-1">Calculating the Integral</a></li>
   <li><a href="#function-1-1" id="toc-function-1-1" class="nav-link" data-scroll-target="#function-1-1">Function 1</a></li>
   <li><a href="#function-2-1" id="toc-function-2-1" class="nav-link" data-scroll-target="#function-2-1">Function 2</a></li>
-  <li><a href="#analysis-1" id="toc-analysis-1" class="nav-link" data-scroll-target="#analysis-1">Analysis</a></li>
   </ul></li>
   <li><a href="#using-scipy" id="toc-using-scipy" class="nav-link" data-scroll-target="#using-scipy">Using Scipy</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
@@ -265,7 +263,7 @@ window.Quarto = {
 <section id="imported-libraries" class="level2">
 <h2 class="anchored" data-anchor-id="imported-libraries">Imported Libraries</h2>
 <p>Numpy is used for trigonometric functions, specifically sin and cos. The timeit library is used to find the run time of each method, which will then be used to compare them.</p>
-<div id="7fd2917d" class="cell" data-execution_count="1">
+<div id="8ba9028c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> timeit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -274,7 +272,7 @@ window.Quarto = {
 <section id="defining-the-polynomial-and-trigonometric-functions" class="level2">
 <h2 class="anchored" data-anchor-id="defining-the-polynomial-and-trigonometric-functions">Defining the Polynomial and Trigonometric Functions</h2>
 <p>The quartic function I used for this demonstration was <span class="math inline">\(f(x)=x^4+5x^3-2x^2-10x-8\)</span> as shown below. The trigonometric function used was <span class="math inline">\(f(x)=\sin^3(x)+\cos(x)\)</span>. I used functions to define these expressions such that passing the value of x to the function would return <span class="math inline">\(f(x)\)</span>.</p>
-<div id="b8c9ff1e" class="cell" data-execution_count="2">
+<div id="7c8a688f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defines the functions to be integrated</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Polynomial (quartic) function</span></span>
@@ -289,7 +287,7 @@ window.Quarto = {
 <section id="setting-the-limits-and-number-of-intervals" class="level2">
 <h2 class="anchored" data-anchor-id="setting-the-limits-and-number-of-intervals">Setting the Limits and Number of Intervals</h2>
 <p>The limits applied to the first integral are <span class="math inline">\(a=-10\)</span> and <span class="math inline">\(b=5\)</span> such that <span class="math inline">\(\int_{-10}^{5} x^5+5x^3-2x^2-10x-8 \,dx\)</span>. The limits applied to the second function are <span class="math inline">\(a=0\)</span> and <span class="math inline">\(b=\pi\)</span> such that <span class="math inline">\(\int_{0}^{\pi} \sin^3(x)+\cos(x) \,dx\)</span>. For the first function, each of the methods will have 1000 intervals, and for the second function, 10000 intervals will be used. This is somewhat fairer since the trigonometric function has more fluctuations and so a higher interval can help cature the integral more accurately, while also allowing for comparison between the methods at different intervals.</p>
-<div id="fc6f4da7" class="cell" data-execution_count="3">
+<div id="2d7a0742" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets the limits to integrate between</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Function 1</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>a1 <span class="op">=</span> <span class="op">-</span><span class="dv">10</span></span>
@@ -318,8 +316,8 @@ window.Quarto = {
 <p>A for loop is used between <span class="math inline">\(i=1\)</span> (the first value of <span class="math inline">\(x_i\)</span>) and <span class="math inline">\(n\)</span>, the number of intervals.</p>
 <p>The coordinate <span class="math inline">\(x_i\)</span> is updated using the formula <span class="math inline">\(x_i=a+ih\)</span>. Then, <span class="math inline">\(f(x_i)\)</span> is found.</p>
 <p>The if statement is used to determine which list <span class="math inline">\(x_i\)</span> belongs in. By using the modulo operator (%), we can find if there is a remainder when dividing by 2, and therefore if the value of <span class="math inline">\(i\)</span> is odd or even.</p>
-<p>After the for loop is completed, and all the values of <span class="math inline">\(f(x_i)\)</span> are sorted in the correct list, Simpson’s Rule is used to approximate the integral. Here is the formula: <span class="math inline">\(\int_{a}^{b} f(x) \,dx\approx\frac{h}{3}[f(a)+4\sum_{odd} f(x_i) +2\sum_{even} f(x_i) +f(b)]\)</span>.</p>
-<div id="667edc30" class="cell" data-execution_count="4">
+<p>After the for loop is completed, and all the values of <span class="math inline">\(f(x_i)\)</span> are sorted in the correct list, Simpson’s Rule is used to approximate the integral. Here is the formula: <span class="math inline">\(\int_{a}^{b} f(x) \,dx\approx\frac{h}{3}[f(x_1)+4\sum_{odd} f(x_i) +2\sum_{even} f(x_i) +f(x_n)]\)</span>.</p>
+<div id="92afe794" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to perform Simpson's Rule</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> SimpsonsRule(f, a, b, n):</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculating the interval between each value of x</span></span>
@@ -352,60 +350,72 @@ window.Quarto = {
 </section>
 <section id="function-1" class="level2">
 <h2 class="anchored" data-anchor-id="function-1">Function 1</h2>
-<div id="593f2832" class="cell" data-execution_count="5">
+<p>As stated before, a timer will be used to compare the run-time of the functions.</p>
+<p>Here, the timer is started.</p>
+<div id="dd6bca82" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Starts run time timer</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> timeit.default_timer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="0393173d" class="cell" data-execution_count="6">
+<p>The fucntion is called and the integral is calculated for the first function.</p>
+<div id="3938fd73" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calls function and outputs integral</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Simpson's Rule: The Integral of Function 1 (Polynomial):"</span>, SimpsonsRule(f1, a1, b1, n1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125</code></pre>
 </div>
 </div>
-<div id="69b30d5c" class="cell" data-execution_count="7">
+<p>The timer is now stopped once the answer is retrieved and the time is printed.</p>
+<div id="a4cacae1" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stops the timer</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>stop <span class="op">=</span> timeit.default_timer()</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates run time</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Run Time for Function 1: '</span>, stop <span class="op">-</span> start)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Run Time for Function 1:  0.02326750010251999</code></pre>
+<pre><code>Run Time for Function 1:  0.03157060011290014</code></pre>
 </div>
 </div>
 </section>
 <section id="function-2" class="level2">
 <h2 class="anchored" data-anchor-id="function-2">Function 2</h2>
-<div id="df8693ae" class="cell" data-execution_count="8">
+<p>This process is repeated for the second function.</p>
+<p>The timer is started.</p>
+<div id="1c1521a6" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Starts run time timer</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> timeit.default_timer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="45084dc0" class="cell" data-execution_count="9">
+<p>The function is called and the result is displayed.</p>
+<div id="c4ac90d2" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Simpson's Rule: The Integral of Function 2 (Trigonometric):"</span>, SimpsonsRule(f2, a2, b2, n2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337</code></pre>
 </div>
 </div>
-<div id="6fdac935" class="cell" data-execution_count="10">
+<p>The timer is stopped and the run-time is displayed.</p>
+<div id="09d6a63e" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stops the timer</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>stop <span class="op">=</span> timeit.default_timer()</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates run time</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Run Time for Function 2: '</span>, stop <span class="op">-</span> start)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Run Time for Function 2:  0.23637269996106625</code></pre>
+<pre><code>Run Time for Function 2:  0.24614740000106394</code></pre>
 </div>
 </div>
-</section>
-<section id="analysis" class="level2">
-<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
 </section>
 </section>
 <section id="trapezium-rule" class="level1">
 <h1>Trapezium Rule</h1>
+<p>Now we shall repeat the process using Trapezium Rule.</p>
 <section id="calculating-the-integral-1" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-the-integral-1">Calculating the Integral</h2>
-<div id="b0903f8a" class="cell" data-execution_count="11">
+<p>The interval between each value of <span class="math inline">\(x_i\)</span> is calculated using the equation <span class="math inline">\(h=\frac{b-a}{n}\)</span>, where <span class="math inline">\(h\)</span> is the interval.</p>
+<p><span class="math inline">\(f(a)\)</span> and <span class="math inline">\(f(b)\)</span> are calculated for further use.</p>
+<p>An empty list of <span class="math inline">\(f(x_i)\)</span> coordinates is created.</p>
+<p>A for loop is used between <span class="math inline">\(i=1\)</span> (the first value of <span class="math inline">\(x_i\)</span>) and <span class="math inline">\(n\)</span>, the number of intervals.</p>
+<p>The coordinate <span class="math inline">\(x_i\)</span> is updated using the formula <span class="math inline">\(x_i=a+ih\)</span>. Then, <span class="math inline">\(f(x_i)\)</span> is appended to the list previously created.</p>
+<p>After the for loop is completed, Trapezium Rule is used to approximate the integral. The formula <span class="math inline">\(\int_{a}^{b} f(x) \,dx\approx\frac{h}{2}(f(x_1)+2\sum_i=1^{n-1}f(x_i)+f(x_n))\)</span> is used to calculate it.</p>
+<div id="54ef9aa9" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trapezium Rule</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> TrapeziumRule(f, a, b, n):</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculating the interval between each value of x</span></span>
@@ -428,58 +438,63 @@ window.Quarto = {
 </section>
 <section id="function-1-1" class="level2">
 <h2 class="anchored" data-anchor-id="function-1-1">Function 1</h2>
-<div id="047c1982" class="cell" data-execution_count="12">
+<p>The timer is started.</p>
+<div id="548006de" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Starts run time timer</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> timeit.default_timer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c4685b61" class="cell" data-execution_count="13">
+<p>Calls the function and calculates the integral for the polynomial function.</p>
+<div id="5f5d3f31" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calls and prints function</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Trapezium Rule: The Integral of Function 1 (Polynomial):"</span>, TrapeziumRule(f1, a1, b1, n1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Trapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687</code></pre>
 </div>
 </div>
-<div id="de6be018" class="cell" data-execution_count="14">
+<p>Stops the timer and prints run-time.</p>
+<div id="d7a665aa" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stops the timer</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>stop <span class="op">=</span> timeit.default_timer()</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates run time</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Run Time for Function 1: '</span>, stop <span class="op">-</span> start)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Run Time for Function 1:  0.019083399791270494</code></pre>
+<pre><code>Run Time for Function 1:  0.02411899995058775</code></pre>
 </div>
 </div>
 </section>
 <section id="function-2-1" class="level2">
 <h2 class="anchored" data-anchor-id="function-2-1">Function 2</h2>
-<div id="b76a5bdb" class="cell" data-execution_count="15">
+<p>The process repeats for the second function.</p>
+<p>The timer is started.</p>
+<div id="ed875d84" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Starts run time timer</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> timeit.default_timer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="2b788331" class="cell" data-execution_count="16">
+<p>The integral is calculated.</p>
+<div id="4555d3ba" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Trapezium Rule: The Integral of Function 2 (Trigonometric)"</span>, TrapeziumRule(f2, a2, b2, n2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Trapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481</code></pre>
 </div>
 </div>
-<div id="662c6034" class="cell" data-execution_count="17">
+<p>The timer is stopped and the run-time is outputted.</p>
+<div id="f2d2dff1" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stops the timer</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>stop <span class="op">=</span> timeit.default_timer()</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates run time</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Run Time for Function 2: '</span>, stop <span class="op">-</span> start)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Run Time for Function 2:  0.23051440017297864</code></pre>
+<pre><code>Run Time for Function 2:  0.24081570003181696</code></pre>
 </div>
 </div>
-</section>
-<section id="analysis-1" class="level2">
-<h2 class="anchored" data-anchor-id="analysis-1">Analysis</h2>
 </section>
 </section>
 <section id="using-scipy" class="level1">
 <h1>Using Scipy</h1>
-<div id="2a4ec3b7" class="cell" data-execution_count="18">
+<p>To compare the accuracy of the results, the scipy integration function will be used.</p>
+<div id="f8ea3413" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scipy for comparison</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> integrate</span>
@@ -499,6 +514,7 @@ Scipy: Function 2 (Trigonometric): 1.3333333333333333 (Error Estimate: 6.5937951
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
+<p>Trapezium Rule performed both calculations faster than Simpson’s Rule, however, Simpson’s Rule was significantly more accurate in the approximation of the integral of the polynomial function and was much closer to Scipy’s result than Trapezium Rule. In the trigonometric approximation, the results were a lot closer, but Simpson’s Rule was slightly more accurate. Therefore, in conclusion, Simpson’s Rule should be used for applications where accuracy is neeeded and for polynomial functions, however, Trapezium Rule is more appropriate where time to compute is more important. For trigonometric functions, the two performed very similarly.</p>
 
 
 </section>

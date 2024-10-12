@@ -88,7 +88,7 @@
     "href": "posts/linearregression.html#optimised-values-for-the-gradient-and-y-intercept",
     "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
     "section": "Optimised Values for the Gradient and y-intercept",
-    "text": "Optimised Values for the Gradient and y-intercept\nFinally, we print the optimised parameters.\n\n# Output the optimized parameters\nprint(f\"Optimized parameters: {theta_opt}\")\n\nOptimized parameters: [4.52213433 4.15246069]"
+    "text": "Optimised Values for the Gradient and y-intercept\nFinally, we print the optimised parameters.\n\n# Output the optimized parameters\nprint(f\"Optimized parameters: {theta_opt}\")\n\nOptimized parameters: [4.75310529 3.59472185]"
   },
   {
     "objectID": "posts/gcd.html",
@@ -291,7 +291,7 @@
     "href": "posts/EPQ.html",
     "title": "EPQ: A COMPARATIVE ANALYSIS OF THE ROLE OF VISUAL AND COMPUTATIONAL METHODS IN THE MORPHOLOGICAL CLASSIFICATION OF GALAXIES USING ASTROPHOTOGRAPHY",
     "section": "",
-    "text": "My EPQ consisted of a comparative analysis, with examples, of the traditional, visual method for classifying galaxies, and a modern computational approach. I captured images of 15 galaxies for the purpose of discussing the pros and cons of the two methods for classification"
+    "text": "This is an overview of my EPQ project. My EPQ consisted of a comparative analysis, with examples, of the traditional, visual method for classifying galaxies, and a modern computational approach. I captured images of 15 galaxies for the purpose of discussing the pros and cons of the two methods for classification"
   },
   {
     "objectID": "posts/EPQ.html#spiral-galaxies",
@@ -361,63 +361,49 @@
     "href": "posts/integration.html#calculating-the-integral",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Calculating the Integral",
-    "text": "Calculating the Integral\nThe interval between each value of \\(x_i\\) is calculated using the equation \\(h=\\frac{b-a}{n}\\), where \\(h\\) is the interval.\nTwo empty arrays for coordinates of \\(f(x)\\) are created. The first array (list) will contain all the values of \\(f(x_i)\\) when \\(i\\) is even, and the second list will contain all the values of \\(f(x_i)\\) when \\(i\\) is odd.\nNext, \\(f(a)\\) and \\(f(b)\\) are calculated for further use.\nA for loop is used between \\(i=1\\) (the first value of \\(x_i\\)) and \\(n\\), the number of intervals.\nThe coordinate \\(x_i\\) is updated using the formula \\(x_i=a+ih\\). Then, \\(f(x_i)\\) is found.\nThe if statement is used to determine which list \\(x_i\\) belongs in. By using the modulo operator (%), we can find if there is a remainder when dividing by 2, and therefore if the value of \\(i\\) is odd or even.\nAfter the for loop is completed, and all the values of \\(f(x_i)\\) are sorted in the correct list, Simpson’s Rule is used to approximate the integral. Here is the formula: \\(\\int_{a}^{b} f(x) \\,dx\\approx\\frac{h}{3}[f(a)+4\\sum_{odd} f(x_i) +2\\sum_{even} f(x_i) +f(b)]\\).\n\n# Function to perform Simpson's Rule\ndef SimpsonsRule(f, a, b, n):\n    # Calculating the interval between each value of x\n    h = (b - a) / n\n\n    # Empty arrays for storing the f(x) values corresponding to odd and even i\n    fx_ieven = []\n    fx_iodd = []\n\n    # Setting the first term and calculating f(a) and f(b)\n    fa = f(a)\n    fb = f(b)\n\n    for i in range(1, n):\n        # Updates the current x coordinate and finds f(x)\n        x_i = a + i * h\n        fx_i = f(x_i)\n        \n        # Checks to see if i is odd or even and appends f(x)\n        if i % 2 == 0:\n            fx_ieven.append(fx_i)\n        else:\n            fx_iodd.append(fx_i)\n\n    # Calculation to approximate the value of the integral\n    I = (h/3) * (fa + 4 * sum(fx_iodd) + 2 * sum(fx_ieven) + fb)\n\n    return I"
+    "text": "Calculating the Integral\nThe interval between each value of \\(x_i\\) is calculated using the equation \\(h=\\frac{b-a}{n}\\), where \\(h\\) is the interval.\nTwo empty arrays for coordinates of \\(f(x)\\) are created. The first array (list) will contain all the values of \\(f(x_i)\\) when \\(i\\) is even, and the second list will contain all the values of \\(f(x_i)\\) when \\(i\\) is odd.\nNext, \\(f(a)\\) and \\(f(b)\\) are calculated for further use.\nA for loop is used between \\(i=1\\) (the first value of \\(x_i\\)) and \\(n\\), the number of intervals.\nThe coordinate \\(x_i\\) is updated using the formula \\(x_i=a+ih\\). Then, \\(f(x_i)\\) is found.\nThe if statement is used to determine which list \\(x_i\\) belongs in. By using the modulo operator (%), we can find if there is a remainder when dividing by 2, and therefore if the value of \\(i\\) is odd or even.\nAfter the for loop is completed, and all the values of \\(f(x_i)\\) are sorted in the correct list, Simpson’s Rule is used to approximate the integral. Here is the formula: \\(\\int_{a}^{b} f(x) \\,dx\\approx\\frac{h}{3}[f(x_1)+4\\sum_{odd} f(x_i) +2\\sum_{even} f(x_i) +f(x_n)]\\).\n\n# Function to perform Simpson's Rule\ndef SimpsonsRule(f, a, b, n):\n    # Calculating the interval between each value of x\n    h = (b - a) / n\n\n    # Empty arrays for storing the f(x) values corresponding to odd and even i\n    fx_ieven = []\n    fx_iodd = []\n\n    # Setting the first term and calculating f(a) and f(b)\n    fa = f(a)\n    fb = f(b)\n\n    for i in range(1, n):\n        # Updates the current x coordinate and finds f(x)\n        x_i = a + i * h\n        fx_i = f(x_i)\n        \n        # Checks to see if i is odd or even and appends f(x)\n        if i % 2 == 0:\n            fx_ieven.append(fx_i)\n        else:\n            fx_iodd.append(fx_i)\n\n    # Calculation to approximate the value of the integral\n    I = (h/3) * (fa + 4 * sum(fx_iodd) + 2 * sum(fx_ieven) + fb)\n\n    return I"
   },
   {
     "objectID": "posts/integration.html#function-1",
     "href": "posts/integration.html#function-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 1",
-    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.02326750010251999"
+    "text": "Function 1\nAs stated before, a timer will be used to compare the run-time of the functions.\nHere, the timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe fucntion is called and the integral is calculated for the first function.\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\nThe timer is now stopped once the answer is retrieved and the time is printed.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.03157060011290014"
   },
   {
     "objectID": "posts/integration.html#function-2",
     "href": "posts/integration.html#function-2",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 2",
-    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23637269996106625"
-  },
-  {
-    "objectID": "posts/integration.html#analysis",
-    "href": "posts/integration.html#analysis",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Analysis",
-    "text": "Analysis"
+    "text": "Function 2\nThis process is repeated for the second function.\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe function is called and the result is displayed.\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\nThe timer is stopped and the run-time is displayed.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.24614740000106394"
   },
   {
     "objectID": "posts/integration.html#calculating-the-integral-1",
     "href": "posts/integration.html#calculating-the-integral-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Calculating the Integral",
-    "text": "Calculating the Integral\n\n# Trapezium Rule\ndef TrapeziumRule(f, a, b, n):\n    # Calculating the interval between each value of x\n    h = (b - a) / n\n\n    fa = f(a)\n    fb = f(b)\n\n    fx_ilist = []\n\n    for i in range(1, n):\n        x_i = a + h * i\n\n        fx_ilist.append(f(x_i))\n\n    I = (h / 2) * (fa + 2 * sum(fx_ilist) + fb)\n\n    return I"
+    "text": "Calculating the Integral\nThe interval between each value of \\(x_i\\) is calculated using the equation \\(h=\\frac{b-a}{n}\\), where \\(h\\) is the interval.\n\\(f(a)\\) and \\(f(b)\\) are calculated for further use.\nAn empty list of \\(f(x_i)\\) coordinates is created.\nA for loop is used between \\(i=1\\) (the first value of \\(x_i\\)) and \\(n\\), the number of intervals.\nThe coordinate \\(x_i\\) is updated using the formula \\(x_i=a+ih\\). Then, \\(f(x_i)\\) is appended to the list previously created.\nAfter the for loop is completed, Trapezium Rule is used to approximate the integral. The formula \\(\\int_{a}^{b} f(x) \\,dx\\approx\\frac{h}{2}(f(x_1)+2\\sum_i=1^{n-1}f(x_i)+f(x_n))\\) is used to calculate it.\n\n# Trapezium Rule\ndef TrapeziumRule(f, a, b, n):\n    # Calculating the interval between each value of x\n    h = (b - a) / n\n\n    fa = f(a)\n    fb = f(b)\n\n    fx_ilist = []\n\n    for i in range(1, n):\n        x_i = a + h * i\n\n        fx_ilist.append(f(x_i))\n\n    I = (h / 2) * (fa + 2 * sum(fx_ilist) + fb)\n\n    return I"
   },
   {
     "objectID": "posts/integration.html#function-1-1",
     "href": "posts/integration.html#function-1-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 1",
-    "text": "Function 1\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.019083399791270494"
+    "text": "Function 1\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nCalls the function and calculates the integral for the polynomial function.\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\nStops the timer and prints run-time.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.02411899995058775"
   },
   {
     "objectID": "posts/integration.html#function-2-1",
     "href": "posts/integration.html#function-2-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 2",
-    "text": "Function 2\n\n# Starts run time timer\nstart = timeit.default_timer()\n\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23051440017297864"
-  },
-  {
-    "objectID": "posts/integration.html#analysis-1",
-    "href": "posts/integration.html#analysis-1",
-    "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
-    "section": "Analysis",
-    "text": "Analysis"
+    "text": "Function 2\nThe process repeats for the second function.\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe integral is calculated.\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\nThe timer is stopped and the run-time is outputted.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.24081570003181696"
   },
   {
     "objectID": "posts/montecarlo.html",
     "href": "posts/montecarlo.html",
     "title": "Monte Carlo Simulation: Estimating π",
     "section": "",
-    "text": "import matplotlib.pyplot as plt\nimport matplotlib.patches as patches\nimport random\nimport numpy as np\n\n\n# The total number of coordinates in the square\ntotal_points = 10000000\n\n# Generates a random set of x and y coordinates inside the square\nx = np.random.uniform(0, 5, total_points)\ny = np.random.uniform(0, 5, total_points)\n\n\n# Calculate squared distance from center of the circle\nr_squared = (x - 2.5)**2 + (y - 2.5)**2\n\n# Placing points inside the circle\ninside_circle = r_squared &lt;= 2.5**2\n\n# Count points inside the circle\npoints_in_circle = np.sum(inside_circle)\n\n\n# Creates a square\nfig, ax = plt.subplots()\nsquare = patches.Rectangle((0, 0), 5, 5, edgecolor='blue', facecolor='none')\n\n# Creates a circle\ncircle = plt.Circle((2.5, 2.5), 2.5, color='red', fill=False)\n\n# Plotting the points\nplt.scatter(x[~inside_circle], y[~inside_circle], color=\"blue\", s=0.1)\nplt.scatter(x[inside_circle], y[inside_circle], color=\"red\", s=0.1)\nax.add_patch(square)\nax.add_patch(circle)\n\n# Sets parameters of the plot\nplt.xlim(-1, 6)\nplt.ylim(-1, 6)\nplt.gca().set_aspect('equal', adjustable='box')  # Ensures equal aspect ratio\nplt.title('Monte Carlo Simulation')\nplt.show()\n\n\n\n\n\n\n\n\n\n# Approximating pi\npi = 4 * points_in_circle / total_points\nprint(pi)\n\n3.1414612"
+    "text": "import matplotlib.pyplot as plt\nimport matplotlib.patches as patches\nimport random\nimport numpy as np\n\n\n# The total number of coordinates in the square\ntotal_points = 10000000\n\n# Generates a random set of x and y coordinates inside the square\nx = np.random.uniform(0, 5, total_points)\ny = np.random.uniform(0, 5, total_points)\n\n\n# Calculate squared distance from center of the circle\nr_squared = (x - 2.5)**2 + (y - 2.5)**2\n\n# Placing points inside the circle\ninside_circle = r_squared &lt;= 2.5**2\n\n# Count points inside the circle\npoints_in_circle = np.sum(inside_circle)\n\n\n# Creates a square\nfig, ax = plt.subplots()\nsquare = patches.Rectangle((0, 0), 5, 5, edgecolor='blue', facecolor='none')\n\n# Creates a circle\ncircle = plt.Circle((2.5, 2.5), 2.5, color='red', fill=False)\n\n# Plotting the points\nplt.scatter(x[~inside_circle], y[~inside_circle], color=\"blue\", s=0.1)\nplt.scatter(x[inside_circle], y[inside_circle], color=\"red\", s=0.1)\nax.add_patch(square)\nax.add_patch(circle)\n\n# Sets parameters of the plot\nplt.xlim(-1, 6)\nplt.ylim(-1, 6)\nplt.gca().set_aspect('equal', adjustable='box')  # Ensures equal aspect ratio\nplt.title('Monte Carlo Simulation')\nplt.show()\n\n\n\n\n\n\n\n\n\n# Approximating pi\npi = 4 * points_in_circle / total_points\nprint(pi)\n\n3.1415588"
   },
   {
     "objectID": "posts/optimisation.html",
