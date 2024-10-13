@@ -253,7 +253,7 @@ window.Quarto = {
 <section id="imported-libraries" class="level2">
 <h2 class="anchored" data-anchor-id="imported-libraries">Imported Libraries</h2>
 <p>Matplotlib is imported for plotting, numpy for mathematical and trigonometric functions and math for trigonometric functions.</p>
-<div id="a4fede18" class="cell" data-execution_count="1">
+<div id="1b94b3f2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -262,7 +262,7 @@ window.Quarto = {
 <section id="input-parameters" class="level2">
 <h2 class="anchored" data-anchor-id="input-parameters">Input Parameters</h2>
 <p>These are the input values for the program. They are <span class="math inline">\(\theta\)</span>, angle of projection, <span class="math inline">\(u\)</span>, initial velocity, <span class="math inline">\(g\)</span>, acceleration due to gravity, <span class="math inline">\(h\)</span>, intiial height, <span class="math inline">\(A\)</span>, cross-sectional area of the projectile, <span class="math inline">\(c_{drag}\)</span>, the coefficient of drag, <span class="math inline">\(m\)</span>, mass of the projectile, <span class="math inline">\(dt\)</span>, the timestep, and <span class="math inline">\(\rho\)</span>, constant air density for the second model.</p>
-<div id="b53446d3" class="cell" data-execution_count="2">
+<div id="62ab6d7c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Input parameters</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>angle <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="dv">100</span></span>
@@ -275,12 +275,12 @@ window.Quarto = {
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>density <span class="op">=</span> <span class="fl">1.225</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The first calculation we must perform is converting the inputted angle in degrees to radians. This is achieved using the equation: <span class="math inline">\(radian = \frac{degree\times\pi}{180}\)</span></p>
-<div id="b9af66ec" class="cell" data-execution_count="3">
+<div id="61e45d27" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converts the angle to radians</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> (angle <span class="op">*</span> np.pi) <span class="op">/</span> <span class="dv">180</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The next calculation involves resolving the launch velocity into horizontal and vertical components of velocity. This is achieved using the following equations: <span class="math inline">\(u_{x} = ucos(\theta)\)</span> and <span class="math inline">\(u_{y} = usin(\theta)\)</span></p>
-<div id="7f3e7122" class="cell" data-execution_count="4">
+<div id="388037cd" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resloves forces into horizontal and vertical component</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>costheta <span class="op">=</span> math.cos(theta)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sintheta <span class="op">=</span> math.sin(theta)</span>
@@ -292,8 +292,8 @@ window.Quarto = {
 </section>
 <section id="no-air-resistance" class="level1">
 <h1>No Air Resistance</h1>
-<p>This section of code is identical to the code in <a href="\cchallenge1&amp;2.html">Challenge 1 &amp; 2</a> so please refer to that post for greater detail.</p>
-<div id="a01d7a6b" class="cell" data-execution_count="5">
+<p>This section of code is identical to the code in <a href="../posts/cchallenge1&amp;2.html">Challenge 1 &amp; 2</a> so please refer to that post for greater detail.</p>
+<div id="b2825e7f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates the range and time of flight of the projectile</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> (u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g) <span class="op">*</span> (sintheta<span class="op">*</span>costheta<span class="op">+</span>costheta<span class="op">*</span>math.sqrt(sintheta<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> ((<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> h) <span class="op">/</span> (u<span class="op">**</span><span class="dv">2</span>))))</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tflight <span class="op">=</span> R <span class="op">/</span> (u <span class="op">*</span> costheta)</span>
@@ -323,8 +323,8 @@ window.Quarto = {
 Range: 1754.37 m</code></pre>
 </div>
 </div>
-<p>This section of code is identical to the solution in <a href="\cchallenge9.html">Challenge 9</a>, so please refer to that post for greater detail. # Air Resistance</p>
-<div id="ebc09488" class="cell" data-execution_count="6">
+<p>This section of code is identical to the solution in <a href="../posts/cchallenge9.html">Challenge 9</a>, so please refer to that post for greater detail. # Air Resistance</p>
+<div id="8b5d4efa" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation for k</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> (<span class="fl">0.5</span> <span class="op">*</span> c_drag <span class="op">*</span> density <span class="op">*</span> A) <span class="op">/</span> m</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -384,7 +384,7 @@ Range (drag): 179.22 m</code></pre>
 <p><span class="math inline">\(m=4.81\times10^{-26}\)</span> kg</p>
 <p><span class="math inline">\(k_{B}=1.380649\times 10^{-23}\)</span> <span class="math inline">\(JK^{-1}\)</span></p>
 <p><span class="math inline">\(T_{0}=15^{\circ}C\)</span></p>
-<div id="c3899420" class="cell" data-execution_count="7">
+<div id="00c4b03f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters for non linear air resistance</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Sea level standard atmospheric pressure</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>p0 <span class="op">=</span> <span class="dv">101325</span></span>
@@ -412,7 +412,7 @@ Range (drag): 179.22 m</code></pre>
 </section>
 <section id="verlet-integration" class="level2">
 <h2 class="anchored" data-anchor-id="verlet-integration">Verlet Integration</h2>
-<p>For a greater understanding of how Verlet Integration works, refer to my <a href="\cchallenge9.html">Challenge 9</a> post.</p>
+<p>For a greater understanding of how Verlet Integration works, refer to my <a href="../posts/cchallenge9.html">Challenge 9</a> post.</p>
 <p>The function is identical to the one used in the air resistance model, bar the addition of four new calculations.</p>
 <p>Also, notice that the calculation for the air resistance factor is now located within the Verlet integration function. This ensures that the air density and air resistance factor are changing with every iteration. The current y coordinate is used to update the height of the model. This is so the air resistance factor is adjusted accordingly at each height.</p>
 <p>Then, the x and y coordinate of the projectile are updated as with Challenge 9.</p>
@@ -422,7 +422,7 @@ Range (drag): 179.22 m</code></pre>
 <p><span class="math inline">\(P_{h}=P_{0}e^{\frac{-mgh}{k_{B}T_{h}}}\)</span></p>
 <p><span class="math inline">\(\rho_{h}=\frac{P_{h}}{RT_{h}}\)</span></p>
 <p>The first equation approximates the temperature at a given height. This temperature is converted to Kelvin. The third equation calculates air pressure at height, <span class="math inline">\(h\)</span>, given the Boltzmann constant, the temperature at heigh, <span class="math inline">\(h\)</span>, the pressure at sea level, the mass of an air molecule and the acceleration due to gravity. This is then used to calculate air density at height, <span class="math inline">\(h\)</span>, using the fourth equation.</p>
-<div id="5c0ba637" class="cell" data-execution_count="8">
+<div id="cb56589e" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verlet method for varying air density</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verlet_air(p0, h0, sgc, mass_am, kB, T0, d_x, d_y, ux, uy, m, A, dt, c_drag, u, h, density):</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="dv">0</span></span>
@@ -465,7 +465,7 @@ Range (drag): 179.22 m</code></pre>
 <h2 class="anchored" data-anchor-id="time-of-flight-and-range">Time of Flight and Range</h2>
 <p>The time of flight is calculated by incrementing the value of t by the timestep throughout the iterations of the Verlet integration. This is output, along with a phrase.</p>
 <p>The range is calculated by considering the last x coordinate calculated, since this is the last instant when <span class="math inline">\(y\geq 0\)</span>.</p>
-<div id="1647c322" class="cell" data-execution_count="9">
+<div id="63d10b4c" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generates the calculated values text</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Time of flight phrase</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Time (varying air density): "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(t_air, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" s"</span>)</span>
@@ -485,31 +485,28 @@ Range (varying air density): 97.53 m</code></pre>
 <section id="plotting" class="level1">
 <h1>Plotting</h1>
 <p>First, the figure of subplots is defined.</p>
-<p>The parameters of the plot are set, the labels for each axis, the limits of these axes, the legend to show the labels is displayed, and a grid is shown.</p>
 <p>The graphs of the trajectory of each projectile are then plotted with appropriate labels.</p>
-<div id="85e484be" class="cell" data-execution_count="10">
+<p>The parameters of the plot are set, the labels for each axis, the limits of these axes, the legend to show the labels is displayed, and a grid is shown.</p>
+<div id="12ce3aa8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates the figure</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets the parameters of the plot</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Displacement in x / m"</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Displacement in y / m"</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, y_graph)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, R)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>ax.grid()</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Components to be plotted</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>ax.plot(x, y, label<span class="op">=</span><span class="st">"No Air Resistance"</span>)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>ax.plot(x_plot, y_plot, label<span class="op">=</span><span class="st">"Air Resistance"</span>)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>ax.plot(x_air_plot, y_air_plot, label <span class="op">=</span> <span class="st">"Air Resistance and Varying Air Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.</code></pre>
-</div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Components to be plotted</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>ax.plot(x, y, label<span class="op">=</span><span class="st">"No Air Resistance"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>ax.plot(x_plot, y_plot, label<span class="op">=</span><span class="st">"Air Resistance"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ax.plot(x_air_plot, y_air_plot, label <span class="op">=</span> <span class="st">"Air Resistance and Varying Air Density"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets the parameters of the plot</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Displacement in x / m"</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Displacement in y / m"</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, y_graph)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, R)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>ax.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="cchallengee1_files/figure-html/cell-11-output-2.png" width="601" height="429" class="figure-img"></p>
+<p><img src="cchallengee1_files/figure-html/cell-11-output-1.png" width="601" height="429" class="figure-img"></p>
 </figure>
 </div>
 </div>
