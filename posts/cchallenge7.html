@@ -265,7 +265,7 @@ window.Quarto = {
 <h1>Setting up the Problem</h1>
 <p>The problem is composed of two graphs, the first is a range against time graph and the second is a graph of displacement in y for the projectile against displacement in x for the projectile. Six projectiles are entered into the model to demonstrate the different stationary points. The six angles used will be <span class="math inline">\(\theta=30^{\circ}\)</span>, <span class="math inline">\(\theta=45^{\circ}\)</span>, <span class="math inline">\(\theta=60^{\circ}\)</span>, <span class="math inline">\(\theta=70.5^{\circ}\)</span>, <span class="math inline">\(\theta=78^{\circ}\)</span>, and <span class="math inline">\(\theta=85^{\circ}\)</span>.</p>
 <p>To begin, the necessary libraries are imported. Matplotlib is used for plotting, numpy is used for mathematical and trigonometric functions, and figure is imported from matplotlib to create two graphs which are displayed.</p>
-<div id="337af8e1" class="cell" data-execution_count="1">
+<div id="45da85ca" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -277,7 +277,7 @@ window.Quarto = {
 <section id="calculating-r-coordinates" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-r-coordinates">Calculating r Coordinates</h3>
 <p>Below is the rplot function is used to determine the r coordinates of the range against time graph. For simplicity, (and to meet the specifications of the challenge) initial velocity is set to <span class="math inline">\(10 ms^{-1}\)</span>, launch height is set to <span class="math inline">\(0 m\)</span>, and acceleration due to gravity is set to <span class="math inline">\(10 ms^{-2}\)</span> (instead of the accepted <span class="math inline">\(9.81 ms^{-2}\)</span>). First, the function converts the angles entered into radians for future use. Then, an empty list for r coordinates is created, and <span class="math inline">\(r=0\)</span> is appended (since the launch height is <span class="math inline">\(0 m\)</span>). Finally, a for loop is used to update the list with each range coordinate using the equation <span class="math inline">\(r=\sqrt{u^2t^2-gt^3u\sin\theta+\frac{1}{4}g^2t^4}\)</span> in the timestep of <span class="math inline">\(0.01s\)</span> between <span class="math inline">\(t=0s\)</span> and <span class="math inline">\(t=2.5s\)</span> as required in the specification for the challenge.</p>
-<div id="8219e29b" class="cell" data-execution_count="2">
+<div id="9e08ea49" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to plot r</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rplot(a):</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Paramaters</span></span>
@@ -307,7 +307,7 @@ window.Quarto = {
 <section id="calculating-t-coordinates" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-t-coordinates">Calculating t Coordinates</h3>
 <p>Similar to the rplot function, the tplot function determines the t coordinates of the range against time graph. An empty array of time coordinates is created and <span class="math inline">\(t=0\)</span> is appended to this array. Finally, a for loop is used to find the time coordinates that increment in <span class="math inline">\(0.01s\)</span> intervals between <span class="math inline">\(t=0s\)</span> and <span class="math inline">\(t=2.5s\)</span>, and these are appended to the time list.</p>
-<div id="ff967a53" class="cell" data-execution_count="3">
+<div id="eb8ce6b1" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to plot t</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tplot():</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Creates array for time valuse</span></span>
@@ -324,7 +324,7 @@ window.Quarto = {
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> time</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The following lines of code call the rplot and tplot functions and pass the six angles corresponding to the six different projectiles to be plotted and the list of t values is calculated.</p>
-<div id="de8e5ad4" class="cell" data-execution_count="4">
+<div id="182d2b5d" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Passes parameters of angles </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>r1 <span class="op">=</span> rplot(<span class="dv">30</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> rplot(<span class="dv">45</span>)</span>
@@ -342,7 +342,7 @@ window.Quarto = {
 <section id="minima" class="level3">
 <h3 class="anchored" data-anchor-id="minima">Minima</h3>
 <p>The function mint() is used to find the t coordinate of each minima. As before, when the angles are passed to the function, they are converted to radians and the preconditions of <span class="math inline">\(u=10ms^{-1}\)</span> and <span class="math inline">\(g=10ms^{-2}\)</span>. Then, the equation <span class="math inline">\(t=\frac{3u}{2g}\sin \theta+\sqrt{\sin^2\theta-\frac{8}{9}}\)</span> is used to find the t coordinate. This is then returned and stored as a variable for future plotting.</p>
-<div id="b57cc06b" class="cell" data-execution_count="5">
+<div id="9dfad76c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to find the t coordinate of the minima</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mint(a):</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> <span class="dv">10</span></span>
@@ -354,13 +354,13 @@ window.Quarto = {
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The angles <span class="math inline">\(\theta=78^{\circ}\)</span>, and <span class="math inline">\(\theta=85^{\circ}\)</span> are passed specifically since these two projectiles have a minimum point in the range against time graph.</p>
-<div id="fa2e511b" class="cell" data-execution_count="6">
+<div id="fc6e050e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calls function and passses angle parameters</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mint1 <span class="op">=</span> mint(<span class="dv">78</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mint2 <span class="op">=</span> mint(<span class="dv">85</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The second function minr() is used to find the r coordinate of each minima given t and the angle, which are passed. Similarly, the preconditions are set, the angle is set to radians, and the appropriate equation <span class="math inline">\(r=\sqrt{u^2t^2-gt^3u\sin\theta+\frac{1}{4}g^2t^4}\)</span> is used to find the r coordinate, which is then returned and stored.</p>
-<div id="03a819dc" class="cell" data-execution_count="7">
+<div id="43c881fb" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to find the r coordinate of the minima</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> minr(a, t):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> <span class="dv">10</span></span>
@@ -372,7 +372,7 @@ window.Quarto = {
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Again, the angles <span class="math inline">\(\theta=78^{\circ}\)</span>, and <span class="math inline">\(\theta=85^{\circ}\)</span> are passed specifically since these two projectiles have a minimum point in the range against time graph. The values of t obtained from the previous function are also passed in order to calculate the r coordinate for each minima.</p>
-<div id="f18f464d" class="cell" data-execution_count="8">
+<div id="60c408e0" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calls function and passes angle and t paramaters </span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>minr1 <span class="op">=</span> minr(<span class="dv">78</span>, mint1)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>minr2 <span class="op">=</span> minr(<span class="dv">85</span>, mint2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -381,7 +381,7 @@ window.Quarto = {
 <section id="maxima" class="level3">
 <h3 class="anchored" data-anchor-id="maxima">Maxima</h3>
 <p>The function maxt() is used to find the t coordinate of each maxima. The initial parameters are set, the angle is converted from degrees to radians and the equation <span class="math inline">\(t=\frac{3u}{2g}\sin\theta-\sqrt{\sin^2\theta-\frac{8}{9}}\)</span> is used to calculate the t coordinate of the maxima.</p>
-<div id="8e2e0ca8" class="cell" data-execution_count="9">
+<div id="2e7553fc" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to find the t coordinate of the maxima </span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maxt(a):</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> <span class="dv">10</span></span>
@@ -393,13 +393,13 @@ window.Quarto = {
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, the angles <span class="math inline">\(\theta=78^{\circ}\)</span>, and <span class="math inline">\(\theta=85^{\circ}\)</span> are passed since the projectiles with these angles of projection have maximum points in their range against time graphs.</p>
-<div id="25b27142" class="cell" data-execution_count="10">
+<div id="5355e96a" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calls function and passes angle parameters</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>maxt1 <span class="op">=</span> maxt(<span class="dv">78</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>maxt2 <span class="op">=</span> maxt(<span class="dv">85</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next we need to find the r coordinate of each maximum point. Convert from degrees to radians, set initial parameters and calculate r coordinates using the equation <span class="math inline">\(r=\sqrt{u^2t^2-gt^3u\sin\theta+\frac{1}{4}g^2t^4}\)</span>. The same angles are passed along with the t coordinate determined by the previous function.</p>
-<div id="40a026d7" class="cell" data-execution_count="11">
+<div id="7e2a1290" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to find the r coordinate of the maxima</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maxr(a, t):</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> <span class="dv">10</span></span>
@@ -418,7 +418,7 @@ window.Quarto = {
 <section id="point-of-inflection" class="level3">
 <h3 class="anchored" data-anchor-id="point-of-inflection">Point of Inflection</h3>
 <p>stat() finds the t coordinate of the point of inflection by using the equation <span class="math inline">\(t=\frac{u}{g}\sqrt{2}.\)</span></p>
-<div id="431640ee" class="cell" data-execution_count="12">
+<div id="96540cb2" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Finds t coordinate of the point of inflection</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stat():</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> <span class="dv">10</span></span>
@@ -431,7 +431,7 @@ window.Quarto = {
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>stat1 <span class="op">=</span> stat()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>By using the equation <span class="math inline">\(r=\sqrt{u^2t^2-gt^3u\sin\theta+\frac{1}{4}g^2t^4}\)</span>, and by passing the t coordinate of the point of inflection and the angle <span class="math inline">\(\theta=70.5^{circ}\)</span> the r coordinate of the point of inflection is obtained.</p>
-<div id="d6266ace" class="cell" data-execution_count="13">
+<div id="907195e4" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Finds r coordinate of the point of inflection</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> star(a, t):</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> <span class="dv">10</span></span>
@@ -452,7 +452,7 @@ window.Quarto = {
 <p>Then, the range against time graphs for each angle is plotted.</p>
 <p>The minima, maxima and point of inflection are plotted using the scatter function.</p>
 <p>The parameters of the plot are set. The labels for the x and y axes are set and importantly the limits for t and r are set to match the specification of the challenge.</p>
-<div id="6c499914" class="cell" data-execution_count="14">
+<div id="99d2cf5a" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig1, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Components to be plotted</span></span>
@@ -498,7 +498,7 @@ window.Quarto = {
 <section id="calculating-the-x-coordinates" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-the-x-coordinates">Calculating the x Coordinates</h3>
 <p>The function xplot() plots the x coordinates of the trajectories for graph of the trajectories of each projectile. The angle for each curve to be plotted is passed to the function. The preconditions of velocity and acceleration due to gravity are set as before and the angle is converted into radians. The velocity is then resolved into its horizontal component using the equation <span class="math inline">\(u_x=u\cos\theta\)</span>. An empty array of x coordinates is created and a for loop is used to append each x point to the list with an interval of 0.01s using the equation <span class="math inline">\(x=u_xt\)</span>. This list of x coordinates is then returned for plotting.</p>
-<div id="de13f5f5" class="cell" data-execution_count="15">
+<div id="2c688161" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> xplot(a):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> <span class="dv">10</span></span>
@@ -518,7 +518,7 @@ window.Quarto = {
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This section of code passes each angle to the function xplot().</p>
-<div id="d097c8de" class="cell" data-execution_count="16">
+<div id="29c2762e" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Passes parameters of angles </span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> xplot(<span class="dv">30</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="op">=</span> xplot(<span class="dv">45</span>)</span>
@@ -531,7 +531,7 @@ window.Quarto = {
 <section id="calculating-the-y-coordinates" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-the-y-coordinates">Calculating the y Coordinates</h3>
 <p>The yplot() function plots the y coordinates of the trajectories. The angle for each curve to be plotted is passed to the function. The preconditions are set and the angle is converted into radians. The velocity is then resolved into its vertical component using the equation <span class="math inline">\(u_y=u\sin\theta\)</span>. An empty list of y coordinates is created and a for loop is used to append each y point to the array with an interval of 0.01s using the equation <span class="math inline">\(y=h+u_yt-\frac{1}{2}gt^2\)</span>. This list of y coordinates is then returned.</p>
-<div id="28b9c2f8" class="cell" data-execution_count="17">
+<div id="872514af" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> yplot(a):</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> <span class="dv">10</span></span>
@@ -552,7 +552,7 @@ window.Quarto = {
 <span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This section of code passes each angle to the function yplot().</p>
-<div id="abcec961" class="cell" data-execution_count="18">
+<div id="9f25f0ec" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Passes parameters of angles </span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>y1 <span class="op">=</span> yplot(<span class="dv">30</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>y2 <span class="op">=</span> yplot(<span class="dv">45</span>)</span>
@@ -566,7 +566,7 @@ window.Quarto = {
 <section id="calculating-the-stationary-points-1" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-the-stationary-points-1">Calculating the Stationary Points</h2>
 <p>The stax() function finds the x coordinate of each stationary point given the angle and time, which are passed as parameters. The preconditions are determined and the angle is converted into radians. Velocity is resolved into its horizontal component using the equation <span class="math inline">\(u_x=u\cos\theta\)</span> and then the equation <span class="math inline">\(x=u_xt\)</span> is used to find the x coordinate as before, which is returned and stored for plotting.</p>
-<div id="4b95fd3f" class="cell" data-execution_count="19">
+<div id="fc694971" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to find x coordinate of each stationary point</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stax(a, t):</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> <span class="dv">10</span></span>
@@ -580,7 +580,7 @@ window.Quarto = {
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The below code passes the angles and t coordinates to the function stax().</p>
-<div id="ece268f8" class="cell" data-execution_count="20">
+<div id="cd2a10c4" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calls function and passes paramters angle and t</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>stax1 <span class="op">=</span> stax(<span class="dv">78</span>, mint1)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>stax2 <span class="op">=</span> stax(<span class="dv">85</span>, mint2)</span>
@@ -589,7 +589,7 @@ window.Quarto = {
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>stax5 <span class="op">=</span> stax(<span class="fl">70.5</span>, stat1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The stay() function finds the y coordinate of each stationary point given the angle and time, which are passed. The preconditions are set and the angle is converted into radians. Velocity is resolved into its vertical component and then the equation is used to find the y coordinate with the equations used previously (<span class="math inline">\(u_y=u\sin\theta\)</span> and <span class="math inline">\(y=u_yt-\frac{1}{2}gt^2\)</span> respectively).</p>
-<div id="0ab49c74" class="cell" data-execution_count="21">
+<div id="ff1dfe24" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to find the y coordinate of each stationary point</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stay(a, t):</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> <span class="dv">10</span></span>
@@ -603,7 +603,7 @@ window.Quarto = {
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The below code passes the angles and t coordinates to the function stay().</p>
-<div id="e4721392" class="cell" data-execution_count="22">
+<div id="9fa8efb1" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calls function and passes paramaters angle and t</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>stay1 <span class="op">=</span> stay(<span class="dv">78</span>, mint1)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>stay2 <span class="op">=</span> stay(<span class="dv">85</span>, mint2)</span>
@@ -618,7 +618,7 @@ window.Quarto = {
 <p>The trajectories of each projectile corresponding to the different angles of projection are plotted.</p>
 <p>The scatter function is used to plot the maxima, minima and points of inflection from the previous graph.</p>
 <p>The parameters of the plot are set, the axes are given appropriate labels, the limits of the graph are set to match the specification, and the grid and legend are created.</p>
-<div id="577ef7fa" class="cell" data-execution_count="23">
+<div id="948cb07e" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Components to be plotted</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>fig2, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>

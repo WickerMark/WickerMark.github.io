@@ -147,8 +147,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#setting-up-the-problem" id="toc-setting-up-the-problem" class="nav-link" data-scroll-target="#setting-up-the-problem">Setting up the Problem</a></li>
+  <li><a href="#custom-projectile" id="toc-custom-projectile" class="nav-link" data-scroll-target="#custom-projectile">Custom Projectile</a></li>
+  <li><a href="#maximising-range" id="toc-maximising-range" class="nav-link" data-scroll-target="#maximising-range">Maximising Range</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -195,163 +204,169 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
 <p>DISCLAIMER: This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href="https://youtu.be/ViT6NdrrbJo" target="_blank"> https://youtu.be/ViT6NdrrbJo </a>.</p>
-<div id="a7cb1365" class="cell" data-execution_count="1">
+</section>
+<section id="setting-up-the-problem" class="level1">
+<h1>Setting up the Problem</h1>
+<div id="b1d30562" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="22470af2" class="cell" data-execution_count="2">
+<div id="3ba87dbe" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting Initial Conditions</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> <span class="fl">9.81</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="dv">15</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>angle <span class="op">=</span> <span class="dv">30</span> </span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="773a657f" class="cell" data-execution_count="3">
+</section>
+<section id="custom-projectile" class="level1">
+<h1>Custom Projectile</h1>
+<p>The below section of code is identical to <a href="../posts/cchallenge1&amp;2.html">Challenge 1 &amp; 2</a>, so for an explanation of this section refer to that blog post.</p>
+<div id="53d17cd2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converts angle entered in degress to radians</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> (angle <span class="op">*</span> np.pi) <span class="op">/</span> <span class="dv">180</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="b41768eb" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resloves forces into horizontal and vertical component</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>costheta <span class="op">=</span> math.cos(theta)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sintheta <span class="op">=</span> math.sin(theta)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ux <span class="op">=</span> u <span class="op">*</span> costheta</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>uy <span class="op">=</span> u <span class="op">*</span> sintheta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="76dc4c10" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates the range and time of flight of the projectile</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> (u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g) <span class="op">*</span> (sintheta<span class="op">*</span>costheta<span class="op">+</span>costheta<span class="op">*</span>math.sqrt(sintheta<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> ((<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> h) <span class="op">/</span> (u<span class="op">**</span><span class="dv">2</span>))))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Range phrase</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>rangeph <span class="op">=</span> <span class="st">"R="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(R, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" m"</span>    </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rangeph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> (angle <span class="op">*</span> np.pi) <span class="op">/</span> <span class="dv">180</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Resloves forces into horizontal and vertical component</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>costheta <span class="op">=</span> math.cos(theta)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>sintheta <span class="op">=</span> math.sin(theta)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>ux <span class="op">=</span> u <span class="op">*</span> costheta</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>uy <span class="op">=</span> u <span class="op">*</span> sintheta</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates the range and time of flight of the projectile</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> (u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g) <span class="op">*</span> (sintheta<span class="op">*</span>costheta<span class="op">+</span>costheta<span class="op">*</span>math.sqrt(sintheta<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> ((<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> h) <span class="op">/</span> (u<span class="op">**</span><span class="dv">2</span>))))</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Range phrase</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>rangeph <span class="op">=</span> <span class="st">"R="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(R, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" m"</span>    </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rangeph)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates time of flight</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>tflight <span class="op">=</span> R <span class="op">/</span> (u <span class="op">*</span> costheta)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Generates the calculated values text</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Time of flight phrase</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>tflightph <span class="op">=</span> <span class="st">"T="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(tflight, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" s"</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tflightph)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an empty arrary for the x and y coordinates of the trajectory</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> []</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> []</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">0</span>, tflight, <span class="fl">0.01</span>):</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> i</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    x.append(ux <span class="op">*</span> t)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> t <span class="op">*</span> t</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    y.append(h <span class="op">+</span> (uy <span class="op">*</span> t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> T))      </span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Apogee calculation</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>apy <span class="op">=</span> (<span class="dv">0</span> <span class="op">-</span> (uy<span class="op">*</span>uy)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">+</span> h</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>tflight0 <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> uy <span class="op">/</span> g</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>apx <span class="op">=</span> (ux <span class="op">*</span> tflight0) <span class="op">/</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R=30.97 m</code></pre>
+<pre><code>R=30.97 m
+T=2.38 s</code></pre>
 </div>
 </div>
-<div id="e84c2982" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates time of flight</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tflight <span class="op">=</span> R <span class="op">/</span> (u <span class="op">*</span> costheta)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generates the calculated values text</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Time of flight phrase</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>tflightph <span class="op">=</span> <span class="st">"T="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(tflight, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" s"</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tflightph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>T=2.38 s</code></pre>
+</section>
+<section id="maximising-range" class="level1">
+<h1>Maximising Range</h1>
+<div id="3f8d9181" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculations for the trajectory that maximises range</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>u2 <span class="op">=</span> u <span class="op">*</span> u</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tgh <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> h</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>tghu2 <span class="op">=</span> (tgh) <span class="op">/</span> (u2)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>arc <span class="op">=</span> (<span class="dv">1</span> <span class="op">/</span> (math.sqrt(<span class="dv">2</span> <span class="op">+</span> tghu2)))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>thetamax <span class="op">=</span> np.arcsin(arc)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>max_ux <span class="op">=</span> u <span class="op">*</span> math.cos(thetamax)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>max_uy <span class="op">=</span> u <span class="op">*</span> math.sin(thetamax)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an empty arrary for the x and y coordinates of the trajectory</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>max_x <span class="op">=</span> []</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>max_y <span class="op">=</span> []</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates the range and time of flight of the projectile</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>max_R <span class="op">=</span> (u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g) <span class="op">*</span> math.sqrt(<span class="dv">1</span> <span class="op">+</span> (<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> h<span class="op">/</span> u<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>max_tflight <span class="op">=</span> max_R <span class="op">/</span> max_ux</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots the parabolic path of the projectile with a timestep of 0.01s and an interval of 10s</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> max_i <span class="kw">in</span> np.arange(<span class="dv">0</span>, max_tflight, <span class="fl">0.01</span>):</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    max_t <span class="op">=</span> max_i</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    max_x.append(max_ux <span class="op">*</span> max_t)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    max_T <span class="op">=</span> max_t <span class="op">*</span> max_t</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    max_y.append(h <span class="op">+</span> (max_uy <span class="op">*</span> max_t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> max_T))</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Apogee calculation</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>max_apy <span class="op">=</span> (<span class="dv">0</span> <span class="op">-</span> (max_uy<span class="op">*</span>max_uy)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">+</span> h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div id="559437e0" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compares the y values of the two apogees</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compapy(apy, max_apy):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> apy <span class="op">&gt;</span> max_apy:</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> apy</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> max_apy</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>y_graph <span class="op">=</span> compapy(apy, max_apy) <span class="op">*</span> <span class="fl">1.1</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9b7a1f1a" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an empty arrary for the x and y coordinates of the trajectory</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> []</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> []</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots the parabolic path of the projectile with a timestep of 0.01s across an interval of tflight</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">0</span>, tflight, <span class="fl">0.01</span>):</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> i</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    x.append(ux <span class="op">*</span> t)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> t <span class="op">*</span> t</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    y.append(h <span class="op">+</span> (uy <span class="op">*</span> t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> T))      </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="85704812" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apogee calculation</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>apy <span class="op">=</span> (<span class="dv">0</span> <span class="op">-</span> (uy<span class="op">*</span>uy)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">+</span> h</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>tflight0 <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> uy <span class="op">/</span> g</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>apx <span class="op">=</span> (ux <span class="op">*</span> tflight0) <span class="op">/</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="2a7fcd39" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculations for the trajectory that maximises range</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>u2 <span class="op">=</span> u <span class="op">*</span> u</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>tgh <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> h</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>tghu2 <span class="op">=</span> (tgh) <span class="op">/</span> (u2)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>arc <span class="op">=</span> (<span class="dv">1</span> <span class="op">/</span> (math.sqrt(<span class="dv">2</span> <span class="op">+</span> tghu2)))</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>thetamax <span class="op">=</span> np.arcsin(arc)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>max_ux <span class="op">=</span> u <span class="op">*</span> math.cos(thetamax)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>max_uy <span class="op">=</span> u <span class="op">*</span> math.sin(thetamax)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an empty arrary for the x and y coordinates of the trajectory</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>max_x <span class="op">=</span> []</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>max_y <span class="op">=</span> []</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates the range and time of flight of the projectile</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>max_R <span class="op">=</span> (u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g) <span class="op">*</span> math.sqrt(<span class="dv">1</span> <span class="op">+</span> (<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> h<span class="op">/</span> u<span class="op">**</span><span class="dv">2</span>))</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>max_tflight <span class="op">=</span> max_R <span class="op">/</span> max_ux</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots the parabolic path of the projectile with a timestep of 0.01s and an interval of 10s</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> max_i <span class="kw">in</span> np.arange(<span class="dv">0</span>, max_tflight, <span class="fl">0.01</span>):</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    max_t <span class="op">=</span> max_i</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    max_x.append(max_ux <span class="op">*</span> max_t)</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    max_T <span class="op">=</span> max_t <span class="op">*</span> max_t</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    max_y.append(h <span class="op">+</span> (max_uy <span class="op">*</span> max_t) <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">*</span> g <span class="op">*</span> max_T))</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Apogee calculation</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>max_apy <span class="op">=</span> (<span class="dv">0</span> <span class="op">-</span> (max_uy<span class="op">*</span>max_uy)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">+</span> h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="1f3c6507" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compares the y values of the two apogees</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compapy(apy, max_apy):</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> apy <span class="op">&gt;</span> max_apy:</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> apy</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> max_apy</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>y_graph <span class="op">=</span> compapy(apy, max_apy) <span class="op">*</span> <span class="fl">1.1</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="20f7ef9e" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generates the calculated values text</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Time of flight phrase</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tflightph <span class="op">=</span> <span class="st">"Tₘₐₓ="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(max_tflight, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" s"</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tflightph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2ae8a766" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generates the calculated values text</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Time of flight phrase</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tflightph <span class="op">=</span> <span class="st">"Tₘₐₓ="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(max_tflight, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" s"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tflightph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tₘₐₓ=2.59 s</code></pre>
 </div>
 </div>
-<div id="d0fabf84" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Range phrase</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>rangeph <span class="op">=</span> <span class="st">"Rₘₐₓ= "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(max_R, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" m"</span>    </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rangeph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2528412d" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Range phrase</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>rangeph <span class="op">=</span> <span class="st">"Rₘₐₓ= "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(max_R, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" m"</span>    </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rangeph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rₘₐₓ= 31.38 m</code></pre>
 </div>
 </div>
-<div id="92e02eaf" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Time of flight calculation</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>max_tflighta <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> max_uy <span class="op">/</span> g</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>max_apx <span class="op">=</span> (max_ux <span class="op">*</span> max_tflighta) <span class="op">/</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="f59b7d95" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Time of flight calculation</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>max_tflighta <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> max_uy <span class="op">/</span> g</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>max_apx <span class="op">=</span> (max_ux <span class="op">*</span> max_tflighta) <span class="op">/</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="7ef77706" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates the figure</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets parameters of the plot</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Displacement in x / m"</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Displacement in y / m"</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, y_graph)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, max_R)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots the graph</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>ax.plot(x, y, color<span class="op">=</span><span class="st">"blue"</span>, label<span class="op">=</span><span class="st">"Custom Projectile"</span>)</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>ax.plot(max_x, max_y, color<span class="op">=</span><span class="st">"orange"</span>, label<span class="op">=</span><span class="st">"Maximum Range Projectile"</span>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots scatters showing the apogees of the trajectories</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>ax.scatter(apx, apy, color<span class="op">=</span><span class="st">"blue"</span>, marker<span class="op">=</span><span class="st">"x"</span>)</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>ax.scatter(max_apx, max_apy, color<span class="op">=</span><span class="st">"orange"</span>, marker<span class="op">=</span><span class="st">"x"</span>)</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>ax.grid()</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">"upper right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="de8cb08d" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates the figure</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets parameters of the plot</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Displacement in x / m"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Displacement in y / m"</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, y_graph)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, max_R)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots the graph</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>ax.plot(x, y, color<span class="op">=</span><span class="st">"blue"</span>, label<span class="op">=</span><span class="st">"Custom Projectile"</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>ax.plot(max_x, max_y, color<span class="op">=</span><span class="st">"orange"</span>, label<span class="op">=</span><span class="st">"Maximum Range Projectile"</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots scatters showing the apogees of the trajectories</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>ax.scatter(apx, apy, color<span class="op">=</span><span class="st">"blue"</span>, marker<span class="op">=</span><span class="st">"x"</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>ax.scatter(max_apx, max_apy, color<span class="op">=</span><span class="st">"orange"</span>, marker<span class="op">=</span><span class="st">"x"</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>ax.grid()</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">"upper right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="cchallenge4_files/figure-html/cell-15-output-1.png" width="585" height="429" class="figure-img"></p>
+<p><img src="cchallenge4_files/figure-html/cell-10-output-1.png" width="585" height="429" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
