@@ -253,7 +253,7 @@ window.Quarto = {
 <section id="imported-libraries" class="level2">
 <h2 class="anchored" data-anchor-id="imported-libraries">Imported Libraries</h2>
 <p>Matplotlib is imported for plotting, numpy for mathematical and trigonometric functions and math for trigonometric functions.</p>
-<div id="0faadfee" class="cell" data-execution_count="1">
+<div id="e2618461" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -262,12 +262,12 @@ window.Quarto = {
 <section id="input-parameters" class="level2">
 <h2 class="anchored" data-anchor-id="input-parameters">Input Parameters</h2>
 <p>These are the input values for the program. They are <span class="math inline">\(\theta\)</span>, angle of projection, <span class="math inline">\(u\)</span>, initial velocity, <span class="math inline">\(g\)</span>, acceleration due to gravity, <span class="math inline">\(h\)</span>, intiial height, <span class="math inline">\(A\)</span>, cross-sectional area of the projectile, <span class="math inline">\(c_{drag}\)</span>, the coefficient of drag, <span class="math inline">\(m\)</span>, mass of the projectile, <span class="math inline">\(dt\)</span>, the timestep, and <span class="math inline">\(\rho\)</span>, constant air density for the second model.</p>
-<div id="441e50d1" class="cell" data-execution_count="2">
+<div id="4156cdf2" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Input parameters</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>angle <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> <span class="fl">9.81</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="dv">2000</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> <span class="fl">0.002</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>c_drag <span class="op">=</span> <span class="fl">0.1</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="fl">0.01</span></span>
@@ -275,12 +275,12 @@ window.Quarto = {
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>density <span class="op">=</span> <span class="fl">1.225</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The first calculation we must perform is converting the inputted angle in degrees to radians. This is achieved using the equation: <span class="math inline">\(radian = \frac{degree\times\pi}{180}\)</span></p>
-<div id="b5191349" class="cell" data-execution_count="3">
+<div id="10322ff1" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converts the angle to radians</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> (angle <span class="op">*</span> np.pi) <span class="op">/</span> <span class="dv">180</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The next calculation involves resolving the launch velocity into horizontal and vertical components of velocity. This is achieved using the following equations: <span class="math inline">\(u_{x} = ucos(\theta)\)</span> and <span class="math inline">\(u_{y} = usin(\theta)\)</span></p>
-<div id="e14a5c6f" class="cell" data-execution_count="4">
+<div id="29a1a344" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resloves forces into horizontal and vertical component</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>costheta <span class="op">=</span> math.cos(theta)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sintheta <span class="op">=</span> math.sin(theta)</span>
@@ -293,7 +293,7 @@ window.Quarto = {
 <section id="no-air-resistance" class="level1">
 <h1>No Air Resistance</h1>
 <p>This section of code is identical to the code in <a href="../posts/cchallenge1&amp;2.html">Challenge 1 &amp; 2</a> so please refer to that post for greater detail.</p>
-<div id="8e4bbc6b" class="cell" data-execution_count="5">
+<div id="4ccf88ff" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates the range and time of flight of the projectile</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> (u<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> g) <span class="op">*</span> (sintheta<span class="op">*</span>costheta<span class="op">+</span>costheta<span class="op">*</span>math.sqrt(sintheta<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> ((<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> h) <span class="op">/</span> (u<span class="op">**</span><span class="dv">2</span>))))</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tflight <span class="op">=</span> R <span class="op">/</span> (u <span class="op">*</span> costheta)</span>
@@ -319,12 +319,12 @@ window.Quarto = {
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>apy <span class="op">=</span> (<span class="dv">0</span> <span class="op">-</span> (uy<span class="op">*</span>uy)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> g <span class="op">*</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">+</span> h</span>
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>y_graph <span class="op">=</span> apy <span class="op">+</span> apy <span class="op">*</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time of flight: 20.26 s
-Range: 1754.37 m</code></pre>
+<pre><code>Time of flight: 25.92 s
+Range: 2244.99 m</code></pre>
 </div>
 </div>
 <p>This section of code is identical to the solution in <a href="../posts/cchallenge9.html">Challenge 9</a>, so please refer to that post for greater detail. # Air Resistance</p>
-<div id="a90f31af" class="cell" data-execution_count="6">
+<div id="e602dce4" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculation for k</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> (<span class="fl">0.5</span> <span class="op">*</span> c_drag <span class="op">*</span> density <span class="op">*</span> A) <span class="op">/</span> m</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -333,41 +333,39 @@ Range: 1754.37 m</code></pre>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>y_plot <span class="op">=</span> []</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets initial x and y values</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>x_air <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>y_air <span class="op">=</span> h</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>d_x <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>d_y <span class="op">=</span> h</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Adds initial x and y values to the arrays</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>x_plot.append(d_x)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>y_plot.append(d_y)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Verlet method to update the acceleration, velocity and position of the projectile after each discrete timestep</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>t_drag <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> y_plot[n] <span class="op">&gt;=</span> <span class="dv">0</span>:</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    t_drag <span class="op">=</span> t_drag <span class="op">+</span> dt</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> <span class="op">-</span> (ux <span class="op">/</span> u) <span class="op">*</span> k <span class="op">*</span> u<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    ay <span class="op">=</span> <span class="op">-</span> g <span class="op">-</span> (uy <span class="op">/</span> u) <span class="op">*</span> k <span class="op">*</span> u<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    d_x <span class="op">=</span> d_x <span class="op">+</span> ux <span class="op">*</span> dt <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> ax <span class="op">*</span> dt<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    d_y <span class="op">=</span> d_y <span class="op">+</span> uy <span class="op">*</span> dt <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> ay <span class="op">*</span> dt<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    x_plot.append(d_x)</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    y_plot.append(d_y)</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    ux <span class="op">=</span> ux <span class="op">+</span> ax <span class="op">*</span> dt</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    uy <span class="op">=</span> uy <span class="op">+</span> ay <span class="op">*</span> dt</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> math.sqrt(ux<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> uy<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    n <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>d_x <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>d_y <span class="op">=</span> h</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Adds initial x and y values to the arrays</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>x_plot.append(d_x)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>y_plot.append(d_y)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Verlet method to update the acceleration, velocity and position of the projectile after each discrete timestep</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>t_drag <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> y_plot[n] <span class="op">&gt;=</span> <span class="dv">0</span>:</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    t_drag <span class="op">=</span> t_drag <span class="op">+</span> dt</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> <span class="op">-</span> (ux <span class="op">/</span> u) <span class="op">*</span> k <span class="op">*</span> u<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    ay <span class="op">=</span> <span class="op">-</span> g <span class="op">-</span> (uy <span class="op">/</span> u) <span class="op">*</span> k <span class="op">*</span> u<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    d_x <span class="op">=</span> d_x <span class="op">+</span> ux <span class="op">*</span> dt <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> ax <span class="op">*</span> dt<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    d_y <span class="op">=</span> d_y <span class="op">+</span> uy <span class="op">*</span> dt <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> ay <span class="op">*</span> dt<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    x_plot.append(d_x)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    y_plot.append(d_y)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    ux <span class="op">=</span> ux <span class="op">+</span> ax <span class="op">*</span> dt</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    uy <span class="op">=</span> uy <span class="op">+</span> ay <span class="op">*</span> dt</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> math.sqrt(ux<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> uy<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    n <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>R_drag <span class="op">=</span> x_plot[n]</span>
 <span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>R_drag <span class="op">=</span> x_plot[n]</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Generates the calculated values text</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Time of flight phrase</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Time of flight (drag): "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(t_drag, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" s"</span>)</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Range phrase</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Range (drag): "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(R_drag, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" m"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Generates the calculated values text</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Time of flight phrase</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Time of flight (drag): "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(t_drag, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" s"</span>)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Range phrase</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Range (drag): "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(R_drag, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" m"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time of flight (drag): 41.15 s
+<pre><code>Time of flight (drag): 76.49 s
 Range (drag): 179.22 m</code></pre>
 </div>
 </div>
@@ -384,7 +382,7 @@ Range (drag): 179.22 m</code></pre>
 <p><span class="math inline">\(m=4.81\times10^{-26}\)</span> kg</p>
 <p><span class="math inline">\(k_{B}=1.380649\times 10^{-23}\)</span> <span class="math inline">\(JK^{-1}\)</span></p>
 <p><span class="math inline">\(T_{0}=15^{\circ}C\)</span></p>
-<div id="c9add1d1" class="cell" data-execution_count="7">
+<div id="118cd896" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters for non linear air resistance</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Sea level standard atmospheric pressure</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>p0 <span class="op">=</span> <span class="dv">101325</span></span>
@@ -400,14 +398,13 @@ Range (drag): 179.22 m</code></pre>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>T0 <span class="op">=</span> <span class="dv">15</span></span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Resolves velcoity vector</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>ux <span class="op">=</span> u <span class="op">*</span> costheta</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>uy <span class="op">=</span> u <span class="op">*</span> sintheta</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial Position of the Projectile</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>x_air <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>y_air <span class="op">=</span> h</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>d_x <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>d_y <span class="op">=</span> h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>ux <span class="op">=</span> u <span class="op">*</span> costheta</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>uy <span class="op">=</span> u <span class="op">*</span> sintheta</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial Position of the Projectile</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>x_air <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>y_air <span class="op">=</span> h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="verlet-integration" class="level2">
@@ -422,7 +419,7 @@ Range (drag): 179.22 m</code></pre>
 <p><span class="math inline">\(P_{h}=P_{0}e^{\frac{-mgh}{k_{B}T_{h}}}\)</span></p>
 <p><span class="math inline">\(\rho_{h}=\frac{P_{h}}{RT_{h}}\)</span></p>
 <p>The first equation approximates the temperature at a given height. This temperature is converted to Kelvin. The third equation calculates air pressure at height, <span class="math inline">\(h\)</span>, given the Boltzmann constant, the temperature at heigh, <span class="math inline">\(h\)</span>, the pressure at sea level, the mass of an air molecule and the acceleration due to gravity. This is then used to calculate air density at height, <span class="math inline">\(h\)</span>, using the fourth equation.</p>
-<div id="14a6ed74" class="cell" data-execution_count="8">
+<div id="e3eef921" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verlet method for varying air density</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verlet_air(p0, h0, sgc, mass_am, kB, T0, d_x, d_y, ux, uy, m, A, dt, c_drag, u, h, density):</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="dv">0</span></span>
@@ -465,7 +462,7 @@ Range (drag): 179.22 m</code></pre>
 <h2 class="anchored" data-anchor-id="time-of-flight-and-range">Time of Flight and Range</h2>
 <p>The time of flight is calculated by incrementing the value of t by the timestep throughout the iterations of the Verlet integration. This is output, along with a phrase.</p>
 <p>The range is calculated by considering the last x coordinate calculated, since this is the last instant when <span class="math inline">\(y\geq 0\)</span>.</p>
-<div id="99a13cee" class="cell" data-execution_count="9">
+<div id="d2cc5d02" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generates the calculated values text</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Time of flight phrase</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Time (varying air density): "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(t_air, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" s"</span>)</span>
@@ -476,8 +473,8 @@ Range (drag): 179.22 m</code></pre>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Range phrase</span></span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Range (varying air density): "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(R_air, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">" m"</span>)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time (varying air density): 38.2 s
-Range (varying air density): 97.53 m</code></pre>
+<pre><code>Time (varying air density): 73.36 s
+Range (varying air density): 210.59 m</code></pre>
 </div>
 </div>
 </section>
@@ -487,7 +484,7 @@ Range (varying air density): 97.53 m</code></pre>
 <p>First, the figure of subplots is defined.</p>
 <p>The graphs of the trajectory of each projectile are then plotted with appropriate labels.</p>
 <p>The parameters of the plot are set, the labels for each axis, the limits of these axes, the legend to show the labels is displayed, and a grid is shown.</p>
-<div id="968d0c69" class="cell" data-execution_count="10">
+<div id="715facc8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates the figure</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>

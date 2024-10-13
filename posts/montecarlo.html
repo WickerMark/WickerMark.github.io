@@ -244,7 +244,7 @@ window.Quarto = {
 <section id="libraries" class="level2">
 <h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
 <p>Matplotlib is used to plot the points generated. Matplotlib patches is used to create the square the coordinates are contained in. Numpy is used to randomise the points in the square.</p>
-<div id="b8ca3119" class="cell" data-execution_count="1">
+<div id="66a64de1" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> patches</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -253,7 +253,7 @@ window.Quarto = {
 <section id="generating-random-coordinates" class="level2">
 <h2 class="anchored" data-anchor-id="generating-random-coordinates">Generating Random Coordinates</h2>
 <p>First, the number of coordinates to be randomised is defined. This can be changed to the user’s requirement and to increase or decrease the accuracy of the result. The np.random.uniform function is used to create an Numpy array of x and y coordinates inside the square. These coordinates are generated between <span class="math inline">\(x=0\)</span> and <span class="math inline">\(x=5\)</span>, and <span class="math inline">\(y=0\)</span> and <span class="math inline">\(y=5\)</span>, which is the dimensions of the square.</p>
-<div id="83ddedfe" class="cell" data-execution_count="2">
+<div id="7ec62aaa" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The total number of coordinates in the square</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>total_points <span class="op">=</span> <span class="dv">10000000</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -266,7 +266,7 @@ window.Quarto = {
 <section id="determining-if-coordinates-are-within-the-circle" class="level1">
 <h1>Determining if Coordinates are within the Circle</h1>
 <p>Each x and y coordinate is entered into the equation <span class="math inline">\((x-2.5)^2 + (x-2.5)^2=r^2\)</span> to calculate the radius squared. If the radius squared is less than 2.5 (the radius of the circle), then the point lies within the circle, and is therefore added to an array of coordinates within the circle.</p>
-<div id="c2a74b47" class="cell" data-execution_count="3">
+<div id="bca36e96" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate squared distance from center of the circle</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>r_squared <span class="op">=</span> (x <span class="op">-</span> <span class="fl">2.5</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (y <span class="op">-</span> <span class="fl">2.5</span>)<span class="op">**</span><span class="dv">2</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -282,7 +282,7 @@ window.Quarto = {
 <p>First, the figure of subplots is defined for plotting. A 5x5 square is created to outline which points are within it, and the colour is set to blue. Then, a circle of radius 2.5 is outlined with the colour red.</p>
 <p>The ~ operator is used to inverse the logic value assigned. If a point is not within the circle, it is given the colour blue (meaning that it is within the square, but not the circle) and if it is within the circle, it is given the colour red. These points are then plotted using the scatter function, and there size is reduced to 10%. The square and circle defined earlier are also plotted.</p>
 <p>The paramters of the plot are set, the x and y limits of the graph are defined so the shapes are in view, the aspect ratio is equalised (otherwise the circle appears more like an oval), and the title of the graph is shown. Then, the graph is displayed.</p>
-<div id="95bb33a1" class="cell" data-execution_count="4">
+<div id="68d3ce38" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates a square</span></span>
@@ -319,12 +319,12 @@ window.Quarto = {
 <p>Area of a circle: <span class="math inline">\(A=\pi r^2\)</span> Area of a square: <span class="math inline">\(A=(2r)^2\)</span> <span class="math inline">\(A=4r^2\)</span></p>
 <p>Probability a point is in the circle: <span class="math inline">\(P((x,y)\in C)\approx\frac{N_c}{N}\)</span>, where <span class="math inline">\(N_c\)</span> is the number of points in the circle and <span class="math inline">\(N\)</span> is the total number of points</p>
 <p>Therefore: <span class="math inline">\(\pi r^2\approx 4r^2P((x,y)\in C)\)</span> and <span class="math inline">\(\pi\approx4\frac{N_c}{N}\)</span></p>
-<div id="49bf712c" class="cell" data-execution_count="5">
+<div id="7e3cad1a" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximating pi</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> points_in_circle <span class="op">/</span> total_points</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>3.1425148</code></pre>
+<pre><code>3.1420088</code></pre>
 </div>
 </div>
 
