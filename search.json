@@ -32,7 +32,7 @@
     "href": "posts/linearregression.html#linear-model",
     "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
     "section": "Linear Model",
-    "text": "Linear Model\nNow, we need to define the model to fit the data in the form \\(y=mx+c\\). \\(\\theta\\), called the coefficients or parameters in a regression model, is used to calculate the gradient and y-intercept. Therefore, for the purpose of this linear regression model, the equation used is \\(y=\\theta_{0}x+\\theta_{1}\\). This equation could be modified to fit the data points better, for example, if a cubic relationship would be more appropriate, then \\(y=\\theta_{0}x^3+\\theta_{1}x^2+\\theta_{2}x+\\theta_{4}\\) could be used. However, for the simplicity of this demonstration, a linear regression is used.\n\n# Defines the model\ndef model(theta, x):\n    return theta[0] * x + theta[1]"
+    "text": "Linear Model\nNow, we need to define the model to fit the data in the form \\(y=mx+c\\). The coefficients or parameters in a regression model are denoted by the symbol \\(\\theta\\), and are used to determine the gradient and y-intercept for the training data. Therefore, for the purpose of this linear regression model, the equation used is \\(y=\\theta_{0}x+\\theta_{1}\\). This equation could be modified to fit the data points better, for example, if a cubic relationship would be more appropriate, then \\(y=\\theta_{0}x^3+\\theta_{1}x^2+\\theta_{2}x+\\theta_{4}\\) could be used. However, for the simplicity of this demonstration, a linear regression is used.\n\n# Defines the model\ndef model(theta, x):\n    return theta[0] * x + theta[1]"
   },
   {
     "objectID": "posts/linearregression.html#initial-guess",
@@ -88,7 +88,7 @@
     "href": "posts/linearregression.html#optimised-values-for-the-gradient-and-y-intercept",
     "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
     "section": "Optimised Values for the Gradient and y-intercept",
-    "text": "Optimised Values for the Gradient and y-intercept\nFinally, we print the optimised parameters.\n\n# Output the optimized parameters\nprint(f\"Optimized parameters: {theta_opt}\")\n\nOptimized parameters: [4.64648371 3.61070827]"
+    "text": "Optimised Values for the Gradient and y-intercept\nFinally, we print the optimised parameters.\n\n# Output the optimized parameters\nprint(f\"Optimized parameters: {theta_opt}\")\n\nOptimized parameters: [4.63463503 3.80558761]"
   },
   {
     "objectID": "posts/gcd.html",
@@ -410,14 +410,14 @@
     "href": "posts/integration.html#function-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 1",
-    "text": "Function 1\nAs stated before, a timer will be used to compare the run-time of the functions.\nHere, the timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe fucntion is called and the integral is calculated for the first function.\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\nThe timer is now stopped once the answer is retrieved and the time is printed.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.02556820004247129"
+    "text": "Function 1\nAs stated before, a timer will be used to compare the run-time of the functions.\nHere, the timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe fucntion is called and the integral is calculated for the first function.\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\nThe timer is now stopped once the answer is retrieved and the time is printed.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.02325580012984574"
   },
   {
     "objectID": "posts/integration.html#function-2",
     "href": "posts/integration.html#function-2",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 2",
-    "text": "Function 2\nThis process is repeated for the second function.\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe function is called and the result is displayed.\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\nThe timer is stopped and the run-time is displayed.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23891460010781884"
+    "text": "Function 2\nThis process is repeated for the second function.\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe function is called and the result is displayed.\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\nThe timer is stopped and the run-time is displayed.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23910970008000731"
   },
   {
     "objectID": "posts/integration.html#calculating-the-integral-1",
@@ -431,14 +431,14 @@
     "href": "posts/integration.html#function-1-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 1",
-    "text": "Function 1\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nCalls the function and calculates the integral for the polynomial function.\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\nStops the timer and prints run-time.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.022303500212728977"
+    "text": "Function 1\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nCalls the function and calculates the integral for the polynomial function.\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\nStops the timer and prints run-time.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.021232999861240387"
   },
   {
     "objectID": "posts/integration.html#function-2-1",
     "href": "posts/integration.html#function-2-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 2",
-    "text": "Function 2\nThe process repeats for the second function.\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe integral is calculated.\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\nThe timer is stopped and the run-time is outputted.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23140259995125234"
+    "text": "Function 2\nThe process repeats for the second function.\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe integral is calculated.\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\nThe timer is stopped and the run-time is outputted.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.2320727000478655"
   },
   {
     "objectID": "posts/montecarlo.html",
