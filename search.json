@@ -88,7 +88,7 @@
     "href": "posts/linearregression.html#optimised-values-for-the-gradient-and-y-intercept",
     "title": "Creating a Linear Regression Model using Optimisation with the Gradient Descent Algorithm",
     "section": "Optimised Values for the Gradient and y-intercept",
-    "text": "Optimised Values for the Gradient and y-intercept\nFinally, we print the optimised parameters.\n\n# Output the optimized parameters\nprint(f\"Optimized parameters: {theta_opt}\")\n\nOptimized parameters: [4.63463503 3.80558761]"
+    "text": "Optimised Values for the Gradient and y-intercept\nFinally, we print the optimised parameters.\n\n# Output the optimized parameters\nprint(f\"Optimized parameters: {theta_opt}\")\n\nOptimized parameters: [4.7824884  3.09900997]"
   },
   {
     "objectID": "posts/gcd.html",
@@ -410,14 +410,14 @@
     "href": "posts/integration.html#function-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 1",
-    "text": "Function 1\nAs stated before, a timer will be used to compare the run-time of the functions.\nHere, the timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe fucntion is called and the integral is calculated for the first function.\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\nThe timer is now stopped once the answer is retrieved and the time is printed.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.02325580012984574"
+    "text": "Function 1\nAs stated before, a timer will be used to compare the run-time of the functions.\nHere, the timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe fucntion is called and the integral is calculated for the first function.\n\n# Calls function and outputs integral\nprint(\"Simpson's Rule: The Integral of Function 1 (Polynomial):\", SimpsonsRule(f1, a1, b1, n1))\n\nSimpson's Rule: The Integral of Function 1 (Polynomial): 8411.25000010125\n\n\nThe timer is now stopped once the answer is retrieved and the time is printed.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.024054500041529536"
   },
   {
     "objectID": "posts/integration.html#function-2",
     "href": "posts/integration.html#function-2",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 2",
-    "text": "Function 2\nThis process is repeated for the second function.\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe function is called and the result is displayed.\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\nThe timer is stopped and the run-time is displayed.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23910970008000731"
+    "text": "Function 2\nThis process is repeated for the second function.\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe function is called and the result is displayed.\n\nprint(\"Simpson's Rule: The Integral of Function 2 (Trigonometric):\", SimpsonsRule(f2, a2, b2, n2))\n\nSimpson's Rule: The Integral of Function 2 (Trigonometric): 1.3333333333333337\n\n\nThe timer is stopped and the run-time is displayed.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23976969998329878"
   },
   {
     "objectID": "posts/integration.html#calculating-the-integral-1",
@@ -431,14 +431,14 @@
     "href": "posts/integration.html#function-1-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 1",
-    "text": "Function 1\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nCalls the function and calculates the integral for the polynomial function.\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\nStops the timer and prints run-time.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.021232999861240387"
+    "text": "Function 1\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nCalls the function and calculates the integral for the polynomial function.\n\n# Calls and prints function\nprint(\"Trapezium Rule: The Integral of Function 1 (Polynomial):\", TrapeziumRule(f1, a1, b1, n1))\n\nTrapezium Rule: The Integral of Function 1 (Polynomial): 8411.312156224687\n\n\nStops the timer and prints run-time.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 1: ', stop - start)\n\nRun Time for Function 1:  0.02165639982558787"
   },
   {
     "objectID": "posts/integration.html#function-2-1",
     "href": "posts/integration.html#function-2-1",
     "title": "A Comparitive Analysis of Computational Methods Performing Numerical Integration: Simpson’s Rule and Trapezium Rule",
     "section": "Function 2",
-    "text": "Function 2\nThe process repeats for the second function.\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe integral is calculated.\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\nThe timer is stopped and the run-time is outputted.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.2320727000478655"
+    "text": "Function 2\nThe process repeats for the second function.\nThe timer is started.\n\n# Starts run time timer\nstart = timeit.default_timer()\n\nThe integral is calculated.\n\nprint(\"Trapezium Rule: The Integral of Function 2 (Trigonometric)\", TrapeziumRule(f2, a2, b2, n2))\n\nTrapezium Rule: The Integral of Function 2 (Trigonometric) 1.3333333333333481\n\n\nThe timer is stopped and the run-time is outputted.\n\n# Stops the timer\nstop = timeit.default_timer()\n\n# Calculates run time\nprint('Run Time for Function 2: ', stop - start)\n\nRun Time for Function 2:  0.23393270000815392"
   },
   {
     "objectID": "posts/montecarlo.html",
