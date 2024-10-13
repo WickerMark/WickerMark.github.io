@@ -234,13 +234,13 @@ window.Quarto = {
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>Developed in the 17th century by mathematicians Sir Isaac Newton and Joseph Raphson, the Newton-Raphson method is a powerful and efficient numerical technique for iterative root finding. It is based on the idea of linear approximation (tangent line approximation) and provides increasingly accurate estimates of the root. # Setting up the Problem The sympy library is used for symbolic differentiation. Numpy is used for the np.arange() function. Matplotlib is used to plot a graph to show the roots found.</p>
-<div id="2934a149" class="cell" data-execution_count="1">
+<div id="2360ac23" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To begin, we will define f(x) and f’(x) symbolically. Next, we will convert these equations to numerical functions using the function sp.lambdify() to enter values of x into the function and first derivative.</p>
-<div id="2afe0f71" class="cell" data-execution_count="2">
+<div id="05b7833d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defines x for sympy</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> sp.Symbol(<span class="st">'x'</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -255,7 +255,7 @@ window.Quarto = {
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>derivative_lambdified <span class="op">=</span> sp.lambdify(x, derivative)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, we must set the parameters of the iterative method. The first parameter is a range of initial approximations of the roots which will be refined iteratively by the algorithm to find a better approximation of the root. The next parameter is a limit to the number of iterations that can occur in the for loop to determine the roots. This is so prevent the risk of non-convergence (so the loop does not continue infinitely). For this example, I used 1000 iterations, however, this could be changed to the preference and specification of the user. The final parameter is the tolerance, a small number that will determine if the root determined by the method is close enough to 0 to be considered a root. I have used 1e-6, but again, in reality, the user would change this to their preference.</p>
-<div id="37b5d466" class="cell" data-execution_count="3">
+<div id="69ed5194" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Other parameters for the Newton-Raphson Method</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the range of initial guesses to find multiple roots</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>initial_guesses <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">10</span>)</span>
@@ -268,7 +268,7 @@ window.Quarto = {
 <section id="newton-raphson-method" class="level1">
 <h1>Newton-Raphson Method</h1>
 <p>First, the initial guess is set as the current approximation for the root. Then, <span class="math inline">\(f(x_n)\)</span> and <span class="math inline">\(f'(x_n)\)</span> are calculated. To ensure no divide by zero errors occur, the value of the derivative is checked. The equation <span class="math inline">\(x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}\)</span> is used to update the approximation of the root. Finally, if <span class="math inline">\(|{x_{n+1}-x_n}|&lt;tolerance\)</span>, then the y coordinate of the approximation is close enough to 0 that the function return the value of x to prevent non-convergence. Otherwise, the ‘next’ approximation is set to the current approximation.</p>
-<div id="65058f33" class="cell" data-execution_count="4">
+<div id="2a25237e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defines the function for the Newton-Raphson Method</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> newtonraphson(f, derivative, x_0, max_iterations, tolerance):</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sets the starting x value</span></span>
@@ -296,7 +296,7 @@ window.Quarto = {
 <section id="outputs-and-plotting" class="level1">
 <h1>Outputs and Plotting</h1>
 <p>An empty array of x and y coordinates is created for the purpose of plotting the roots on a graph for visualisation. For every guess in the list of inital guesses, the function to perform the Newton-Raphson method is called and passed the current inital guess. The root is then rounded to 10 decimal places. This is a fairly arbitrary value, and the user could set this to whatever they wanted. The if statement is used to ensure that duplicate roots are not considered. The x coordinates of the roots found are printed and are also appended to the empty array created earlier. 0 is appended to the y coordinate.</p>
-<div id="13babf4b" class="cell" data-execution_count="5">
+<div id="01069501" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates empty array of x coordinates to plot the roots</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>rootx <span class="op">=</span> []</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>rooty <span class="op">=</span> []</span>
@@ -325,7 +325,7 @@ Root: x = 2.1642479385</code></pre>
 <p>A list of x and y coordinates for f(x) are created in order to plot the graph. The scatter function is used to plot the roots.</p>
 <p>Then, the parameters of the plot are set: the limit for the x axis, the creation of a grid, a solid line for the x axis, and also the legend to display labels.</p>
 <p>Lastly, the graph is then displayed.</p>
-<div id="f19de267" class="cell" data-execution_count="6">
+<div id="29623228" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates an array of x coordinates and finds corresponding y coordinates </span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for plotting</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">100</span>)</span>

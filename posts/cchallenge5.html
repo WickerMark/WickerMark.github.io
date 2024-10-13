@@ -196,18 +196,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>DISCLAIMER: This is just a snippet of our submission for the competition, since the final product was an application 2800 lines of code in length. To see the two minute video submission detailing the entire solution with my partner watch the video here: <a href="https://youtu.be/ViT6NdrrbJo" target="_blank"> https://youtu.be/ViT6NdrrbJo </a>.</p>
-<div id="3551052a" class="cell" data-execution_count="1">
+<div id="f8820a26" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a02d243f" class="cell" data-execution_count="2">
+<div id="15913aa7" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> <span class="dv">300</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="dv">150</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> <span class="fl">9.81</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3c8730e0" class="cell" data-execution_count="3">
+<div id="6e00dcbb" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>minu <span class="op">=</span> np.sqrt(g) <span class="op">*</span> (np.sqrt(Y <span class="op">+</span> np.sqrt(X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span>)))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mintheta <span class="op">=</span> math.atan((Y <span class="op">+</span> np.sqrt(X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span>)) <span class="op">/</span> X)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>minux <span class="op">=</span> minu <span class="op">*</span> np.cos(mintheta)</span>

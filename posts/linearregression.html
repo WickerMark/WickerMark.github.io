@@ -258,7 +258,7 @@ window.Quarto = {
 <section id="libraries" class="level2">
 <h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
 <p>Numpy is used for mathematical and random functions. Matplotlib is used to plot the linear regression at the end of the program.</p>
-<div id="caf5bbc1" class="cell" data-execution_count="1">
+<div id="577caf3c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -268,7 +268,7 @@ window.Quarto = {
 <p>First, we must simulate some data for the model to fit. In reality, this could be any set of independent and dependent data.</p>
 <p>An equally spaced list of 20 x coordinates between <span class="math inline">\(x=0\)</span> and <span class="math inline">\(x=8\)</span> is created to begin.</p>
 <p>The simulated data I have used is <span class="math inline">\(y=4.513x+4.421\)</span> with some noise introduced using the np.random.normal function, which generates random numbers from a normal (Gaussian) distribution with a mean of 0 and a standard deviation of 1, to simulate real data.</p>
-<div id="9abfc408" class="cell" data-execution_count="2">
+<div id="a397e5fc" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates simulated data for the regression to fit</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">8</span>,<span class="dv">20</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="fl">4.513</span> <span class="op">*</span> x <span class="op">+</span> <span class="fl">4.421</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, <span class="bu">len</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -277,7 +277,7 @@ window.Quarto = {
 <section id="linear-model" class="level2">
 <h2 class="anchored" data-anchor-id="linear-model">Linear Model</h2>
 <p>Now, we need to define the model to fit the data in the form <span class="math inline">\(y=mx+c\)</span>. <span class="math inline">\(\theta\)</span>, called the coefficients or parameters in a regression model, is used to calculate the gradient and y-intercept. Therefore, for the purpose of this linear regression model, the equation used is <span class="math inline">\(y=\theta_{0}x+\theta_{1}\)</span>. This equation could be modified to fit the data points better, for example, if a cubic relationship would be more appropriate, then <span class="math inline">\(y=\theta_{0}x^3+\theta_{1}x^2+\theta_{2}x+\theta_{4}\)</span> could be used. However, for the simplicity of this demonstration, a linear regression is used.</p>
-<div id="a2dd1781" class="cell" data-execution_count="3">
+<div id="270c7b6d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defines the model</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> model(theta, x):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> theta[<span class="dv">0</span>] <span class="op">*</span> x <span class="op">+</span> theta[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -286,7 +286,7 @@ window.Quarto = {
 <section id="initial-guess" class="level2">
 <h2 class="anchored" data-anchor-id="initial-guess">Initial Guess</h2>
 <p>A list is used to store the initial guess for each value of theta from the model. The values of the coefficients are set to <span class="math inline">\(\theta_{0}=0.0\)</span> and <span class="math inline">\(\theta_{1}=0.0\)</span> respectively, but this could be changed to the specification of the user.</p>
-<div id="632b95f0" class="cell" data-execution_count="4">
+<div id="d0f732b1" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial guess of theta</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> [<span class="fl">0.0</span>, <span class="fl">0.0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -294,7 +294,7 @@ window.Quarto = {
 <section id="loss-function" class="level2">
 <h2 class="anchored" data-anchor-id="loss-function">Loss Function</h2>
 <p>The loss function needs to be defined so that it can be minimised using optimisation. The parameters past to this function are the coefficients and args, a tuple containing x and y data for the model. As you can see, this x and y data is unpacked from the tuple for use in the function. To create the function, we will make use of Mean Absolute Error (MAE). This is initially set to zero. To calculate the MAE, the equation <span class="math inline">\(MAE=\frac{1}{n}\sum_{i=1}^n|y_i-\hat{y_i}|\)</span> is used. The code calculates the absolute difference between, <span class="math inline">\(y_i\)</span>, which reprsents the actual value of the i-th data point in the data set, and <span class="math inline">\(\hat{y_i}\)</span>, the predicted value for the i-th data point given by passing the value for theta and the i-th x data point. Alternatively, Mean Squared Error could be used, which would use the equation <span class="math inline">\(MSE=\frac{1}{n}\sum_{i=1}^n({y_i-\hat{y_i}})^2\)</span>.</p>
-<div id="10f8f505" class="cell" data-execution_count="5">
+<div id="a4e5590d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loss function</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> loss(theta, args):</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    x_data,y_data <span class="op">=</span> args</span>
@@ -311,7 +311,7 @@ window.Quarto = {
 <section id="calculating-the-numerical-derivative" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-the-numerical-derivative">Calculating the Numerical Derivative</h2>
 <p>This code is used to find the gradient of the loss function with respect to the parameters (theta) using the finite difference method. The function is passed the parameters, the args tuple and <span class="math inline">\(\epsilon\)</span> is set to <span class="math inline">\(1e^{-5}\)</span>. Initially, the NumPy array of grad values is set to zero, such that grad = [0.0, 0.0], corresponding to the gradient of each parameter. Now, the gradient is calculated using the forward method of finite differences. A copy of theta is used as to not effect its value when it is perturbed. Theta is incremented by <span class="math inline">\(\epsilon\)</span>. The equation <span class="math inline">\(f'(x)\approx\frac{f(x+h)-f(x)}{\epsilon}\)</span> is used to approximate the derivative for future use.</p>
-<div id="9b90cb95" class="cell" data-execution_count="6">
+<div id="50e3862a" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gradient calculation for each value of theta</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient(theta, args, eps<span class="op">=</span><span class="fl">1e-5</span>):</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    grad <span class="op">=</span> np.zeros(<span class="bu">len</span>(theta))</span>
@@ -326,7 +326,7 @@ window.Quarto = {
 <section id="optimisation" class="level2">
 <h2 class="anchored" data-anchor-id="optimisation">Optimisation</h2>
 <p>This function is almost identical to the one used in my <a href="../posts/optimisation.html" target="_blank">previous blog post</a>, so check out that post for more detail. The major difference is the use of np.linalg.norm to find the Euclidean norm (the magnitude) of the gradient vector.</p>
-<div id="a844904e" class="cell" data-execution_count="7">
+<div id="c5e1ee19" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performs gradient descent algorithm to minimse loss function</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> descent(loss, gradient, theta, args, alpha<span class="op">=</span><span class="fl">1e-3</span>, tol<span class="op">=</span><span class="fl">1e-4</span>, max_iters<span class="op">=</span><span class="dv">10000</span>):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(max_iters):</span>
@@ -341,7 +341,7 @@ window.Quarto = {
 <section id="performing-optimisation" class="level2">
 <h2 class="anchored" data-anchor-id="performing-optimisation">Performing Optimisation</h2>
 <p>This calls the function which optimises the model. theta_opt stores the optimised values for each theta. It passes the loss function, gradient calculation function, the two parameters and the set of x and y data (which is passed as a tuple).</p>
-<div id="0eddaef8" class="cell" data-execution_count="8">
+<div id="b1d02021" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform gradient descent to minimize the loss</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>theta_opt <span class="op">=</span> descent(loss, gradient, theta, (x, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -352,7 +352,7 @@ window.Quarto = {
 <section id="creating-test-data" class="level2">
 <h2 class="anchored" data-anchor-id="creating-test-data">Creating Test Data</h2>
 <p>Now, we need to generate the test data for the model. This would be used to evaluate the effectiveness of the model, but since this example consists of simulated data this would be somewhat pointless. In this instance, the test data is used to plot the graph of the regression</p>
-<div id="9c1a215b" class="cell" data-execution_count="9">
+<div id="b79d06f8" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test data</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">8</span>,<span class="dv">100</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> model(theta_opt,x_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -362,7 +362,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="graph">Graph</h2>
 <p>This plots the data. Scatter points display the x and y coordinates used to train the model and the fitted line is also displaced.</p>
 <p>The parameters of the plot are defined, an appropriate title is set, the x and y labels are displayed, the legend of the graph (which displays the label for the plots) and the graph is displayed.</p>
-<div id="603820a8" class="cell" data-execution_count="10">
+<div id="954a17af" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label<span class="op">=</span><span class="st">"Data"</span>, color<span class="op">=</span><span class="st">"blue"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x_test, y_test, label<span class="op">=</span><span class="st">"Fitted Line"</span>, color<span class="op">=</span><span class="st">"red"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -384,11 +384,11 @@ window.Quarto = {
 <section id="optimised-values-for-the-gradient-and-y-intercept" class="level2">
 <h2 class="anchored" data-anchor-id="optimised-values-for-the-gradient-and-y-intercept">Optimised Values for the Gradient and y-intercept</h2>
 <p>Finally, we print the optimised parameters.</p>
-<div id="79feeacf" class="cell" data-execution_count="11">
+<div id="fd71d19c" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the optimized parameters</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Optimized parameters: </span><span class="sc">{</span>theta_opt<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Optimized parameters: [4.72256955 3.24600516]</code></pre>
+<pre><code>Optimized parameters: [4.77587894 3.32816   ]</code></pre>
 </div>
 </div>
 
